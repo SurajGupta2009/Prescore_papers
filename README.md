@@ -10,7 +10,7 @@
 |------|---------|---------|
 | **Test 1** | ✅ [Solutions](solutions/1-paper1-solutions.md) | ✅ [Solutions](solutions/1-paper2-solutions.md) |
 | **Test 2** | ✅ [Solutions](solutions/2-paper1-solutions.md) | ✅ [Solutions](solutions/2-paper2-solutions.md) |
-| **Test 3** | 📄 PDF Ready | 📄 PDF Ready |
+| **Test 3** | ✅ [Solutions](solutions/3-paper1-solutions.md) | ✅ [Solutions](solutions/3-paper2-solutions.md) |
 | **Test 4** | ✅ [Solutions](solutions/4-paper1-solutions.md) | ✅ [Solutions](solutions/4-paper2-solutions.md) |
 
 ## 🏗️ Solution Format
@@ -26,14 +26,22 @@ Each question includes:
 
 This repository is configured as an **Obsidian vault**. Open the folder in Obsidian to get:
 
-- 📊 **Desmos graphs** — Interactive function plots
-- 🧪 **Chemical structures** — SMILES rendering via Molren/ChemEdit
-- ⚡ **Circuit diagrams** — TikZ circuitikz integration
-- ✏️ **Excalidraw** — Freehand diagrams for ray optics, force diagrams
-- 📝 **LaTeX Suite** — Fast math typing with snippets
-- 📈 **Dataview** — Progress tracking and dashboards
+- 📊 **Desmos graphs** — Interactive function plots *(desktop + mobile)*
+- 🧪 **Chemical structures** — SMILES rendering via ChemEdit Universal (mobile) / Molren (desktop)
+- ⚡ **Circuit diagrams** — TikZ circuitikz integration *(desktop)* or Kroki *(mobile, server-side)*
+- ✏️ **Excalidraw** — Freehand diagrams for ray optics, force diagrams *(desktop + mobile)*
+- 📝 **LaTeX Suite** — Fast math typing with snippets *(desktop + mobile)*
+- 📈 **Dataview** — Progress tracking and dashboards *(desktop + mobile)*
 
-See [docs/RECOMMENDED-PLUGINS.md](docs/RECOMMENDED-PLUGINS.md) for installation guide.
+> [!note] Reading on a phone or tablet?
+> Nothing in the solution notes needs a plugin — they are plain Markdown + MathJax (core).
+> But **Molren, Ketcher, Plot Vectors & Graphs and Circuit Sketcher are desktop-only** by design, so
+> Obsidian mobile shows *“This plugin does not support your device.”* Every capability has a
+> mobile-compatible replacement, and this repo ships a ready-made mobile config folder.
+> → **[docs/MOBILE-GUIDE.md](docs/MOBILE-GUIDE.md)**
+
+See [docs/RECOMMENDED-PLUGINS.md](docs/RECOMMENDED-PLUGINS.md) for the installation guide with
+platform (desktop/mobile) support for every plugin.
 
 ## 📁 Directory Structure
 
@@ -43,10 +51,14 @@ See [docs/RECOMMENDED-PLUGINS.md](docs/RECOMMENDED-PLUGINS.md) for installation 
 ├── docs/               ← Guides and documentation
 │   ├── VAULT-GUIDE.md
 │   ├── RECOMMENDED-PLUGINS.md
+│   ├── MOBILE-GUIDE.md        ← Why some plugins won't run on phones + alternatives
 │   └── SOLUTION-TEMPLATE.md
 ├── assets/             ← Diagrams and images
+│   ├── diagrams/       ←    pre-rendered SVG/PNG (works on every device)
+│   └── chemistry/      ←    exported molecule SVGs
 ├── *.pdf               ← Original question papers
-└── .obsidian/          ← Vault configuration
+├── .obsidian/          ← Vault configuration (desktop)
+└── .obsidian-mobile/   ← Vault configuration (phone/tablet only)
 ```
 
 ## 🎯 How to Use
@@ -54,7 +66,10 @@ See [docs/RECOMMENDED-PLUGINS.md](docs/RECOMMENDED-PLUGINS.md) for installation 
 1. **Clone** this repository
 2. **Open** the folder in Obsidian (File → Open Vault → Open folder as vault)
 3. **Install** recommended plugins from docs/RECOMMENDED-PLUGINS.md
-4. **Navigate** using the graph view or the index in docs/VAULT-GUIDE.md
+   *(plugin code is deliberately not committed — install each plugin once per device)*
+4. **On mobile**, optionally point *Settings → About → Override config folder* at `.obsidian-mobile`
+   so the desktop-only plugins never error — see docs/MOBILE-GUIDE.md
+5. **Navigate** using the graph view or the index in docs/VAULT-GUIDE.md
 
 ---
 

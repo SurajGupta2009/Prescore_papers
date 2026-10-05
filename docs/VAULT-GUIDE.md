@@ -14,8 +14,8 @@ Prescore_papers/
 │   ├── 1-paper2-solutions.md
 │   ├── 2-paper1-solutions.md
 │   ├── 2-paper2-solutions.md
-│   ├── 3-paper1-solutions.md  ← (pending)
-│   ├── 3-paper2-solutions.md  ← (pending)
+│   ├── 3-paper1-solutions.md
+│   ├── 3-paper2-solutions.md
 │   ├── 4-paper1-solutions.md
 │   └── 4-paper2-solutions.md
 │
@@ -25,16 +25,22 @@ Prescore_papers/
 ├── 📂 docs/                   ← Documentation & guides
 │   ├── VAULT-GUIDE.md         ← You are here
 │   ├── RECOMMENDED-PLUGINS.md ← Plugin installation guide
+│   ├── MOBILE-GUIDE.md        ← Phone/tablet: desktop-only plugins & alternatives
 │   └── SOLUTION-TEMPLATE.md   ← Full solution template
 │
 ├── 📂 assets/                 ← Diagrams & images
-│   ├── diagrams/
+│   ├── diagrams/              ←    pre-rendered SVG/PNG (viewable on any device)
 │   └── chemistry/
 │
-├── 📂 .obsidian/              ← Vault configuration
+├── 📂 .obsidian/              ← Vault configuration (desktop)
 │   ├── app.json
 │   ├── core-plugins.json
 │   └── community-plugins.json
+│
+├── 📂 .obsidian-mobile/       ← Vault configuration for phones/tablets
+│   ├── app.json
+│   ├── core-plugins.json
+│   └── community-plugins.json ←    mobile-safe plugins only
 │
 ├── 📄 1-paper1.pdf            ← Original papers
 ├── 📄 1-paper2.pdf
@@ -52,6 +58,8 @@ Prescore_papers/
 - [[1-paper2-solutions|Test 1 — Paper 2]]
 - [[2-paper1-solutions|Test 2 — Paper 1]]
 - [[2-paper2-solutions|Test 2 — Paper 2]]
+- [[3-paper1-solutions|Test 3 — Paper 1]]
+- [[3-paper2-solutions|Test 3 — Paper 2]]
 - [[4-paper1-solutions|Test 4 — Paper 1]]
 - [[4-paper2-solutions|Test 4 — Paper 2]]
 
@@ -94,14 +102,23 @@ Each solution file follows this structure:
 
 ## 🔌 Essential Plugins
 
-See [[RECOMMENDED-PLUGINS]] for the complete list. Quick install priority:
+See [[RECOMMENDED-PLUGINS]] for the complete list (with desktop/mobile support). Quick install priority:
 
-1. **LaTeX Suite** — Type math 10x faster
-2. **Templater** — Auto-generate solution files
-3. **TikZJax** — Circuits, chemistry, geometry
-4. **Desmos** — Interactive function plots
-5. **Molren/ChemEdit** — Chemical structures
-6. **Excalidraw** — Freehand diagrams
+| Plugin | Purpose | Desktop | Mobile |
+|--------|---------|:-------:|:------:|
+| **LaTeX Suite** | Type math 10x faster | ✅ | ✅ |
+| **Templater** | Auto-generate solution files | ✅ | ✅ (Obsidian 1.13+) |
+| **TikZJax** | Circuits, chemistry, geometry | ✅ | ⚠️ works but heavy |
+| **Kroki** | Same diagrams, rendered server-side | ✅ | ✅ |
+| **Desmos** | Interactive function plots | ✅ | ✅ |
+| **ChemEdit Universal** | Chemical structures (draw + render, offline) | ✅ | ✅ |
+| **Molren** | SMILES → SVG rendering | ✅ | ❌ desktop-only |
+| **Excalidraw** | Freehand diagrams | ✅ | ✅ |
+
+> [!warning] On a phone or tablet
+> **Molren, Ketcher, Plot Vectors & Graphs and Circuit Sketcher are desktop-only** — Obsidian will say
+> *“This plugin does not support your device.”* Use [[MOBILE-GUIDE]] for the alternatives and for the
+> ready-made `.obsidian-mobile` config folder.
 
 ---
 
@@ -134,7 +151,9 @@ SORT file.name ASC
 4. Add theory at the end of the file
 
 ### For Creating Diagrams
-- **Chemistry:** Use ` ```smiles ` code blocks with Molren, or `\chemfig` with TikZJax
-- **Circuits:** Use `\circuitikz` inside ` ```tikz ` blocks
-- **Graphs:** Use ` ```desmos-graph ` for interactive plots
+- **Chemistry:** Use ` ```smiles ` code blocks with **ChemEdit Universal** (works on mobile) or Molren (desktop), or `\chemfig` with TikZJax
+- **Circuits:** Use `\circuitikz` inside ` ```tikz ` blocks — TikZJax on desktop, **Kroki** on mobile
+- **Graphs:** Use ` ```desmos-graph ` for interactive plots, or built-in **Mermaid `xychart-beta`** when you have no plugins
 - **Freehand:** Use Excalidraw for ray diagrams, force diagrams, etc.
+- **Any device / no plugins:** export the figure as **SVG** into `assets/diagrams/` and embed it with
+  `![[assets/diagrams/name.svg]]` — see [[MOBILE-GUIDE]] §5b

@@ -135,3 +135,13 @@ status: complete
 tags: [solutions, jee-advanced, {{test_tag}}]
 ---
 ```
+
+---
+
+> [!tip] Authoring on a phone? Keep these blocks mobile-safe
+> - **Don't** use ` ```tikz ` (needs TikZJax — heavy on a phone), ` ```smiles ` with Molren, or
+>   ` ```desmos-graph ` unless you have the mobile-compatible plugin installed
+>   (Kroki for tikz, ChemEdit Universal for smiles, Desmos works on mobile).
+> - **Do** use: built-in MathJax, callouts, ` ```mermaid ` (`xychart-beta` for graphs,
+>   `flowchart` for circuits), and `![[assets/diagrams/xyz.svg]]` for pre-rendered figures.
+> - Full details and snippets: [[MOBILE-GUIDE]].
