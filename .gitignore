@@ -1,0 +1,28 @@
+# Obsidian workspace data
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/graph.json
+.obsidian/starred.json
+.obsidian/search.json
+.obsidian/bookmarks.json
+
+# Obsidian plugin data (keeps config but not runtime data)
+.obsidian/plugins/*/data.json
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/manifest.json
+.obsidian/plugins/*/styles.css
+
+# Obsidian themes
+.obsidian/themes/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Excalidraw auto-generated
+*.excalidraw.md.bak
+
+# Temporary files
+*.tmp
+*.bak
+~*
