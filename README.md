@@ -8,10 +8,12 @@
 
 | Test | Paper 1 | Paper 2 |
 |------|---------|---------|
-| **Test 1** | ✅ [Solutions](solutions/1-paper1-solutions.md) | ✅ [Solutions](solutions/1-paper2-solutions.md) |
-| **Test 2** | ✅ [Solutions](solutions/2-paper1-solutions.md) | ✅ [Solutions](solutions/2-paper2-solutions.md) |
-| **Test 3** | ✅ [Solutions](solutions/3-paper1-solutions.md) | ✅ [Solutions](solutions/3-paper2-solutions.md) |
-| **Test 4** | ✅ [Solutions](solutions/4-paper1-solutions.md) | ✅ [Solutions](solutions/4-paper2-solutions.md) |
+| **Test 1** | ⏳ 48/51 — [Solutions](solutions/1-paper1-solutions.md) | ⏳ 47/51 — [Solutions](solutions/1-paper2-solutions.md) |
+| **Test 2** | ✅ 54/54 — [Solutions](solutions/2-paper1-solutions.md) | ✅ 54/54 — [Solutions](solutions/2-paper2-solutions.md) |
+| **Test 3** | ✅ 48/48 — [Solutions](solutions/3-paper1-solutions.md) | ✅ 48/48 — [Solutions](solutions/3-paper2-solutions.md) |
+| **Test 4** | ⏳ 38/57 — [Solutions](solutions/4-paper1-solutions.md) | ⏳ 43/57 — [Solutions](solutions/4-paper2-solutions.md) |
+
+**Status key:** ✅ complete = every question of the paper written up with a derivation, the exam shortcut and a concept callout, plus the COMPLETE THEORY REFERENCE section. ⏳ in progress = remaining question numbers are listed at the top of each file.
 
 ## 🏗️ Solution Format
 
