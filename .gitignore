@@ -6,11 +6,25 @@
 .obsidian/search.json
 .obsidian/bookmarks.json
 
+# Mobile config folder (see docs/MOBILE-GUIDE.md) — keep config, ignore runtime data
+.obsidian-mobile/workspace.json
+.obsidian-mobile/workspace-mobile.json
+.obsidian-mobile/graph.json
+.obsidian-mobile/starred.json
+.obsidian-mobile/search.json
+.obsidian-mobile/bookmarks.json
+
 # Obsidian plugin data (keeps config but not runtime data)
+# Plugin binaries are intentionally NOT committed — install them per device from
+# Settings → Community plugins → Browse.
 .obsidian/plugins/*/data.json
 .obsidian/plugins/*/main.js
 .obsidian/plugins/*/manifest.json
 .obsidian/plugins/*/styles.css
+.obsidian-mobile/plugins/*/data.json
+.obsidian-mobile/plugins/*/main.js
+.obsidian-mobile/plugins/*/manifest.json
+.obsidian-mobile/plugins/*/styles.css
 
 # Obsidian themes
 .obsidian/themes/
