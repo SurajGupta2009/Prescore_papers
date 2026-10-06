@@ -8,7 +8,7 @@ status: complete
 tags: [solutions, jee-advanced, test-3, paper-2]
 ---
 
-# 3-PAPER 2 — COMPLETE SOLUTIONS (with 2 approaches per question)
+# 3-PAPER 2 — COMPLETE SOLUTIONS (JEE Advanced Level)
 
 > [!info] Paper Details
 > **Date:** 27-09-2026 · **Paper code:** 1001CJA106216260206
@@ -29,33 +29,7 @@ tags: [solutions, jee-advanced, test-3, paper-2]
 
 ---
 
-## 📋 ANSWER KEY (this paper)
-
-| Math | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
-|---|---|---|---|---|---|---|---|---|
-| **Ans** | C | B | D | C | A,C,D | B,D | B,C,D | A,C,D |
-
-| Math | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 |
-|---|---|---|---|---|---|---|---|---|
-| **Ans** | 2.00 | 2.00 | 1.00 | 5.00 | 79.00 | 4.00 | 1.00 | 2.00 |
-
-| Physics | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 |
-|---|---|---|---|---|---|---|---|---|
-| **Ans** | A | C | B | A | A,C | A,B,C | A,C,D | A,B,C,D |
-
-| Physics | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 |
-|---|---|---|---|---|---|---|---|---|
-| **Ans** | 0.23 | 3.00 | 79.00 | 0.45 | 83.87 | 860.71 | 1.67 | 0.91 |
-
-| Chemistry | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 |
-|---|---|---|---|---|---|---|---|---|
-| **Ans** | B | B | D | C | A,B,C,D | A | B | B,D |
-
-| Chemistry | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 |
-|---|---|---|---|---|---|---|---|---|
-| **Ans** | 1.31 | 10.25 | 5.79 | 64.00 | 2.00 | 500.00 | 10.00 | 2.00 |
-
-> [!note] Section-I (ii) here asks *"which is/are INCORRECT"* (Q6) — read that word twice.
+## PART 1: MATHEMATICS
 
 > [!note]- Paper map (Mermaid — core Obsidian)
 > ```mermaid
@@ -80,11 +54,7 @@ tags: [solutions, jee-advanced, test-3, paper-2]
 
 ### Q1. Evaluate the given limit
 
-> [!example]- Full solution
-> * $f(x)=|x|^5=x^5$ (odd power kills the modulus sign near 0) → **differentiable**, $f'(0)=0$.
-> * $h(x)=[\,|\sin x|\,]$: for $|x|<\pi$, $|\sin x|\in[0,1)\Rightarrow h\equiv 0$ → **differentiable**.
-> * $g(x)=\{\cos x\}$: for $|x|$ small, $0<\cos x<1$, hence $\{\cos x\}=\cos x$ **itself** →
->   differentiable with $g'(0)=-\sin 0=0$.
+**Answer: (C)**
 
 > [!example]- Method
 > The expression is of the $0/0$ family. Two reliable routes:
@@ -575,13 +545,7 @@ tags: [solutions, jee-advanced, test-3, paper-2]
 
 ---
 
-## Q7. Which functions are twice differentiable at $x=0$?
-
-> [!question] Q7 (multiple correct)
-> (A) $f(x)=x|x|$ (B) $g(x)=[x^2]\tan^{-1}x-\{x^2\}\cot^{-1}x-[x^2]\frac{\pi}{2}$
-> (C) $h(x)=|\sin^2x|$ (D) $k(x)=\begin{cases}x^4\cos\frac1x,&x\neq0\\0,&x=0\end{cases}$
-
-**Answer: (B), (C), (D)**
+## PART 2: PHYSICS
 
 > [!note]- Paper map (Mermaid — core Obsidian)
 > ```mermaid
@@ -1464,7 +1428,7 @@ tags: [solutions, jee-advanced, test-3, paper-2]
 
 ---
 
-#### Approach — Faraday's first law
+## PART 3: CHEMISTRY — SECTION I (ii) [Multiple Correct]
 
 ### Q37. $pK_{a1},pK_{a2}$ of $\text{H}_2\text{CO}_3$ are 6.35 and 10.33. Which statements about the mixtures are correct?
 

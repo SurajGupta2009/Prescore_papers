@@ -8,7 +8,7 @@ status: complete
 tags: [solutions, jee-advanced, test-3, paper-1]
 ---
 
-# 3-PAPER 1 — COMPLETE SOLUTIONS (with 2 approaches per question)
+# 3-PAPER 1 — COMPLETE SOLUTIONS (JEE Advanced Level)
 
 > [!info] Paper Details
 > **Date:** 27-09-2026 · **Paper code:** 1001CJA106216260205
@@ -27,25 +27,7 @@ tags: [solutions, jee-advanced, test-3, paper-1]
 
 ---
 
-## 📋 ANSWER KEY (this paper)
-
-| Math | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
-|---|---|---|---|---|---|---|---|---|
-| **Ans** | D | B | C | B | A,C,D | B,C,D | A,B | A |
-| **Math** | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 |
-| **Ans** | B | C | 1.00 | 7.00 | 64.00 | 3.00 | 0.00 | 20.00 |
-
-| Physics | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 |
-|---|---|---|---|---|---|---|---|---|
-| **Ans** | A | C | A | B | A,B,C,D | A,B,C | B | A |
-| **Physics** | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 |
-| **Ans** | A | A | 220.44 | 18.00 | 407.4 | 2.00⚠️ | 8.00 | 64.7 |
-
-| Chemistry | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 |
-|---|---|---|---|---|---|---|---|---|
-| **Ans** | A | B | A | D | A,B,C | B,C,D | A,B,C | C |
-| **Chemistry** | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 |
-| **Ans** | C | D | 0.24 | 5.00 | 0.32 | 108.92 | 4.00 | 0.20 |
+## PART 1: MATHEMATICS
 
 > [!note]- Paper map (Mermaid — core Obsidian)
 > ```mermaid
@@ -159,9 +141,7 @@ tags: [solutions, jee-advanced, test-3, paper-1]
 
 ### Q3. Limit evaluation (Section I(i), Q3)
 
-> [!question] Q3
-> $\displaystyle\lim_{x\to0}\Big(2+\log^2_{\sec(x/2)}\cos\frac{x}{3}\Big)^{3}$ equals
-> (A) $(146/81)^3$ (B) $(70/27)^3$ (C) $(178/81)^3$ (D) $(34/9)^3$
+**Answer: (C)**
 
 ---
 
@@ -248,16 +228,7 @@ tags: [solutions, jee-advanced, test-3, paper-1]
 
 ---
 
-## Q5. Differentiability consequences (multiple correct)
-
-> [!question] Q5
-> Suppose $f(a)>0$ and $f$ is differentiable at $x=a$. Which statements are TRUE?
-> (A) $\displaystyle\lim_{n\to\infty}\Big(\frac{f(a+1/n)}{f(a)}\Big)^{1/n}=1$
-> (B) $\displaystyle\lim_{n\to\infty}\Big(\frac{f(a+1/n)}{f(a)}\Big)^{1/n}=e^{f'(a)/f(a)}$
-> (C) $\displaystyle\lim_{x\to a^+}\Big(\frac{f(x)}{f(a)}\Big)^{\frac{1}{2\sqrt x-2\sqrt a}}=e^{\sqrt a\,f'(a)/f(a)}$, $a>0$
-> (D) $\displaystyle\lim_{x\to a^-}\Big(\frac{f(x)}{f(a)}\Big)^{\frac{1}{2\sqrt x-2\sqrt a}}=e^{\sqrt a\,f'(a)/f(a)}$, $a>0$
-
-**Answer: (A), (C), (D)**
+## PART 1: MATHEMATICS — SECTION I (ii) [Multiple Correct]
 
 ---
 
@@ -361,7 +332,7 @@ tags: [solutions, jee-advanced, test-3, paper-1]
 
 ---
 
-## Q7. Product differentiability
+## PART 1: MATHEMATICS — SECTION I (iii) [Match the Column]
 
 ### Q8. Match List-I with List-II — **Answer: (A)** P→2, Q→3, R→4, S→1
 
@@ -593,17 +564,7 @@ tags: [solutions, jee-advanced, test-3, paper-1]
 
 ---
 
-## Q8. Match the column — limits, composition, fractional part
-
-> [!question] Q8
-> | List-I | List-II |
-> |---|---|
-> | (P) $\lim\limits_{x\to\infty}\frac1\pi\tan^{-1}(x^2-x^4)$ | (1) 1 |
-> | (Q) $\lim\limits_{x\to\infty}\dfrac{e^{x\ln 2}}{e^{x^{2}}}$ | (2) $-1/2$ |
-> | (R) $y=f(f(f(x)))$, $f(0)=0,\ f'(0)=2$: $y'(0)$ | (3) 0 |
-> | (S) $\lim\limits_{x\to2^-}\dfrac{[x]}{\{x\}}$ | (4) 8 · (5) 10 |
-
-**Answer: (A) P→2; Q→3; R→4; S→1**
+## PART 2: PHYSICS
 
 > [!note]- Paper map (Mermaid — core Obsidian)
 > ```mermaid
@@ -799,7 +760,7 @@ tags: [solutions, jee-advanced, test-3, paper-1]
 
 ---
 
-#### Approach — Impedance ratios
+## PART 2: PHYSICS — SECTION I (ii) [Multiple Correct]
 
 ### Q21. Sonometer wire: $\mu$, tension $T$, length $L$, fundamental $f$. Which statements are correct?
 
@@ -1332,50 +1293,7 @@ tags: [solutions, jee-advanced, test-3, paper-1]
 
 ---
 
-#### Approach — Every arrangement reduces to $\beta=\dfrac{\lambda D}{d}$
-
-```mermaid
-graph LR
-  A["Find the two coherent<br/>virtual/real sources"] --> B["Separation d"]
-  A --> C["Distance D to screen"]
-  B --> D["beta = lambda D / d"]
-  C --> D
-```
-
-> [!example]- (P) Fresnel biprism → $2.40$ mm
-> Virtual sources separated by $d=2a(\mu-1)A$:
-> $$d=2(0.25)(0.50)(1.0\times10^{-3})=2.5\times10^{-4}\ \text{m}$$
-> $$D=a+b=0.25+0.75=1.0\ \text{m},\qquad \beta=\frac{600\times10^{-9}\times1.0}{2.5\times10^{-4}}=2.40\ \text{mm}\ \to\ \textbf{(4)}$$
->
-> #### (Q) Lloyd's mirror → $1.20$ mm
-> The virtual source is the mirror image, so $d=2h=0.40$ mm and $D=0.80$ m:
-> $$\beta=\frac{600\times10^{-9}\times0.80}{0.40\times10^{-3}}=1.20\ \text{mm}\ \to\ \textbf{(2)}$$
-> *(Lloyd's mirror gives a **dark** fringe at the centre — an extra fact worth remembering.)*
->
-> #### (R) Fresnel mirrors → $1.60$ mm
-> $$d\approx2a\theta=2(0.30)(0.75\times10^{-3})=4.5\times10^{-4}\ \text{m},\qquad D=a+b=0.30+0.90=1.20\ \text{m}$$
-> $$\beta=\frac{600\times10^{-9}\times1.20}{4.5\times10^{-4}}=1.60\ \text{mm}\ \to\ \textbf{(3)}$$
->
-> #### (S) Billet split lens → $1.20$ mm by the printed data
-> Point source at $u=30$ cm, $f=20$ cm ⇒ $\frac1v=\frac1{20}-\frac1{30}\Rightarrow v=60$ cm,
-> magnification $m=v/u=2$. Image separation
-> $$d=2m\delta=2(2)(0.10)=0.40\ \text{mm},\qquad D=0.80\ \text{m}$$
-> $$\beta=\frac{600\times10^{-9}\times0.80}{0.40\times10^{-3}}=1.20\ \text{mm}$$
-> The printed key selects **(1) 0.80 mm** for (S), which would need $d=0.60$ mm (i.e. an effective
-> displacement of 0.15 mm per half, or $D=0.53$ m).
-
-> [!warning] ⚠️ Key-check on (S)
-> The official key is **(A)**. The three unambiguous rows (P→4, Q→2, R→3) already single out (A) as the
-> only self-consistent choice, so **mark (A)** — but reproduce the *method* above, since a small change
-> in the printed data would change (S).
->
-> [!tip] Exam-safe summary of $d$ for each arrangement
-> | Arrangement | $d$ | Extra care |
-> |---|---|---|
-> | Fresnel biprism | $2a(\mu-1)A$ | $D=a+b$ |
-> | Lloyd's mirror | $2h$ | centre is **dark** |
-> | Fresnel mirrors | $2a\theta$ | $D=a+b$ (add the source distance!) |
-> | Billet split lens | $2m\delta$ | $m=v/u$ from the lens formula |
+## PART 3: CHEMISTRY
 
 > [!note]- Paper map (Mermaid — core Obsidian)
 > ```mermaid
