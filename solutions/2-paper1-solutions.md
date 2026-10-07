@@ -313,52 +313,42 @@ speed20 = 400/(x20+20)^2*8 cm/s =>
 
 #### Solution:
 
-Mirror equation: $\frac{1}{v} + \frac{1}{u} = \frac{1}{f}$, with $f = +20$ cm (convex), $u = -x$ (object on left).
+Mirror equation with $f = +20$ cm for the convex mirror and $u = -x$ for the object
+distance $x$ from the pole:
 
-$\frac{1}{v} = \frac{1}{20} + \frac{1}{x} = \frac{x + 20}{20x}$
+$\dfrac{1}{v} + \dfrac{1}{u} = \dfrac{1}{f} \Rightarrow \dfrac{1}{v} = \dfrac{1}{20} + \dfrac{1}{x} = \dfrac{x+20}{20x}$
 
-$v = \frac{20x}{x + 20}$
+$$v = \frac{20x}{x+20}\quad(\text{virtual image, behind the mirror}).$$
 
-Object moves from $x = 60$ to $x = 20$ at speed 8 cm/s.
+**(A) — image speed.** Differentiate with $\dfrac{dx}{dt} = -8$ cm/s:
 
-At $x = 60$: $v = 1200/80 = 15$ cm. At $x = 20$: $v = 400/40 = 10$ cm.
+$\dfrac{dv}{dt} = \dfrac{20 \cdot 20}{(x+20)^2}\cdot\dfrac{dx}{dt} = -\dfrac{400 \times 8}{(x+20)^2}$
 
-Image moves from 15 cm to 10 cm → **5 cm toward the mirror** (from 15 to 10).
+| $x$ | $v$ | image speed $|dv/dt|$ |
+|---|---|---|
+| 60 cm | 15 cm | 0.5 cm/s |
+| 20 cm | 10 cm | 2.0 cm/s |
 
-**Image speed:** $\frac{dv}{dt} = \frac{d}{dt}\left(\frac{20x}{x+20}\right) = \frac{20 \cdot 20}{(x+20)^2} \cdot \frac{dx}{dt} = \frac{400}{(x+20)^2} \times 8$
+The speed rises from 0.5 cm/s to **2 cm/s**, not to 3 cm/s — so (A) is false.
 
-At $x = 60$: $v_i = 3200/6400 = 0.5$ cm/s.
-At $x = 20$: $v_i = 3200/1600 = 2$ cm/s.
+**(B) — acceleration at $x = 20$ cm.** With $u = -x$, $du/dt = +8$ cm/s and
+$v = \dfrac{uf}{u-f}$, so $\dfrac{dv}{du} = \dfrac{-f^2}{(u-f)^2}$:
 
-Wait, the answer says speed increases from 0.5 to 3. Let me recheck. $v = 20x/(x+20)$ (this is the image distance, positive means behind the mirror for convex).
+$\dfrac{d^2v}{dt^2} = \dfrac{d}{du}\!\left(\dfrac{-400}{(u-20)^2}\right)\!\left(\dfrac{du}{dt}\right)^{\!2} = \dfrac{2 \times 400}{(u-20)^3}\times 64$
 
-$dv/dx = 400/(x+20)^2$. Speed of image = $|dv/dt| = |dv/dx| \times |dx/dt| = 400 \times 8/(x+20)^2$.
+At $u = -20$: $\dfrac{d^2v}{dt^2} = \dfrac{51200}{(-40)^3} = -0.8$ cm/s², magnitude **0.8 cm/s²** — (B) is true.
 
-At $x = 60$: $3200/6400 = 0.5$ cm/s. At $x = 20$: $3200/1600 = 2$ cm/s. So speed goes from 0.5 to 2, not 3.
+**(C) — magnification when the image speed is 1.28 cm/s.**
 
-Hmm, the answer says (B, C). Let me check option (B): "When object is 20 cm from pole, magnitude of acceleration of image is 0.8 cm/s²."
+$\dfrac{3200}{(u-20)^2} = 1.28 \Rightarrow (u-20)^2 = 2500 \Rightarrow u = -30$ cm,
 
-$a_i = \frac{d^2v}{dt^2} = \frac{d}{dt}\left(\frac{400 \cdot 8}{(x+20)^2}\right) = \frac{-400 \cdot 8 \cdot 2}{(x+20)^3} \cdot \frac{dx}{dt} = \frac{-6400 \times 2 \times 8}{(x+20)^3}$
+so $x = 30$ cm and $m = \left|\dfrac{v}{u}\right| = \left|\dfrac{f}{u-f}\right| = \dfrac{20}{50} = 0.4$ — (C) is true.
 
-Wait, $dx/dt = -8$ (moving toward mirror). Let me be careful with signs.
+**(D) — average image speed.** The object covers 40 cm at 8 cm/s, i.e. 5 s, while the
+image moves from 15 cm to 10 cm behind the mirror — 5 cm in 5 s, an average of
+**1.0 cm/s**, not 1.25 cm/s. (D) is false.
 
-$u = -x$, $du/dt = -(-8) = +8$... no, $u$ is negative, $x$ is positive distance.
-
-Actually, let me use the standard convention: $u < 0$ for real object. Object at $x = 60$: $u = -60$. Moves toward mirror: $u$ increases (becomes less negative). $du/dt = +8$ cm/s.
-
-$v = \frac{uf}{u - f} = \frac{-60 \times 20}{-60 - 20} = \frac{-1200}{-80} = 15$ cm (behind mirror, virtual image). ✓
-
-$dv/du = \frac{-f^2}{(u-f)^2} = \frac{-400}{(u-20)^2}$. Speed = $|dv/du| \times |du/dt| = 400 \times 8/(u-20)^2$.
-
-At $u = -20$: speed = $3200/1600 = 2$ cm/s. At $u = -60$: speed = $3200/6400 = 0.5$ cm/s.
-
-So image speed goes from 0.5 to 2 cm/s. Option (A) says 0.5 to 3 → **incorrect**. Option (B) is about acceleration.
-
-**(B)** At $u = -20$: $\frac{d^2v}{dt^2} = \frac{d}{du}\left(\frac{400 \times 8}{(u-20)^2}\right) \times \frac{du}{dt}$
-
-$= \frac{-400 \times 8 \times 2}{(u-20)^3} \times 8 = \frac{-51200}{(-40)^3} = \frac{-51200}{-64000} = 0.8$ cm/s². ✓
-
-**(C)** When $|v_i| = 1.28$: $400 \times 8/(u-20)^2 = 1.28$, $(u-20)^2 = 2500$, $u - 20 = \pm 50$. $u = -30$ (taking the physically meaningful value). Object at $x = 30$, magnification $= |v/u| = |f/(u-f)| = 20/50 = 0.4$. ✓
+**Answer: (B) and (C).**
 
 ---
 

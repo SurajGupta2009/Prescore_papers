@@ -737,10 +737,9 @@ $R_2 = 6400 - 2000 = 4400\,\Omega = 4.4$ kΩ.
 
 ### Q21. Octahedron of resistors — equivalent resistance
 
-**Answer: (A) $R/2$... no wait, let me check.**
+**Answer: (A) $\dfrac{5R}{12}$**
 
 ```tikz
-
 \begin{document}
 \begin{tikzpicture}[line width=0.9pt, scale=1.15, rotate=-6]
 % octahedron: two apices (top, bottom) and a square "equator" of four vertices
@@ -755,31 +754,79 @@ $R_2 = 6400 - 2000 = 4400\,\Omega = 4.4$ kΩ.
 \foreach \p/\q in {T/L, T/R, T/F, T/N, B/L, B/R, B/F, B/N, L/F, F/R, R/N, N/L} {
   \draw (\p) -- (\q);
 }
-% hidden edge (L-N) shown dashed for depth
-% terminals: the two vertices the ohmmeter is connected to
-\draw[very thick, red] (T) -- ++(0.9,0.75);
-\draw[very thick, red] (B) -- ++(0.9,-0.75);
+% the ohmmeter is connected to two ADJACENT vertices: the top apex and one equator vertex
+\draw[very thick, red] (T) -- ++(0.55,0.9);
+\draw[very thick, red] (R) -- ++(0.9,-0.1);
+\node at (0.75,3.35) [right]{$\Omega$ between two adjacent vertices};
 \foreach \p in {T,B,L,R,F,N} { \node at (\p) [circle, fill, inner sep=1.5pt]{}; }
-\node at (T) [above left]{};
-\node at (B) [below left]{};
-\node at (0.75,3.1) {$R_{\text{eq}}$ between these two?};
-\node at (-0.15,0.95) [left]{$R$};
-\node at (0.85,0.45) [right]{$R$};
+\node at (T) [above left]  {$S$};
+\node at (R) [right]      {$E$};
+\node at (L) [left]       {$W$};
+\node at (B) [below left] {$N$};
+\node at (0.75,0.45) [right]{$R$};
 \end{tikzpicture}
 \end{document}
 ```
 
-An octahedron has 6 vertices and 12 edges. The answer for adjacent vertices...
+Folding the solid with the mirror plane through $S$, $E$ and the centre makes the two
+equator vertices *behind* that plane equipotential, so they collapse into one node $P$;
+the network reduces to five nodes and can be solved by hand.
 
-Actually, from the answer key, the answer is **(A)**. For an octahedron with resistance $R$ on each edge:
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.0]
+% reduced network: S, N, E, W, P  (parallel edges merged)
+\coordinate (S) at (0,2.3);
+\coordinate (N) at (0,-1.5);
+\coordinate (E) at (2.6,0.4);
+\coordinate (W) at (-2.6,0.4);
+\coordinate (P) at (0,0.4);
+\draw (S) -- node[above left, font=\small]{$2R$} (P);
+\draw (N) -- node[below left, font=\small]{$2R$} (P);
+\draw (E) -- node[above right=-2pt, font=\small]{$2R$} (P);
+\draw (W) -- node[above left=-2pt, font=\small]{$2R$} (P);
+\draw (S) -- node[above, font=\small]{$R$} (E);
+\draw (S) -- node[above, font=\small]{$R$} (W);
+\draw (N) -- node[below, font=\small]{$R$} (E);
+\draw (N) -- node[below, font=\small]{$R$} (W);
+\foreach \p/\lab in {S/S, N/N, E/E, W/W, P/P} {
+  \node at (\p) [circle, fill, inner sep=1.6pt]{};
+  \node at (\p) [font=\small, yshift=-12pt]{\lab};
+}
+\draw[very thick, red] (S) -- ++(0,0.7);
+\draw[very thick, red] (E) -- ++(0.7,0);
+\end{tikzpicture}
+\end{document}
+```
 
-**Between adjacent vertices:** By symmetry, identify the symmetry plane perpendicular to the line joining the two terminals. The octahedron can be "folded" along this plane.
+```math
+# unit resistors; current 1 A from S to E, node potentials from KCL
+R = 1 ohm
+# folded network: single R between S-E, S-W, N-E, N-W; every P-edge is R/2
+R_eq = R*5/12 =>
+# numbers check: total current splits so that V_S - V_E = 5/12 V
+I = 1 A
+V = R_eq*I =>
+```
 
-Using the standard approach: inject current $I$ at terminal A, extract at terminal B. By the symmetry of the octahedron, identify equipotential points and reduce the circuit.
+**Why the fold is legal.** The plane through the terminals $S$, $E$ and the centre is a
+symmetry plane of the octahedron; it fixes $S$ and $E$ and swaps the two remaining
+equator vertices, so they must be at the same potential and may be shorted into a single
+node $P$. What is left is the five-node network drawn above: $R$ on each of $S\!-\!E$,
+$S\!-\!W$, $N\!-\!E$, $N\!-\!W$ (the four edges that survive singly), and $R/2$ on every
+edge that touches $P$ (two paralleled edges each).
 
-For an octahedron between adjacent vertices: $R_{\text{eq}} = R/2$.
+Solving it for a 1 A injected at $S$ and withdrawn at $E$ gives
+$V_S = \tfrac{5}{12}R$, $V_N = \tfrac16 R$, $V_W = \tfrac14 R$ and
+$V_P = \tfrac{5}{24}R$, hence
 
-**Concept:** Platonic solids as resistor networks exploit high symmetry. The key technique is identifying equipotential points by the symmetry of the current flow, then either connecting (shorting) or disconnecting them to simplify the network.
+$$R_{\text{eq}} = \frac{V_S - V_E}{I} = \frac{5R}{12},$$
+
+which is option **(A)**. For reference, the same fold with the terminals taken on
+*opposite* apices gives $R/2$ — a different question, and the trap the other options
+$12R/5$, $10R/19$ and $19R/10$ are built around.
+
+---
 
 ---
 
