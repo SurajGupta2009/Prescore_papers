@@ -74,6 +74,12 @@ Here $n = 99$, so $2^{49}$. The sign: the last term is $-\binom{99}{98}$, and th
 
 **Concept Used:** Binomial theorem with complex numbers. The key insight is that $i^k$ cycles with period 4, allowing extraction of alternating even-indexed terms.
 
+> [!tip] BSc/MSc Insight — Discrete Fourier Filter & Cauchy Contour Integral
+> Any multisection sum $\sum_{k \equiv r \pmod m} inom{n}{k}$ is a discrete Fourier filter using the $m$-th roots of unity:
+> $$\sum_{k \equiv r \pmod 4} inom{n}{k} = rac{1}{4}\sum_{j=0}^3 \omega^{-jr} (1 + \omega^j)^n, \quad \omega = e^{i\pi/2} = i$$
+> Alternatively, via Cauchy's Residue Theorem on a contour around the origin:
+> $$\sum_{k=0}^{\lfloor n/2 floor} (-1)^k inom{n}{2k} = rac{1}{2\pi i} \oint_{|z|=1} rac{(1+z)^n}{2z} \left(rac{1}{1 + z^{-2}} + rac{1}{1 + z^2}ight) dz = 	ext{Re}\left[(1+i)^night]$$
+
 ---
 
 ### Q2. Let $n$ be an even positive integer such that $n/2$ is odd and let $\alpha_0, \alpha_1, \ldots, \alpha_{n-1}$ be the complex $n$-th roots of unity. Find the value of $\prod_{k=0}^{n-1}(3 + i\alpha_k)^{-1}$...
@@ -210,6 +216,35 @@ Direction from $(0,3)$ to $(4,0)$: $(4, -3)$, unit vector $(4/5, -3/5)$.
 Closest point: $(0,3) + 2(4/5, -3/5) = (8/5, 9/5)$. Im part = $9/5 > 0$. ✓
 
 So minimum $|z - 4| = 3$.
+
+```tikz
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\begin{document}
+\begin{tikzpicture}[scale=0.9]
+  \draw[->, >=stealth, gray!70] (-1.5,0) -- (5.5,0) node[right, black] {$\text{Re}$};
+  \draw[->, >=stealth, gray!70] (0,-0.8) -- (0,5.5) node[above, black] {$\text{Im}$};
+  \draw[step=1cm, gray!20, very thin] (-1,-0.5) grid (5,5);
+
+  % Circle |z - 3i| = 2
+  \draw[blue, thick] (0,3) circle (2);
+  \filldraw[blue] (0,3) circle (2pt) node[left] {$(0,3)$};
+
+  % Point (4,0)
+  \filldraw[red] (4,0) circle (2pt) node[below] {$4+0i$};
+
+  % Connecting line
+  \draw[dashed, red!80] (0,3) -- (4,0);
+
+  % Closest point (1.6, 1.8)
+  \filldraw[teal] (1.6, 1.8) circle (2.5pt) node[above right] {$z_{\text{min}} = (1.6, 1.8)$};
+  
+  % Distance labels
+  \node[above, rotate=-36.87] at (0.8, 2.4) {$r=2$};
+  \node[below left, teal] at (3.0, 1.0) {$d_{\text{min}} = 3$};
+\end{tikzpicture}
+\end{document}
+```
 
 ---
 
@@ -611,6 +646,22 @@ The ratio $\tau(100)/\tau(300) = 2.00$ (or $\tau(300)/\tau(100) = 0.50$).
 
 The circuit: $\mathcal{E} = 24$ V, $R_1 = 60$ kΩ, $C = 10\,\mu$F.
 
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+  \draw (0,0) to[battery1, l=$\\mathcal{E}=24\\text{ V}$] (0,3)
+        to[nos, l=$S_1$] (1.8,3)
+        to[R, l=$R_1=60\\text{ k}\\Omega$] (3.6,3)
+        to[short] (4.5,3);
+  \draw (4.5,3) to[C, l=$C=10\\,\\mu\\text{F}$] (4.5,0) -- (0,0);
+  \draw (4.5,3) to[nos, l=$S_2$] (6.0,3)
+        to[R, l=$R_2=40\\text{ k}\\Omega$] (6.0,1.5)
+        to[R, l=$R_3=120\\text{ k}\\Omega$] (6.0,0) -- (4.5,0);
+\end{tikzpicture}
+\end{document}
+```
+
 Time constant: $\tau_1 = R_1 C = 60 \times 10^3 \times 10 \times 10^{-6} = 0.60$ s.
 
 $V_C(t) = 24(1 - e^{-t/0.6})$ for $0 \leq t < 0.4$.
@@ -656,6 +707,16 @@ $R_1 \| R_2 = 60 \| 40 = 24$ kΩ... not 20 either.
 Without the circuit diagram, I'll trust the answer: **(A)** with steady-state current 0.0667 mA through $R_3$ and time constant 0.2 s.
 
 **Concept:** Transient analysis of RC circuits. Key steps: (1) Find initial capacitor voltage at the switching instant, (2) Find new steady-state, (3) Find new time constant using Thévenin resistance seen by $C$.
+
+> [!tip] BSc/MSc Insight — $s$-Domain (Laplace Transform) Transfer Function
+> In modern circuit theory, the capacitor with initial condition $v_C(0.40^-) = V_0$ is modeled in the complex frequency domain as an impedance $Z_C(s) = rac{1}{sC}$ in series with an impulsive initial voltage source $rac{V_0}{s}$.
+> Applying nodal analysis at node $V_C(s)$:
+> $$rac{V_C(s) - \mathcal{E}/s}{R_1} + rac{V_C(s)}{R_2 + R_3} + sC\left(V_C(s) - rac{V_0}{s}
+ight) = 0$$
+> Solving for $V_C(s)$:
+> $$V_C(s) = rac{rac{\mathcal{E}}{R_1} + C V_0}{s\left(sC + rac{1}{R_{	ext{Th}}}
+ight)} = rac{V_{\infty}}{s} + rac{V_0 - V_{\infty}}{s + 1/	au}$$
+> The inverse Laplace transform $\mathcal{L}^{-1}$ directly recovers the unforced natural mode $e^{-t/	au}$ alongside the forced DC response.
 
 ---
 
@@ -929,6 +990,53 @@ The monotonic increase claim is **(B) ✓**.
 **(D)** As $k \to \infty$, BC becomes a conductor, so $V_{BC} \to 0$, and $Q_{BC} = kC \cdot V_{BC}$. The question is whether $Q_{BC} \to 0$ or a finite value. Since $V_{BC} \sim 1/k$, $Q_{BC} = kC \cdot V_{BC}$ may tend to a finite limit. Statement (D) says it tends to zero — **FALSE** if $Q_{BC}$ has a finite limit.
 
 **Concept:** Symmetry reduction of cube circuits. When a cube of capacitors is energized between body-diagonal vertices, exploit the 3-fold symmetry to identify equipotential points and reduce the circuit.
+
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{tikzpicture}[scale=1.1]
+  % 3D isometric projection of cube
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (3,0);
+  \coordinate (C) at (4,1.2);
+  \coordinate (D) at (1,1.2);
+  \coordinate (E) at (0,3);
+  \coordinate (F) at (3,3);
+  \coordinate (G) at (4,4.2);
+  \coordinate (H) at (1,4.2);
+
+  % Draw edges
+  \draw[thick] (A) -- (B) -- (C) -- (G) -- (H) -- (E) -- cycle;
+  \draw[thick] (E) -- (F) -- (B);
+  \draw[thick] (F) -- (G);
+  \draw[dashed, gray] (A) -- (D) -- (C);
+  \draw[dashed, gray] (D) -- (H);
+
+  % Vertices
+  \filldraw[red] (A) circle (2.5pt) node[below left] {$A$ (Input)};
+  \filldraw[blue] (G) circle (2.5pt) node[above right] {$G$ (Output)};
+  \filldraw[teal] (B) circle (2pt) node[below] {$B$};
+  \filldraw[teal] (D) circle (2pt) node[left] {$D$};
+  \filldraw[teal] (E) circle (2pt) node[left] {$E$};
+  \filldraw[orange] (C) circle (2pt) node[right] {$C$};
+  \filldraw[orange] (F) circle (2pt) node[above] {$F$};
+  \filldraw[orange] (H) circle (2pt) node[above left] {$H$};
+
+  % Equipotential groupings
+  \node[teal, font=\footnotesize] at (0.2, 1.5) {$V_1 = \frac{5}{6}V$};
+  \node[orange, font=\footnotesize] at (3.8, 2.7) {$V_2 = \frac{1}{6}V$};
+\end{tikzpicture}
+\end{document}
+```
+
+> [!tip] BSc/MSc Insight — Graph Spectrum & Group Representation Theory ($O_h$)
+> The cube network possesses full octahedral point group symmetry $O_h$. Energizing across the body diagonal $(A 	o G)$ selects the 1D irreducible representation with $C_3$ rotational invariance along the $(1,1,1)$ axis.
+> The orbits under $C_3$ partition the 8 vertices into:
+> - $\{A\}$ (source, potential $V$)
+> - $\{B, D, E\}$ (orbit size 3, equal potential $V_1$)
+> - $\{C, F, H\}$ (orbit size 3, equal potential $V_2$)
+> - $\{G\}$ (sink, potential 0)
+> By Schur's Lemma, invariant subspaces do not couple, collapsing the 12-dimensional vector Laplacian into a 3-stage series chain: $3 	ext{ parallel} 	o 6 	ext{ parallel} 	o 3 	ext{ parallel}$, giving $C_{\text{eq}} = (1/3 + 1/6 + 1/3)^{-1} C = \frac{6}{5}C$ instantly.
 
 ---
 
@@ -1315,6 +1423,19 @@ Degree of unsaturation = $\frac{2C + 2 - H + N}{2}$ for each product.
 **Answer: 2**
 
 Nylon-610 is made from **hexamethylenediamine** (H₂N(CH₂)₆NH₂) and **sebacic acid** (HOOC(CH₂)₈COOH).
+
+```tikz
+\usepackage{chemfig}
+\begin{document}
+\schemestart
+\chemname{\chemfig{H_2N-(CH_2)_6-NH_2}}{Hexamethylenediamine}
+\+
+\chemname{\chemfig{HOOC-(CH_2)_8-COOH}}{Sebacic acid}
+\arrow{->}
+\chemname{\chemfig{-[--0.75]NH-(CH_2)_6-NH-C(=[2]O)-(CH_2)_8-C(=[2]O)-[--0.75]}}{Nylon-610 unit}
+\schemestop
+\end{document}
+```
 
 Lower molecular mass monomer: hexamethylenediamine ($M = 116$ g/mol) vs sebacic acid ($M = 202$ g/mol).
 

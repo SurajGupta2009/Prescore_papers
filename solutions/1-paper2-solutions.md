@@ -689,7 +689,43 @@ Using the standard approach: inject current $I$ at terminal A, extract at termin
 
 For an octahedron between adjacent vertices: $R_{\text{eq}} = R/2$.
 
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{tikzpicture}[scale=1.1]
+  % Octahedron projection
+  \coordinate (T) at (0,2.5);  % Top
+  \coordinate (B) at (0,-2.5); % Bottom
+  \coordinate (W) at (-2.5,0); % West
+  \coordinate (E) at (2.5,0);  % East
+  \coordinate (F) at (-0.8,-0.7); % Front
+  \coordinate (K) at (0.8,0.7);   % Back
+
+  % Back edges
+  \draw[dashed, gray] (T) -- (K);
+  \draw[dashed, gray] (B) -- (K);
+  \draw[dashed, gray] (W) -- (K);
+  \draw[dashed, gray] (E) -- (K);
+
+  % Front edges
+  \draw[thick] (T) -- (W) -- (B) -- (E) -- (T);
+  \draw[thick] (T) -- (F) -- (B);
+  \draw[thick] (W) -- (F) -- (E);
+
+  % Input/Output terminals
+  \filldraw[red] (W) circle (2.5pt) node[left] {$A$ (In)};
+  \filldraw[blue] (F) circle (2.5pt) node[below right] {$B$ (Out)};
+  \filldraw[teal] (T) circle (2pt) node[above] {$V_{\text{sym}}$};
+  \filldraw[teal] (B) circle (2pt) node[below] {$V_{\text{sym}}$};
+\end{tikzpicture}
+\end{document}
+```
+
 **Concept:** Platonic solids as resistor networks exploit high symmetry. The key technique is identifying equipotential points by the symmetry of the current flow, then either connecting (shorting) or disconnecting them to simplify the network.
+
+> [!tip] BSc/MSc Insight — Point Group $O_h$ Projection Operators
+> An octahedron has 6 vertices and 12 edges. Injecting current $I$ at vertex $A$ and removing it at adjacent vertex $B$ decomposes under the point group $C_{2v}$ (the subgroup preserving the edge $AB$). 
+> The reflection plane bisecting $AB$ and the perpendicular reflection plane passing through $A$ and $B$ divide vertices into symmetric and antisymmetric orbits. The vertices $T$ (top) and $B_{\text{bot}}$ (bottom) lie symmetrically on the nodal potential plane ($V_T = V_{B_{\text{bot}}}$), carrying zero bridge current. Collapsing these equipotential orbits immediately yields $R_{\text{eq}} = \frac{R}{2}$.
 
 ---
 
@@ -750,6 +786,22 @@ Each bulb rated 6V, 0.3A → rated resistance = $6/0.3 = 20\,\Omega$.
 
 12V battery. The circuit (from the description) has bulbs in various series/parallel combinations.
 
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{tikzpicture}[scale=0.95]
+  \draw (0,0) to[battery1, l=$12\\text{ V}$] (0,3) -- (1.5,3);
+  \draw (1.5,3) to[lamp, l=$L_1$] (3.5,3) -- (4,3);
+  \draw (1.5,3) -- (1.5,1.5) to[lamp, l=$L_3$] (3.5,1.5) -- (4,1.5);
+  \draw (3.5,3) to[lamp, l=$L_2$] (3.5,1.5);
+  \draw (4,3) to[lamp, l=$L_4$] (6,3) -- (6.5,3);
+  \draw (4,1.5) to[lamp, l=$L_5$] (6,1.5) -- (6.5,1.5);
+  \draw (6.5,3) -- (6.5,0) -- (0,0);
+  \draw (6.5,1.5) -- (6.5,0);
+\end{tikzpicture}
+\end{document}
+```
+
 **(A)** With all five connected: Analyze the circuit to find voltages across each bulb.
 
 $L_2$ has 0V across it (shorted or balanced bridge), so it remains dark. $L_1, L_3, L_4, L_5$ each have 6V → normal brightness. **✓**
@@ -789,6 +841,20 @@ Energy = $\frac{1}{2}C_{\text{eq}}V^2 = \frac{1}{2} \times \frac{45}{19} \times 
 **Phase 2: Both A and B closed.**
 
 Closing B short-circuits $C_2$. The battery remains connected, so charge redistribution occurs with the battery supplying/removing charge.
+
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+  \draw (0,0) to[battery1, l=$V$] (0,3)
+        to[nos, l=$S_A$] (2.5,3)
+        to[C, l=$C_1$] (4.5,3)
+        to[short] (5.5,3);
+  \draw (5.5,3) to[C, l=$C_2$] (5.5,0) -- (0,0);
+  \draw (4.5,3) -- (4.5,1.5) to[nos, l=$S_B$] (6.5,1.5) -- (6.5,0);
+\end{tikzpicture}
+\end{document}
+```
 
 **(C)** Energy increases by a specific amount. **✓**
 

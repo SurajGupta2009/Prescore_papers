@@ -1,26 +1,21 @@
 # 🔌 Recommended Obsidian Plugins for JEE Advanced Solutions Vault
 
 > Install these from **Settings → Community Plugins → Browse** in Obsidian.
+> This list is curated for **maximum cross-platform device compatibility (Desktop, Tablet, iOS, Android)** using native Obsidian renderers.
 
 ---
 
 ## 🧪 Chemistry — Molecular Structures & Reactions
 
-| Plugin | What It Does | Use Case in This Vault |
-|--------|-------------|----------------------|
-| **[ChemEdit Universal](https://github.com)** | Draw/edit SMILES, MOL structures. Offline. Mobile+Desktop. PubChem integration. | Draw organic molecules, show reaction intermediates, display IUPAC structures inline |
-| **[Molren](https://github.com)** | Render SMILES → SVG from fenced code blocks using RDKit.js. Fully offline. | Quick inline molecule rendering: ` ```smiles CC(=O)O ``` ` |
-| **[Ketcher](https://github.com)** | Full molecule editor embedded in Obsidian. Draw reactions, export .ket files. | Draw complex reaction mechanisms, arrow-pushing diagrams |
-| **[TikZJax](https://github.com)** (chemfig) | Render chemical structures via LaTeX `chemfig` package. | Precise bond-angle diagrams, Fischer projections, Haworth projections |
+| Plugin | Rendering Engine | Why It Works on Your Device | Use Case in This Vault |
+|--------|------------------|-----------------------------|------------------------|
+| **[TikZJax](https://github.com)** (`chemfig`) | Client WebAssembly LaTeX compiler | **100% vector accuracy**, native sharp fonts, zero external browser or iframe dependencies. | Fischer projections, bond angles, stereochemistry, polymers, mechanisms |
+| **[ChemEdit Universal](https://github.com)** | OpenChemLib & SmilesDrawer | Lightweight, built specifically for Mobile + Desktop offline support. | Visual chemical structure drawing, property inspection, SMILES editing |
+| **[Chemtrails](https://github.com)** or **[Obsidian Chem](https://github.com)** | SmilesDrawer | Lightweight pure-JS SVG vector rendering of ```` ```smiles ```` without heavy desktop WASM crashes. | Clean, fast inline SMILES molecular rendering |
 
-### Example — Rendering Aspirin with Molren
-````markdown
-```smiles
-CC(=O)Oc1ccccc1C(=O)O Aspirin (Acetylsalicylic acid)
-```
-````
+*(Replaces unsupported Molren and Ketcher)*
 
-### Example — Drawing a Reaction with TikZJax
+### Example — Reaction / Polymer with TikZJax (`chemfig`)
 ````markdown
 ```tikz
 \usepackage{chemfig}
@@ -30,25 +25,79 @@ CC(=O)Oc1ccccc1C(=O)O Aspirin (Acetylsalicylic acid)
 ```
 ````
 
+### Example — Inline Structure with Chemtrails / Chem
+````markdown
+```smiles
+CC(=O)Oc1ccccc1C(=O)O
+```
+````
+
 ---
 
-## 📊 Math — Graphs, Equations & Function Plots
+## ⚡ Physics — Circuits, Diagrams & Mechanics
 
-| Plugin | What It Does | Use Case in This Vault |
-|--------|-------------|----------------------|
-| **[LaTeX Suite](https://github.com)** | Snippet-based LaTeX typing. Tab through placeholders. Auto-fraction. | Write math equations at handwriting speed: `@a` → `\alpha`, `//` → `\frac{}{}` |
-| **[Desmos](https://github.com)** | Embed interactive Desmos graphs in notes. Online+offline. | Plot functions like `y = x^3 - 3x + c`, visualize tangent lines, show roots |
-| **[Plot Vectors & Graphs](https://github.com)** | Generate function plots from LaTeX equations using FunctionPlot. | Quick static graphs of $f(x)$, vector diagrams for physics |
-| **[Numerals](https://github.com)** | Calculate LaTeX expressions inline. Shows results next to equations. | Verify calculations: `3 \times 4.5 =` → shows `13.5` |
-| **[TikZJax](https://github.com)** (pgfplots) | Render publication-quality plots, coordinate geometry, number lines. | Complex geometric figures, locus problems, coordinate transformations |
+| Plugin | Rendering Engine | Why It Works on Your Device | Use Case in This Vault |
+|--------|------------------|-----------------------------|------------------------|
+| **[TikZJax](https://github.com)** (`circuitikz`) | LaTeX PGF / TikZ | Pure code-based vector graphics. Generates exact IEEE/IEC schematic components at native resolution. | RC circuits, bridge networks, switches, cube/3D capacitor ladders |
+| **[Excalidraw](https://github.com)** | Native Obsidian Canvas | Full stylus / touch / mouse support across mobile, tablet, and desktop. | Free-body diagrams, ray optics, equipotential lines, field lines |
+| **[CircuitJS](https://github.com)** | Falstad Simulator | Interactive circuit simulation inside Obsidian notes. | Dynamic RC/RLC transient response analysis |
 
-### Example — Desmos Graph
+*(Replaces unsupported Circuit Sketcher)*
+
+### Example — RC Circuit with TikZJax (`circuitikz`)
+````markdown
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+  \draw (0,0) to[battery1, l=$\mathcal{E}=24\text{ V}$] (0,3)
+        to[nos, l=$S_1$] (1.8,3)
+        to[R, l=$R_1=60\text{ k}\Omega$] (3.6,3)
+        to[short] (4.5,3);
+  \draw (4.5,3) to[C, l=$C=10\,\mu\text{F}$] (4.5,0) -- (0,0);
+  \draw (4.5,3) to[nos, l=$S_2$] (6.0,3)
+        to[R, l=$R_2=40\text{ k}\Omega$] (6.0,1.5)
+        to[R, l=$R_3=120\text{ k}\Omega$] (6.0,0) -- (4.5,0);
+\end{tikzpicture}
+\end{document}
+```
+````
+
+---
+
+## 📊 Math — Coordinate Geometry, Functions & Plots
+
+| Plugin | Rendering Engine | Why It Works on Your Device | Use Case in This Vault |
+|--------|------------------|-----------------------------|------------------------|
+| **[TikZJax](https://github.com)** (`pgfplots`) | LaTeX PGF | Precise coordinate axes, locus diagrams, complex plane circles, tangents. | Locus of complex numbers, Argand plane geometry, conic sections |
+| **[Desmos](https://github.com)** | Desmos Graphing Engine | Native touch pinch-to-zoom, pan, parameter sliders, mobile responsive. | Interactive calculus curves, roots, tangents, wave packets |
+| **[LaTeX Suite](https://github.com)** | CodeMirror extension | Universal keyboard shortcut engine for writing math at typing speed. | Matrix algebra, integrals, calculus notations |
+
+*(Replaces unsupported Plot Vectors and Graphs)*
+
+### Example — Complex Plane Geometry with TikZJax (`pgfplots`)
+````markdown
+```tikz
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\begin{document}
+\begin{tikzpicture}[scale=0.9]
+  \draw[->, >=stealth, gray!70] (-1.5,0) -- (5.5,0) node[right, black] {$\text{Re}$};
+  \draw[->, >=stealth, gray!70] (0,-0.8) -- (0,5.5) node[above, black] {$\text{Im}$};
+  \draw[blue, thick] (0,3) circle (2);
+  \filldraw[red] (4,0) circle (2pt) node[below] {$4+0i$};
+  \draw[dashed, red!80] (0,3) -- (4,0);
+  \filldraw[teal] (1.6, 1.8) circle (2.5pt) node[above right] {$z_{\text{min}}$};
+\end{tikzpicture}
+\end{document}
+```
+````
+
+### Example — Interactive Function with Desmos
 ````markdown
 ```desmos-graph
 ---
-bounds:
-  x: [-5, 5]
-  y: [-5, 5]
+bounds: [-5, 5, -5, 5]
 grid: true
 ---
 y = x^3 - 3x + 1
@@ -56,107 +105,41 @@ y = 0 | hidden | dashed | red
 ```
 ````
 
-### Example — LaTeX Suite Snippets (add to Settings)
-```json
-{"trigger": "@a", "replacement": "\\alpha"},
-{"trigger": "@b", "replacement": "\\beta"},
-{"trigger": "//", "replacement": "\\frac{$0}{$1}", "options": "mA"},
-{"trigger": "sq", "replacement": "\\sqrt{$0}", "options": "mA"},
-{"trigger": "**", "replacement": "^{$0}", "options": "mA"}
-```
+---
+
+## 🔢 Math Calculations & Numerals Alternative
+
+| Plugin | Why It Works on Your Device | Use Case in This Vault |
+|--------|-----------------------------|------------------------|
+| **[Calculator Pro](https://github.com)** | Scientific calculator built for Obsidian Mobile & Desktop with direct LaTeX export. | Numerical verification, trigonometry, scientific constants |
+| **[Calculite](https://github.com)** | Compact, lightweight floating calculator sidebar. | Fast scratchpad arithmetic |
+| **Dataview Inline Math** (`$= ... $`) | Core Javascript engine, zero extra background AST threads. | Inline formula checks |
+
+*(Replaces unsupported Numerals)*
 
 ---
 
-## ⚡ Physics — Circuits, Diagrams & Mechanics
-
-| Plugin | What It Does | Use Case in This Vault |
-|--------|-------------|----------------------|
-| **[TikZJax](https://github.com)** (circuitikz) | Draw circuit diagrams with resistors, capacitors, batteries, etc. | RC circuits, Wheatstone bridges, cube networks |
-| **[Excalidraw](https://github.com)** | Freehand drawing canvas embedded in notes. | Sketch force diagrams, ray optics, field lines, free-body diagrams |
-| **[Circuit Sketcher](https://github.com)** | Quick circuit diagram editor for Obsidian. | Simple series/parallel circuits |
-| **[Desmos](https://github.com)** | Interactive function plots. | Orbital mechanics graphs, SHM displacement-time, wave functions |
-
-### Example — Circuit with TikZJax
-````markdown
-```tikz
-\usepackage{circuitikz}
-\begin{document}
-\begin{circuitikz}[american, scale=1]
-\draw (0,0) to[battery1, l=$V=24V$] (0,3)
-      to[R, l=$R_1=60k\Omega$] (3,3)
-      to[R, l=$R_2=40k\Omega$] (3,0)
-      -- (0,0);
-\draw (3,3) -- (5,3)
-      to[R, l=$R_3=120k\Omega$] (5,0)
-      -- (3,0);
-\draw (3,3) to[C, l=$C=10\mu F$] (3,0);
-\end{circuitikz}
-\end{document}
-```
-````
-
-### Example — Excalidraw Freehand
-Use `![[drawing.excalidraw]]` to embed hand-drawn force body diagrams, ray tracing, or vector decompositions.
-
----
-
-## 📝 Writing & Organization
-
-| Plugin | What It Does | Use Case in This Vault |
-|--------|-------------|----------------------|
-| **[Templater](https://github.com)** | Powerful template engine with JavaScript. Auto-fill dates, create notes from templates. | Auto-generate solution file headers, question templates |
-| **[Dataview](https://github.com)** | Query vault as a database. List notes by tag, filter by properties. | Dashboard showing all papers solved, progress tracking |
-| **[Linter](https://github.com)** | Auto-format markdown on save. Consistent headings, lists, spacing. | Keep all solution files uniformly formatted |
-| **[Callout Manager](https://github.com)** | Custom callout boxes with colors and icons. | Highlight key concepts, tricks, common mistakes |
-| **[Columns](https://github.com)** | Side-by-side content in notes. | Show approach comparison, before/after solutions |
-| **[Table Editor](https://github.com)** | Excel-like table editing in markdown. | Answer key tables, comparison tables |
-| **[Mind Map](https://github.com)** | Auto-generate mind maps from headings. | Topic overview for each paper, theory connections |
-
----
-
-## 📐 Diagram Decision Tree
+## 📐 Diagram Decision Tree (Cross-Platform)
 
 ```
 What do you need to draw?
 │
-├── Chemical structure / molecule
-│   ├── Simple/inline → Molren (```smiles)
-│   ├── Full editor → ChemEdit Universal or Ketcher
-│   └── Fischer/Haworth/precise → TikZJax + chemfig
+├── Chemical Structure / Polymer
+│   ├── Exact bonds / Stereochemistry / Rings → TikZJax (\chemfig)
+│   ├── Quick inline SMILES → Chemtrails / Chem (```smiles)
+│   └── Visual touch editor → ChemEdit Universal
 │
-├── Circuit diagram
-│   ├── Quick sketch → Circuit Sketcher
-│   └── Publication quality → TikZJax + circuitikz
+├── Physics Circuit
+│   ├── Publication-quality schematic → TikZJax (\circuitikz)
+│   ├── Interactive simulation → CircuitJS
+│   └── Freehand sketch / Optics / Mechanics → Excalidraw
 │
-├── Math function graph
-│   ├── Interactive → Desmos
-│   ├── Static → Plot Vectors & Graphs
-│   └── Publication quality → TikZJax + pgfplots
+├── Math Function / Geometry
+│   ├── Coordinate locus / Argand plane → TikZJax (pgfplots / tikzpicture)
+│   └── Curve plotting / Maxima-Minima → Desmos (```desmos-graph)
 │
-├── Freehand / sketch
-│   └── Excalidraw
-│
-├── Flowchart / mind map
-│   ├── Auto from headings → Mind Map plugin
-│   └── Custom → Excalidraw or Mermaid (built-in)
-│
-└── Math equations
+└── Calculations & Math Typing
     ├── Fast typing → LaTeX Suite
-    ├── Inline calculation → Numerals
-    └── Display only → Built-in MathJax ($$...$$)
+    ├── Scratchpad calculation → Calculator Pro / Calculite
+    └── Formatted formulas → Built-in MathJax ($$...$$)
 ```
-
----
-
-## ⚙️ Installation Order (Recommended)
-
-1. **LaTeX Suite** — immediate productivity boost for math typing
-2. **Templater** — automate solution file creation
-3. **TikZJax** — circuits, chemistry, geometry all in one
-4. **Desmos** — instant function visualization
-5. **ChemEdit Universal** or **Molren** — chemistry structures
-6. **Excalidraw** — freehand diagrams
-7. **Dataview** — progress tracking dashboard
-8. **Callout Manager** — beautiful callouts for concepts/tricks
-9. **Linter** — keep formatting consistent
-10. **Mind Map** — topic visualization
