@@ -14,8 +14,8 @@ Prescore_papers/
 │   ├── 1-paper2-solutions.md
 │   ├── 2-paper1-solutions.md
 │   ├── 2-paper2-solutions.md
-│   ├── 3-paper1-solutions.md  ← (pending)
-│   ├── 3-paper2-solutions.md  ← (pending)
+│   ├── 3-paper1-solutions.md
+│   ├── 3-paper2-solutions.md
 │   ├── 4-paper1-solutions.md
 │   └── 4-paper2-solutions.md
 │
@@ -23,11 +23,15 @@ Prescore_papers/
 │   └── new-solution.md
 │
 ├── 📂 docs/                   ← Documentation & guides
-│   ├── VAULT-GUIDE.md         ← You are here
-│   ├── RECOMMENDED-PLUGINS.md ← Plugin installation guide
-│   └── SOLUTION-TEMPLATE.md   ← Full solution template
+│   ├── VAULT-GUIDE.md               ← You are here
+│   ├── PLUGIN-COMPATIBILITY.md      ← why desktop-only plugins fail on phones
+│   ├── DIAGRAMS-WITHOUT-PLUGINS.md  ← the alternatives playbook
+│   ├── RECOMMENDED-PLUGINS.md       ← plugin list, mobile support on every row
+│   └── SOLUTION-TEMPLATE.md         ← Full solution template
 │
-├── 📂 assets/                 ← Diagrams & images
+├── 📂 examples/               ← figures-demo.md: the figure pipeline, rendered
+├── 📂 tools/                  ← render_figures.py (fences → SVG)
+├── 📂 assets/                 ← Diagrams & images (all committed, phone-readable)
 │   ├── diagrams/
 │   └── chemistry/
 │
@@ -94,14 +98,24 @@ Each solution file follows this structure:
 
 ## 🔌 Essential Plugins
 
-See [[RECOMMENDED-PLUGINS]] for the complete list. Quick install priority:
+Everything in this list is **mobile-capable** (verified against each plugin's manifest).
+The desktop-only plugins that used to be recommended here — Molren, Ketcher, Plot Vectors &
+Graphs, Circuit Sketcher — cannot run on Android/iOS; see
+[[PLUGIN-COMPATIBILITY]] for the evidence and [[DIAGRAMS-WITHOUT-PLUGINS]] for what to use
+instead.
 
-1. **LaTeX Suite** — Type math 10x faster
-2. **Templater** — Auto-generate solution files
-3. **TikZJax** — Circuits, chemistry, geometry
-4. **Desmos** — Interactive function plots
-5. **Molren/ChemEdit** — Chemical structures
-6. **Excalidraw** — Freehand diagrams
+1. **Latex Suite** (`obsidian-latex-suite`) — type math 10x faster
+2. **Desmos** (`obsidian-desmos`) — interactive function plots
+3. **Numerals** (`numerals`) — calculators in a code block (the ID matters!)
+4. **ChemEdit Universal** (`chemedit-universal`) — molecules, offline
+5. **Excalidraw** (`obsidian-excalidraw-plugin`) — freehand diagrams
+6. **TikZJax** (`obsidian-tikzjax`) — LaTeX/circuitikz/chemfig diagrams
+7. **Templater** + **Dataview** + **Linter** — keep the vault tidy
+
+> [!tip] Figures that need no plugin at all
+> Molecules, graphs and circuits in this vault are pre-rendered into SVG
+> (`assets/diagrams/`) by `tools/render_figures.py` — see
+> [[DIAGRAMS-WITHOUT-PLUGINS]] and open `examples/figures-demo.md` on the phone.
 
 ---
 
@@ -134,7 +148,14 @@ SORT file.name ASC
 4. Add theory at the end of the file
 
 ### For Creating Diagrams
-- **Chemistry:** Use ` ```smiles ` code blocks with Molren, or `\chemfig` with TikZJax
-- **Circuits:** Use `\circuitikz` inside ` ```tikz ` blocks
-- **Graphs:** Use ` ```desmos-graph ` for interactive plots
-- **Freehand:** Use Excalidraw for ray diagrams, force diagrams, etc.
+- **Chemistry:** a ` ```smiles ` fence (RDKit renders it) — see [[DIAGRAMS-WITHOUT-PLUGINS]]
+- **Circuits / vectors:** a ` ```circuit ` fence (schemdraw), or `\circuitikz` with TikZJax
+- **Graphs:** a ` ```plot ` fence for a static graph, ` ```desmos-graph ` when you want sliders
+- **Freehand:** Canvas (core) or Excalidraw for ray diagrams, force diagrams, etc.
+- **Flowcharts:** Mermaid (core plugin, now enabled)
+
+Then rebuild the pictures and they appear on every device — including the phone:
+
+```bash
+python3 tools/render_figures.py     # or: make figures
+```

@@ -13,6 +13,20 @@ tags: [solutions, jee-advanced, test-<% test %>]
 
 # <% test %>-PAPER <% paper %> — COMPLETE SOLUTIONS (JEE Advanced Level)
 
+<!--
+FIGURES — no desktop-only plugin needed
+Leave a fence unquoted (not inside a callout) and the build draws it into a committed SVG
+that renders on every device, Obsidian Mobile included:
+
+    ```smiles      molecule          e.g.  CC(=O)O Aspirin
+    ```plot        function graph    e.g.  y = x^3 - 3x + 1
+    ```circuit     circuit / vectors e.g.  d += elm.Resistor().right()
+
+then run:  python3 tools/render_figures.py      (or: make figures)
+
+Live examples: examples/figures-demo.md  |  Why plugins fail on phones: docs/PLUGIN-COMPATIBILITY.md
+-->
+
 > [!info] Paper Details
 > **Target:** Top 100 Rank Improvement
 > **Date:** <% date %>
@@ -61,7 +75,11 @@ tags: [solutions, jee-advanced, test-<% test %>]
 #### Solution
 
 > [!abstract]- Diagram
-> ```tikz
+> ```circuit
+> d += elm.SourceV().up().label('12 V')
+> d += elm.Resistor().right().label('R = 4 Ω')
+> d += elm.Line().down()
+> d += elm.Line().left()
 > ```
 
 > [!example]- Step-by-Step
@@ -86,6 +104,7 @@ tags: [solutions, jee-advanced, test-<% test %>]
 
 > [!abstract]- Structure
 > ```smiles
+> C[C@H](N)C(=O)O Alanine
 > ```
 
 > [!example]- Mechanism / Analysis

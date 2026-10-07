@@ -2,18 +2,14 @@
   "obsidian-excalidraw-plugin",
   "obsidian-tikzjax",
   "chemedit-universal",
-  "molren",
   "obsidian-desmos",
-  "plot-vectors-graphs",
+  "numerals",
+  "callout-manager",
   "obsidian-latex-suite",
   "templater-obsidian",
   "dataview",
   "obsidian-mind-map",
   "obsidian-linter",
   "table-editor-obsidian",
-  "obsidian-callout-manager",
-  "obsidian-columns",
-  "obsidian-numerals",
-  "circuit-sketcher",
-  "obsidian-ketcher"
+  "obsidian-columns"
 ]

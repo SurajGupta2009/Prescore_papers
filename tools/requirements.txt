@@ -1,0 +1,5 @@
+# Figure pipeline dependencies (see tools/render_figures.py)
+# Install with:  pip install -r tools/requirements.txt
+rdkit>=2023.3.1        # chemistry:  ```smiles -> SVG   (replaces Molren / Ketcher)
+matplotlib>=3.7        # maths:      ```plot   -> SVG   (replaces Plot Vectors & Graphs / Desmos)
+schemdraw>=0.17        # physics:    ```circuit -> SVG  (replaces Circuit Sketcher / circuitikz)
