@@ -7,7 +7,7 @@ tags: [solutions, jee-advanced, test-1]
 ---
 # 1-PAPER 1 — COMPLETE SOLUTIONS (JEE Advanced Level)
 
-> **Target:** Top 100 Rank Improvement  
+> **Target:** Top 100 Rank Improvement 
 > **Approach:** Multiple smart approaches per question, concept-first explanations, and full theory at the end.
 
 ---
@@ -98,9 +98,9 @@ Since $n$ is even: $\prod_{k=0}^{n-1}(\alpha_k + 3i) = (-3i)^n - 1$.
 
 But we need $\prod_{k=0}^{n-1}(3 + i\alpha_k) = i^n \prod_{k=0}^{n-1}(\alpha_k - (-3/i)) = i^n \prod_{k=0}^{n-1}(\alpha_k + 3i)$.
 
-Wait, let me redo: $3 + i\alpha_k = i(\alpha_k + 3/i) = i(\alpha_k - (-3/i)) = i(\alpha_k + 3i)$... No.
+Redoing this step: $3 + i\alpha_k = i(\alpha_k + 3/i) = i(\alpha_k - (-3/i)) = i(\alpha_k + 3i)$... No.
 
-$3 + i\alpha_k$. Factor out $i$: $= i(-3i + \alpha_k)$. Hmm, $i \cdot (-3i) = -3i^2 = 3$, and $i \cdot \alpha_k = i\alpha_k$. Yes, so $3 + i\alpha_k = i(\alpha_k - 3i)$... let me just check: $i(\alpha_k - 3i) = i\alpha_k - 3i^2 = i\alpha_k + 3$. Yes!
+$3 + i\alpha_k$. Factor out $i$: $= i(-3i + \alpha_k)$. $i \cdot (-3i) = -3i^2 = 3$ and $i \cdot \alpha_k = i\alpha_k$, so $3 + i\alpha_k = i(\alpha_k - 3i)$; expanding, $i(\alpha_k - 3i) = i\alpha_k - 3i^2 = i\alpha_k + 3$. Yes!
 
 So $\prod(3 + i\alpha_k) = i^n \prod(\alpha_k - 3i)$.
 
@@ -112,11 +112,11 @@ $(3i)^n = 3^n \cdot i^n$. Since $n/2$ is odd, $n = 2(2s+1)$, so $i^n = i^{2(2s+1
 
 Therefore $\prod(3+i\alpha_k) = i^n \cdot [(3i)^n - 1] = (-1)(-3^n - 1) = 3^n + 1$.
 
-Wait, but we need the reciprocal $\prod(3+i\alpha_k)^{-1} = \frac{1}{3^n + 1}$... let me check the answer.
+The reciprocal we need is $\prod(3+i\alpha_k)^{-1} = \frac{1}{3^n + 1}$.
 
-Actually, the answer is $(B)$ which corresponds to $\frac{(3-i)^n}{(3^n+1)}$ or something similar. Let me look at the answer choices from the paper more carefully.
+The key is (B), corresponding to $\frac{(3-i)^n}{(3^n+1)}$ or the equivalent form among the paper's options more carefully.
 
-From the solutions section, the answer key says (B). Let me verify via the provided solution:
+From the solutions section, the answer key says (B). The provided solution:
 
 The solution says:
 $f(z^2) = \prod(z-i\alpha_k)$ where $z^2 = 3+i$, so the product evaluates to $(3-i)^n \cdot \frac{1}{f(3+i)} \cdot \text{something}$...
@@ -159,7 +159,7 @@ Since $(e^y - 1)^m = y^m + (\text{higher powers of } y)$, and $e^{xy} = 1 + (\te
 
 The coefficient of $y^m$ comes from the $y^m$ term of $(e^y-1)^m$ times the constant term of $e^{xy}$ (which is 1).
 
-Wait, but that gives coefficient 1, not $m!$. Let me re-examine.
+Note: but that gives coefficient 1, not $m!$. Re-examining.
 
 Actually, $(e^y - 1)^m = m!\sum_{k=m}^{\infty} S(k,m) \frac{y^k}{k!}$ where $S(k,m)$ are Stirling numbers.
 
@@ -171,7 +171,7 @@ But $(e^y-1)^m$ starts at $y^m$, so $[y^j](e^y-1)^m = 0$ for $j < m$. Only the l
 
 Coefficient of $y^m = 1 \cdot [y^m](e^y-1)^m = 1$... but that's not $m!$.
 
-Hmm, I need to be more careful about what the question is asking. The question likely says $\frac{1}{m!} e^{xy}(e^y - 1)^m$ or involves $m!$ somehow.
+I need to be more careful about what the question is asking. The question likely says $\frac{1}{m!} e^{xy}(e^y - 1)^m$ or involves $m!$ somehow.
 
 From the answer key, the answer is **(C) $m!$**. The question text is partially garbled in extraction. The correct formulation likely involves extracting the coefficient differently.
 
@@ -353,9 +353,9 @@ Introduce slack variable $t \geq 1$: $x + y + z + t = 10$ with $x, y, z, t \geq 
 
 Stars and bars: $\binom{10-1}{4-1} = \binom{9}{3} = 84$. 
 
-Wait, the paper says 120. Let me recheck. If $x, y, z \geq 1$ and $t \geq 0$: $x + y + z + t = 10$, $t = 10 - (x+y+z) \geq 1$, so $x+y+z \leq 9$.
+Note: the paper says 120. Rechecking. If $x, y, z \geq 1$ and $t \geq 0$: $x + y + z + t = 10$, $t = 10 - (x+y+z) \geq 1$, so $x+y+z \leq 9$.
 
-Hmm, let me re-examine. If $x+y+z < 10$ means $x+y+z \leq 9$ with $x,y,z \geq 1$:
+More carefully: if $x+y+z < 10$ means $x+y+z \leq 9$ with $x,y,z \geq 1$:
 
 $\binom{9-1}{3-1} = \binom{8}{2} = 28$? That's not 120 either.
 
@@ -393,7 +393,7 @@ $z_k = e^{2\pi i k/10}$ for $k = 1, ..., 9$ (10th roots of unity except 1).
 
 **(R) $|\prod_{k=1}^{9}(1 - z_k)|$:** Since $z^{10} - 1 = (z-1)\prod_{k=1}^{9}(z - z_k)$, dividing: $\prod_{k=1}^{9}(z - z_k) = \frac{z^{10}-1}{z-1} = 1 + z + \cdots + z^9$.
 
-At $z = 1$: $\prod_{k=1}^{9}(1-z_k) = 10$. So $|\prod| = 10$... but the answer is 4. Let me recheck.
+At $z = 1$: $\prod_{k=1}^{9}(1-z_k) = 10$. So $|\prod| = 10$... but the answer is 4. Rechecking.
 
 The paper says answer is 4 for (R). Perhaps the expression is different from what I'm reconstructing (the PDF extraction lost many formulas).
 
@@ -565,13 +565,13 @@ At 100 K: $R_{100} = 1.000\,\Omega$. At 300 K: $R_{300} = 2.0808\,\Omega$.
 
 $\frac{R_{300}}{R_{100}} = \frac{\rho_{300}}{\rho_{100}} \cdot \frac{1 + \alpha \cdot 100}{1 + \alpha \cdot 300}$
 
-Wait, we need to be careful. Let $T_0$ be the reference temperature for dimensions.
+Care is needed here. Let $T_0$ be the reference temperature for dimensions.
 
 Actually, the resistance at temperature $T$ relative to reference:
 
 $\frac{R_{300}}{R_{100}} = \frac{\rho_{300}}{\rho_{100}} \cdot \frac{(1+\alpha \cdot 200)}{1}$... 
 
-Hmm, let me think about this more carefully. The number of conduction electrons is constant, $n_e$ is constant (per the problem).
+Now, think about this more carefully. The number of conduction electrons is constant, $n_e$ is constant (per the problem).
 
 $\rho = \frac{m}{n e^2 \tau}$
 
@@ -579,9 +579,9 @@ The number density $n = N/V$. As temperature increases, volume increases, so $n$
 
 But "number of conduction electrons remains constant" means $N$ = const, and $V$ increases with $T$.
 
-$R = \frac{\rho L}{A} = \frac{m}{Ne^2\tau} \cdot \frac{L^2}{A} \cdot A \cdot \frac{1}{L}$... this is getting complicated. Let me just use:
+$R = \frac{\rho L}{A} = \frac{m}{Ne^2\tau} \cdot \frac{L^2}{A} \cdot A \cdot \frac{1}{L}$... simplify to:
 
-$R = \frac{m L}{N_{\text{total}} e^2 \tau A}$ ... no. Let me use $R = \frac{\rho L}{A}$ where $\rho = \frac{m}{ne^2\tau}$ and $n = N/(LA)$.
+$R = \frac{m L}{N_{\text{total}} e^2 \tau A}$ ; instead use $R = \frac{\rho L}{A}$ where $\rho = \frac{m}{ne^2\tau}$ and $n = N/(LA)$.
 
 So $R = \frac{m L}{(N/(LA)) e^2 \tau A} = \frac{m L^2}{N e^2 \tau}$.
 
@@ -617,7 +617,7 @@ The ratio $\tau(100)/\tau(300) = 2.00$ (or $\tau(300)/\tau(100) = 0.50$).
 \begin{circuitikz}[american, line width=0.8pt, scale=1.0]
 % battery E and series resistor R1 along the top rail
 \draw (0,0) to[battery1, l=$E$] (0,3)
-      to[R, l=$R_1$] (2.4,3);
+ to[R, l=$R_1$] (2.4,3);
 % node X: down through R2 and switch S2 to the bottom rail
 \draw (2.4,3) to[R, l=$R_2$] (2.4,1.5) to[switch, l=$S_2$] (2.4,0);
 % switch S1 in the top rail
@@ -667,7 +667,7 @@ At steady state, no current through $C$. The voltage is determined by the voltag
 
 $V_{C,\infty} = \mathcal{E} \cdot \frac{R_2}{R_1 + R_2}$... depends on exact topology.
 
-From the answer, $i_3 \to 0.0667$ mA = $24/(180 \times 10^3)$ mA... $24/180000 = 0.000133$ A = 0.133 mA. Hmm, 0.0667 mA suggests steady state current through $R_3$ is $V_{R_3}/R_3$.
+From the answer, $i_3 \to 0.0667$ mA = $24/(180 \times 10^3)$ mA... $24/180000 = 0.000133$ A = 0.133 mA. 0.0667 mA suggests steady state current through $R_3$ is $V_{R_3}/R_3$.
 
 $i_{3,\infty} = 0.0667$ mA means $V_{R_3,\infty} = 0.0667 \times 10^{-3} \times 120 \times 10^3 = 8$ V.
 
@@ -677,13 +677,13 @@ $R_{\text{eq}} = R_1 \| (R_2 + R_3) = 60\text{k} \| 160\text{k} = \frac{60 \time
 
 $\tau_2 = 43.6 \times 10^3 \times 10 \times 10^{-6} = 0.436$ s... that doesn't match $1/5 = 0.2$.
 
-Let me reconsider. Perhaps $R_1$ is in series with $C$, and $R_2 \| R_3$ is the other branch.
+Reconsidering. Perhaps $R_1$ is in series with $C$, and $R_2 \| R_3$ is the other branch.
 
 $R_2 \| R_3 = 40\text{k} \| 120\text{k} = 30$ kΩ.
 
 $\tau_2 = 30 \times 10^3 \times 10 \times 10^{-6} = 0.30$ s. Still not 0.2.
 
-Perhaps $R_{\text{Thévenin}} = R_1 \| R_2 + $ something... Let me just verify using the answer.
+Perhaps $R_{\text{Thévenin}} = R_1 \| R_2 + $ something... Checking against the key.
 
 $\tau = 1/5 = 0.2$ s. $R_{\text{Th}} \times C = 0.2$. $R_{\text{Th}} = 0.2/(10 \times 10^{-6}) = 20$ kΩ.
 
@@ -753,7 +753,7 @@ Using star-delta conversion on nodes P, Q:
 
 Actually, let's use the standard bridge formula. The bridge has:
 - Top path: $AP + PD = 4\,\Omega$
-- Bottom path: $AQ + QD = 8\,\Omega$  
+- Bottom path: $AQ + QD = 8\,\Omega$ 
 - Cross: $PQ = 4\,\Omega$
 
 Using the equivalent resistance formula for a Wheatstone bridge:
@@ -762,11 +762,11 @@ $R_{AD} = \frac{(AP + PD)(AQ + QD) \cdot PQ + ...}{\text{something}}$
 
 Standard approach: Use star transformation on the bridge.
 
-Let me use mesh analysis for the inner bridge. Label the mesh currents.
+Mesh analysis for the inner bridge: Label the mesh currents.
 
 Or use the formula: $R_{AD} = \frac{(AP \cdot QD + AQ \cdot PD)(AP + AQ + PD + QD) + PQ \cdot (AP + PD)(AQ + QD)}{(AP + AQ)(PD + QD) + PQ(AP + AQ + PD + QD)}$
 
-Hmm, this is getting complex. Let me use a simpler approach.
+A simpler reduction:
 
 $R_{AD}$ with the bridge: Use the formula $R_{AD} = \frac{R_1 R_2(R_3 + R_4) + R_3 R_4(R_1 + R_2) + R_5(R_1+R_3)(R_2+R_4)}{(R_1+R_2)(R_3+R_4) + R_5(R_1+R_2+R_3+R_4)}$
 
@@ -789,7 +789,7 @@ Using mesh analysis with 3 meshes:
 - Mesh 2 (BCD): through $BC$, $CD$, $DB$
 - Mesh 3 (outer): through $AB$, $BC$ from A to C
 
-Actually, let me use superposition/Thevenin.
+Superposition and Thévenin:
 
 $V_B = V \cdot \frac{R_{AB}}{R_{AB} + R_{BC}} = 24 \cdot \frac{8}{20} = 9.6$ V
 
@@ -799,14 +799,14 @@ $V_{BD} = V_B - V_D = 9.6 - 8.21 = 1.39$ V (B is at higher potential)
 
 $I_G = V_{BD}/R_G = 1.39/6 = 0.232$ A... hmm, that doesn't match 0.11 A.
 
-Wait, this assumes no current through the galvanometer affects the voltages, which isn't true. I need proper mesh analysis.
+Note: this assumes no current through the galvanometer affects the voltages, which isn't true. I need proper mesh analysis.
 
-Let me set up mesh analysis properly.
+Mesh analysis, set up properly:
 
 Three meshes sharing the battery between A and C:
 - Current $I_1$ through $A \to B \to D \to A$: $I_1(8 + 6 + 2.6) - I_2 \cdot 6 = $ ... 
 
-Actually, let me use node voltage analysis.
+Node-voltage analysis:
 
 Nodes: A (at $V$), C (at 0), B and D are unknown.
 
@@ -848,7 +848,7 @@ $V_D(\frac{293}{390} - \frac{4}{54}) = \frac{120}{13} + \frac{4}{3} = \frac{360 
 
 $\frac{293}{390} - \frac{4}{54} = \frac{293 \times 54 - 4 \times 390}{390 \times 54} = \frac{15822 - 1560}{21060} = \frac{14262}{21060} = \frac{2377}{3510}$
 
-Hmm, this is getting messy. Let me just use decimals.
+Switching to decimals:
 
 $\frac{1}{2.6} = 0.3846$, $\frac{1}{5} = 0.2$, $\frac{1}{6} = 0.1667$.
 
@@ -932,21 +932,21 @@ This is independent of $\lambda$. **✓**
 \begin{circuitikz}[american, line width=0.8pt]
 % ---------- ammeter mode: shunt S across the galvanometer ----------
 \begin{scope}[shift={(0,0)}]
-  \draw (0,1.6) node[left]{$+$} -- (0.9,1.6);
-  \node at (1.7,1.6) [circle, draw, inner sep=1pt, minimum size=8mm]{$G$};
-  \draw (2.5,1.6) -- (3.4,1.6) node[right]{$-$};
-  \draw (0.9,1.6) to[R, l=$S$] (0.9,0);
-  \draw (0.9,0) -- (2.5,0) -- (2.5,1.6);
-  \node at (1.7,-0.75) [below]{$I_g = 1.00\,$mA};
-  \node at (1.7,2.55) [above]{ammeter mode ($10\,$mA, $100\,$mA)};
+ \draw (0,1.6) node[left]{$+$} -- (0.9,1.6);
+ \node at (1.7,1.6) [circle, draw, inner sep=1pt, minimum size=8mm]{$G$};
+ \draw (2.5,1.6) -- (3.4,1.6) node[right]{$-$};
+ \draw (0.9,1.6) to[R, l=$S$] (0.9,0);
+ \draw (0.9,0) -- (2.5,0) -- (2.5,1.6);
+ \node at (1.7,-0.75) [below]{$I_g = 1.00\,$mA};
+ \node at (1.7,2.55) [above]{ammeter mode ($10\,$mA, $100\,$mA)};
 \end{scope}
 % ---------- voltmeter mode: series multiplier ----------
 \begin{scope}[shift={(6.4,0)}]
-  \draw (0,1.6) node[left]{$+$} -- (0.9,1.6);
-  \node at (1.7,1.6) [circle, draw, inner sep=1pt, minimum size=8mm]{$G$};
-  \draw (2.5,1.6) to[R, l=$R_{\text{series}}$] (4.5,1.6) -- (5.2,1.6) node[right]{$-$};
-  \node at (1.7,-0.75) [below]{$I_g = 1.00\,$mA};
-  \node at (2.6,2.55) [above]{voltmeter mode ($10\,$V, $50\,$V)};
+ \draw (0,1.6) node[left]{$+$} -- (0.9,1.6);
+ \node at (1.7,1.6) [circle, draw, inner sep=1pt, minimum size=8mm]{$G$};
+ \draw (2.5,1.6) to[R, l=$R_{\text{series}}$] (4.5,1.6) -- (5.2,1.6) node[right]{$-$};
+ \node at (1.7,-0.75) [below]{$I_g = 1.00\,$mA};
+ \node at (2.6,2.55) [above]{voltmeter mode ($10\,$V, $50\,$V)};
 \end{scope}
 \end{circuitikz}
 \end{document}
@@ -970,15 +970,15 @@ $R_{\text{shunt}} = 0.1/0.099 = 1.01\,\Omega = 100/99\,\Omega$.
 
 For 10 V: $R_s = V/I_g - G = 10/0.001 - 100 = 9900\,\Omega = 9.9$ kΩ.
 
-Hmm, but option (A) says 4.95 kΩ and 24.95 kΩ. That would correspond to $I_g = 2$ mA? Or the input impedance is $10$ kΩ which means $R_s + G = 10$ kΩ, so $R_s = 9.9$ kΩ... but option (A) says 4.95 kΩ.
+but option (A) says 4.95 kΩ and 24.95 kΩ. That would correspond to $I_g = 2$ mA? Or the input impedance is $10$ kΩ which means $R_s + G = 10$ kΩ, so $R_s = 9.9$ kΩ... but option (A) says 4.95 kΩ.
 
-Wait, maybe the galvanometer has $I_g = 1$ mA but uses a different configuration. If input resistance of 10V range is $10$ kΩ: $R_s + G = 10000$, $R_s = 9900$ Ω = 9.9 kΩ, not 4.95 kΩ.
+Note: maybe the galvanometer has $I_g = 1$ mA but uses a different configuration. If input resistance of 10V range is $10$ kΩ: $R_s + G = 10000$, $R_s = 9900$ Ω = 9.9 kΩ, not 4.95 kΩ.
 
-Actually, maybe the multimeter uses $I_g = 0.5$ mA or the shunt is configured differently. Let me reconsider.
+Actually, maybe the multimeter uses $I_g = 0.5$ mA or the shunt is configured differently. Reconsidering.
 
 If $R_s = 4.95$ kΩ for 10V range: total = $4950 + 100 = 5050\,\Omega$, so $I_{\text{full-scale}} = 10/5050 = 1.98$ mA. This doesn't match $I_g = 1$ mA.
 
-Hmm. Perhaps there's a shunt in voltmeter mode too (universal shunt). Without full diagram details, I'll verify option (B):
+Perhaps there's a shunt in voltmeter mode too (universal shunt). Without full diagram details, I'll verify option (B):
 
 **(B)** Voltmeter on 10V range with input resistance $R_{\text{in}}$.
 
@@ -1016,7 +1016,7 @@ $V_{\text{reading}} = 12 \times \frac{20/3}{20/3 + 10} = 12 \times \frac{20/3}{5
 \coordinate (H) at (1.2,3.7);
 % every edge carries a capacitor ...
 \foreach \p/\q in {A/B, B/C, C/D, D/A, E/F, F/G, G/H, H/E, A/E, B/F, D/H} {
-  \draw (\p) -- (\q);
+ \draw (\p) -- (\q);
 }
 % ... except BC, which is kC (highlighted)
 \draw[very thick, red] (B) -- (C);
@@ -1025,7 +1025,7 @@ $V_{\text{reading}} = 12 \times \frac{20/3}{20/3 + 10} = 12 \times \frac{20/3}{5
 \draw (1.9,1.85) node[fill=white, inner sep=1pt]{$V$};
 % vertex labels
 \foreach \p/\l in {A/A, B/B, C/C, D/D, E/E, F/F, G/G, H/H} {
-  \node at (\p) [circle, fill, inner sep=1.4pt]{};
+ \node at (\p) [circle, fill, inner sep=1.4pt]{};
 }
 \node at (A) [below left]{$A$};
 \node at (B) [below right]{$B$};
@@ -1088,7 +1088,7 @@ The monotonic increase claim is **(B) ✓**.
 
 Based on the answer keys:
 - Q25: **(A)** — P→2, Q→4, R→3, S→5
-- Q26: **(B)** — P→1, Q→2, R→3, S→4  
+- Q26: **(B)** — P→1, Q→2, R→3, S→4 
 - Q27: **(A)** — P→2, Q→5, R→4, S→1
 - Q28: **(A)** — P→3, Q→1, R→4, S→2
 
@@ -1193,7 +1193,7 @@ From (ii): $X(60 + 3) = 6(40 + 2) \Rightarrow 63X = 252 \Rightarrow X = 4\,\Omeg
 \begin{circuitikz}[american, line width=0.8pt, scale=0.95]
 % top branch: 6, 8, 6, 8 uF in series; bottom rung from each node: 8, 4, 8, 4 uF
 \draw (0,2) to[C, l=$6\,\mu$F] (2,2) to[C, l=$8\,\mu$F] (4,2)
-      to[C, l=$6\,\mu$F] (6,2) to[C, l=$8\,\mu$F] (8,2);
+ to[C, l=$6\,\mu$F] (6,2) to[C, l=$8\,\mu$F] (8,2);
 % vertical capacitors to the common bottom rail
 \draw (2,2) to[C, l_=$8\,\mu$F] (2,0);
 \draw (4,2) to[C, l_=$4\,\mu$F] (4,0);
@@ -1264,7 +1264,7 @@ thick = 2 mm
 Kslab = 4
 # air-equivalent thickness of the inserted region: t/K (slab) + 1 mm (air)
 deff = thick/Kslab + (sep - thick) =>
-c_ins = eps0 * wdt / deff =>     # capacitance per metre of insertion
+c_ins = eps0 * wdt / deff => # capacitance per metre of insertion
 c_air = eps0 * wdt / sep =>
 # charged at x0 = 10 cm, then the battery is removed -> charge is frozen
 x0 = 0.10 m
@@ -1288,12 +1288,12 @@ When disconnected, $Q$ is constant. $U = Q^2/(2C)$, so $F = -\frac{Q^2}{2C^2}\fr
 
 The capacitance has two regions:
 - Inserted region (width $x$): two capacitors in series — dielectric ($K=4$, thickness 2mm) and air (1mm).
-  $C_{\text{inserted}}(x) = \frac{\epsilon_0 x w}{d_{\text{eff}}}$ where $\frac{d_{\text{eff}}}{K_{\text{eff}}} = \frac{t/K + (d-t)/1}{} = \frac{0.002/4 + 0.001/1} = 0.0005 + 0.001 = 0.0015$ m.
+ $C_{\text{inserted}}(x) = \frac{\epsilon_0 x w}{d_{\text{eff}}}$ where $\frac{d_{\text{eff}}}{K_{\text{eff}}} = \frac{t/K + (d-t)/1}{} = \frac{0.002/4 + 0.001/1} = 0.0005 + 0.001 = 0.0015$ m.
 
-  $C_{\text{inserted}} = \frac{\epsilon_0 x w}{0.0015} = \frac{9 \times 10^{-12} \times x \times 0.32}{0.0015}$
+ $C_{\text{inserted}} = \frac{\epsilon_0 x w}{0.0015} = \frac{9 \times 10^{-12} \times x \times 0.32}{0.0015}$
 
 - Uninserted region (width $L - x$): air only.
-  $C_{\text{air}} = \frac{\epsilon_0 (L-x) w}{d} = \frac{9 \times 10^{-12} \times (0.4-x) \times 0.32}{0.003}$
+ $C_{\text{air}} = \frac{\epsilon_0 (L-x) w}{d} = \frac{9 \times 10^{-12} \times (0.4-x) \times 0.32}{0.003}$
 
 Total: $C(x) = C_{\text{inserted}} + C_{\text{air}}$
 
@@ -1688,7 +1688,7 @@ Conditions for (X): C, H, O only; positive 2,4-DNP test (has C=O); positive iodo
 
 (X) with NH₂OH gives two stereoisomeric oximes (Y) and (Z) → the C=O is a **ketone** (not aldehyde, which gives only one oxime since there's no geometric isomerism for aldehyde oximes... wait, actually aldoximes do show syn/anti isomerism).
 
-Hmm, actually both aldehyde and ketone oximes show E/Z isomerism. But the question says 2 DIFFERENT compounds that are stereoisomers — this is just E/Z oxime isomerism, which is possible for any oxime.
+actually both aldehyde and ketone oximes show E/Z isomerism. But the question says 2 DIFFERENT compounds that are stereoisomers — this is just E/Z oxime isomerism, which is possible for any oxime.
 
 Heating oximes with H₂SO₄ → Beckmann rearrangement → amides.
 

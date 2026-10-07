@@ -70,9 +70,10 @@ y=3x-3|dashed|red
 │   ├── PLUGIN-FIGURES.md            ← tikz / desmos / smiles / math syntax
 │   ├── PLUGIN-COMPATIBILITY.md      ← which plugins work on phones, with evidence
 │   ├── RECOMMENDED-PLUGINS.md       ← install table (ID + mobile support)
+│   ├── OPEN-ITEMS.md                ← known loose ends in the written solutions
 │   └── SOLUTION-TEMPLATE.md
 ├── templates/          ← Templater template for new solutions
-├── tools/              ← check_figures.py, check_plugin_ids.py
+├── tools/              ← check_figures.py, check_plugin_ids.py, check_prose.py
 ├── assets/             ← hand-made exports (Excalidraw, screenshots)
 ├── *.pdf               ← Original question papers
 └── .obsidian/          ← Vault configuration (mobile-safe plugin list)
@@ -90,7 +91,9 @@ y=3x-3|dashed|red
 ```bash
 python3 tools/check_figures.py     # every tikz/desmos/smiles/math block parses
 python3 tools/check_plugin_ids.py  # every plugin ID exists and is mobile-capable
-make check                         # both, as CI runs them
+python3 tools/check_prose.py       # scratch-pad wording still left in a solution body
+make check                         # figures + plugin IDs, as CI runs them
+make prose                         # the report behind docs/OPEN-ITEMS.md
 ```
 
 ---

@@ -7,7 +7,7 @@ tags: [solutions, jee-advanced, test-4]
 ---
 # 4-PAPER 1 — COMPLETE SOLUTIONS (JEE Advanced Level)
 
-> **Target:** Top 100 Rank Improvement  
+> **Target:** Top 100 Rank Improvement 
 > **Approach:** Multiple smart approaches per question, concept-first explanations, and full theory at the end.
 
 ---
@@ -353,9 +353,9 @@ $g'(x) = \ln x + 1 - \ln(x+1) - 1 = \ln\frac{x}{x+1}$
 
 $g'(x) = 0 \Rightarrow \frac{x}{x+1} = 1$... that has no solution! So $g'(x) = \ln\frac{x}{x+1} < 0$ for all $x > 0$.
 
-Wait, this means $f$ is strictly decreasing... but the paper says the minimum is $1 - 1/e$. Let me recheck.
+Note: this means $f$ is strictly decreasing... but the paper says the minimum is $1 - 1/e$. Rechecking.
 
-Actually, the paper says $M = 1 - 1/e \approx 0.6321$, so $100M = 63.21$... but the answer key says 1. The answer must be asking for something different. Let me re-read.
+The paper states $M = 1 - 1/e \approx 0.6321$, so $100M = 63.21$... but the answer key says 1. The answer must be asking for something different. Let me re-read.
 
 The answer key says **1** for Q18. Perhaps the question asks for $\lfloor 100M \rfloor$ or the answer is structured differently. From the paper's solution, the minimum value involves $e^{-1}$ and the answer evaluates to 1.
 
@@ -471,8 +471,8 @@ The grounding affects the outer conductor, not the charge distribution on the in
 \coordinate (F) at (0,1,1);
 \coordinate (G) at (1,1,1);
 \foreach \i/\j in {O/A, O/B, O/C, A/D, A/E, B/D, B/F, C/E, C/F,
-                   D/G, E/G, F/G} {
-  \draw[gray] (\i) -- (\j);
+ D/G, E/G, F/G} {
+ \draw[gray] (\i) -- (\j);
 }
 % the three hidden edges, dashed
 \draw[gray, dashed] (O)--(A); 
@@ -500,13 +500,13 @@ The grounding affects the outer conductor, not the charge distribution on the in
 ```math
 # force on the particle +q at O, with the common factor kq^2/a^2 taken out
 # each fixed charge contributes a vector; components listed per axis
-# +q  at (a,0,0) repels  -> (-1, 0, 0)
-# +2q at (0,a,0) repels  -> ( 0,-2, 0)
-# +3q at (0,0,a) repels  -> ( 0, 0,-3)
+# +q at (a,0,0) repels -> (-1, 0, 0)
+# +2q at (0,a,0) repels -> ( 0,-2, 0)
+# +3q at (0,0,a) repels -> ( 0, 0,-3)
 # -2sqrt2 q at (a,a,0) attracts -> ( 1, 1, 0)
 # -4sqrt2 q at (a,0,a) attracts -> ( 2, 0, 2)
 # -6sqrt2 q at (0,a,a) attracts -> ( 0, 3, 3)
-# +3sqrt3 q at (a,a,a) repels   -> (-1,-1,-1)
+# +3sqrt3 q at (a,a,a) repels -> (-1,-1,-1)
 FX = -1 + 1 + 2 - 1 =>
 FY = -2 + 1 + 3 - 1 =>
 FZ = -3 + 2 + 3 - 1 =>

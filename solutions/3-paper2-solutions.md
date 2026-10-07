@@ -304,19 +304,19 @@ i = asin(nw*sin(thetaB)) to deg =>
 \node at (-0.75,0.85) [right, font=\small]{$J_d$};
 % --- top view: the Amperian loop at r = R/4 sits inside the dielectric disc ---
 \begin{scope}[shift={(4.3,0)}]
-  \fill[blue!10] (0,0) circle (1.6);
-  \draw[very thick] (0,0) circle (3.2);
-  \draw[thick, blue!55] (0,0) circle (1.6);
-  \draw[dashed, red, very thick] (0,0) circle (0.8);
-  \node at (0.0,0.0) [font=\small]{$\odot\,\vec B$};
-  \draw[->, >=stealth] (0,0) -- (0.57,0.57);
-  \node at (0.85,0.75) [above right, font=\small]{$R/4$};
-  \draw[<->, >=stealth] (0,0) -- (-1.13,-1.13);
-  \node at (-1.45,-1.35) [below, font=\small]{$R/2$};
-  \draw[<->, >=stealth] (0,0) -- (2.26,2.26);
-  \node at (2.5,2.4) [above right, font=\small]{$R$};
-  \node at (-2.05,1.5) [font=\small]{$\varepsilon_r=4$};
-  \node at (1.7,-2.4) [font=\small]{air};
+ \fill[blue!10] (0,0) circle (1.6);
+ \draw[very thick] (0,0) circle (3.2);
+ \draw[thick, blue!55] (0,0) circle (1.6);
+ \draw[dashed, red, very thick] (0,0) circle (0.8);
+ \node at (0.0,0.0) [font=\small]{$\odot\,\vec B$};
+ \draw[->, >=stealth] (0,0) -- (0.57,0.57);
+ \node at (0.85,0.75) [above right, font=\small]{$R/4$};
+ \draw[<->, >=stealth] (0,0) -- (-1.13,-1.13);
+ \node at (-1.45,-1.35) [below, font=\small]{$R/2$};
+ \draw[<->, >=stealth] (0,0) -- (2.26,2.26);
+ \node at (2.5,2.4) [above right, font=\small]{$R$};
+ \node at (-2.05,1.5) [font=\small]{$\varepsilon_r=4$};
+ \node at (1.7,-2.4) [font=\small]{air};
 \end{scope}
 \end{tikzpicture}
 \end{document}

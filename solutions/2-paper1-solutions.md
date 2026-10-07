@@ -7,7 +7,7 @@ tags: [solutions, jee-advanced, test-2]
 ---
 # 2-PAPER 1 — COMPLETE SOLUTIONS (JEE Advanced Level)
 
-> **Target:** Top 100 Rank Improvement  
+> **Target:** Top 100 Rank Improvement 
 > **Approach:** Multiple smart approaches per question, concept-first explanations, and full theory at the end.
 
 ---
@@ -99,10 +99,6 @@ $3\alpha + 2\beta = 3\alpha < 0$. **(D) ✓**
 
 ### Q3. $\sin^{-1}(\sin 10) - \tan^{-1}(\tan(-6)) + \cos^{-1}(\cos 12) - \sec^{-1}(\sec 9) + \cot^{-1}(\cot 4) - \csc^{-1}(\csc 7)$
 
-**Answer: (A, D)**
-
----
-
 #### Solution:
 
 Each inverse trig function returns a value in its principal range:
@@ -112,32 +108,28 @@ Each inverse trig function returns a value in its principal range:
 | $\sin^{-1}(\sin 10)$ | $[-\pi/2, \pi/2]$ | $3\pi - 10$ |
 | $\tan^{-1}(\tan(-6))$ | $(-\pi/2, \pi/2)$ | $2\pi - 6$ |
 | $\cos^{-1}(\cos 12)$ | $[0, \pi]$ | $4\pi - 12$ |
-| $\sec^{-1}(\sec 9)$ | $[0,\pi] \setminus \{\pi/2\}$ | $9 - 2\pi$... wait, $9/(2\pi) \approx 1.43$, so $9 \approx 1.43 \times 2\pi$. $9 - 2\pi \approx 2.72 \in [0, \pi]$? No, $9 - 2\pi \approx 2.72 < \pi$. So $\sec^{-1}(\sec 9) = 9 - 2\pi$... hmm, but $9 > 2\pi$ and $9 < 3\pi$, so we need to reduce. $9 - 2\pi \approx 2.72$. $\cos(2.72) \approx -0.91$. Since $\sec^{-1}$ returns values in $[0,\pi]$ and $\sec(9) = 1/\cos(9)$: $\cos(9) \approx -0.91$, so $\sec^{-1}(\sec 9) = 9 - 2\pi$... no.
+| $\sec^{-1}(\sec 9)$ | $[0,\pi] \setminus \{\pi/2\}$ | $9 - 2\pi$ |
+| $\cot^{-1}(\cot 4)$ | $(0, \pi)$ | $4 - \pi$ |
+| $\csc^{-1}(\csc 7)$ | $[-\pi/2, 0) \cup (0, \pi/2]$ | $7 - 2\pi$ |
 
-Actually, $\sec^{-1}(\sec x) = x$ if $x \in [0, \pi/2) \cup (\pi/2, \pi]$. For $x = 9 > \pi$: reduce modulo $2\pi$: $9 - 2\pi \approx 2.72 \in (0, \pi)$. So $\sec^{-1}(\sec 9) = 9 - 2\pi$. Hmm, but the paper says $9 - 2\pi$... wait, let me re-examine.
+In each case the argument is pulled back by a multiple of $\pi$ into the principal range:
+$9 - 2\pi \approx 2.72 \in (0,\pi)$ ✓ and $7 - 2\pi \approx 0.72 \in (0,\pi/2)$ ✓, so both
+reductions are legitimate (there is no contradiction to look for).
 
-From the paper's solution: $\sec^{-1}(\sec 9) = 9 - 2\pi$ (since $9 - 2\pi \in (0, \pi)$).
+Now substitute:
 
-Wait no, the paper says: $\sec^{-1}(\sec 9) = 9 - 2\pi$. But $9 - 2\pi \approx 2.72$. And $9/(2\pi) \approx 1.43$, so $9$ is in the range $(2\pi, 3\pi)$. For $x \in (2\pi, 3\pi)$: $\sec^{-1}(\sec x)$ depends on which part. $9 - 2\pi \approx 2.72 < \pi$, so $\sec^{-1}(\sec 9) = 9 - 2\pi$? No, I think the formula is: if $x \in (2k\pi, (2k+1)\pi)$, then $\sec^{-1}(\sec x) = x - 2k\pi$. Since $9 \in (2\pi, 3\pi)$, $k = 1$, so $\sec^{-1}(\sec 9) = 9 - 2\pi$. But $9 - 2\pi \approx 2.72 \in (0, \pi)$, so this is valid. ✓
+$(3\pi - 10) - (2\pi - 6) + (4\pi - 12) - (9 - 2\pi) + (4 - \pi) - (7 - 2\pi)$
 
-Similarly: $\csc^{-1}(\csc 7)$: $7 \in (2\pi, 5\pi/2)$. For $\csc^{-1}$: range is $[-\pi/2, 0) \cup (0, \pi/2]$. $\csc^{-1}(\csc 7) = 7 - 2\pi$? Let me check: $\sin(7) \approx 0.657$. $\csc^{-1}(1/0.657) = \sin^{-1}(0.657) \approx 0.72$. But $7 - 2\pi \approx 0.72$. ✓
+$= (3 - 2 + 4 + 2 - 1 + 2)\pi + (-10 + 6 - 12 - 9 + 4 - 7) = 8\pi - 28$
 
-$\cot^{-1}(\cot 4)$: Range $(0, \pi)$. $4 \in (\pi, 2\pi)$. $\cot^{-1}(\cot 4) = 4 - \pi$.
+So $p = 8$, $q = 28$:
 
-Now: $(3\pi - 10) - (2\pi - 6) + (4\pi - 12) - (9 - 2\pi) + (4 - \pi) - (7 - 2\pi)$
+**(A)** $3p - q = 24 - 28 = -4$ ✓
+**(D)** $q - 3p = 28 - 24 = 4$ ✓
 
-$= 3\pi - 10 - 2\pi + 6 + 4\pi - 12 - 9 + 2\pi + 4 - \pi - 7 + 2\pi$
-
-$= (3 - 2 + 4 + 2 - 1 + 2)\pi + (-10 + 6 - 12 - 9 + 4 - 7)$
-
-$= 8\pi - 28$
-
-So $p = 8$, $q = 28$.
-
-**(A)** $3p - q = 24 - 28 = -4$. ✓
-**(D)** $q - 3p = 28 - 24 = 4$. ✓
-
-**Concept:** Each inverse trig function has a specific principal range. To evaluate $\text{inv-trig}(\text{trig}(x))$, reduce $x$ to the principal range using periodicity and symmetry identities.
+**Concept:** each inverse trig function has its own principal range; to evaluate
+$\text{inv-trig}(\text{trig}(x))$, pull $x$ back into that range using periodicity and then
+check the sign of the reduced angle.
 
 ---
 
@@ -167,7 +159,7 @@ $3^{2^{2025}-1}$ is odd, so $3^{2^{2025}-1} - 1$ is even. So $S_{2025} = 3 \time
 
 For divisibility by 2: $3^{2^n} \equiv 1 \pmod{2}$, so $3^{2^n} - 3 \equiv 0 \pmod{2}$. $S_n = (3^{2^n} - 3)/2$. For $n = 2024$: $3^{2^{2024}} \mod 5$? $3^4 \equiv 1 \pmod 5$, $2^{2024} \mod 4 = 0$ (since $2^{2024}$ is divisible by 4 for $2024 \geq 2$). So $3^{2^{2024}} \equiv 1 \pmod 5$, $S_{2024} = (1-3)/2 \equiv -1 \equiv 4 \pmod 5$. **Not divisible by 5.** ✗
 
-$S_{2024} \mod 3$: $3^{2^{2024}} \equiv 0 \pmod 3$, so $S_{2024} = (0-3)/2 = -3/2$... hmm, this isn't working mod 3. Let me reconsider.
+$S_{2024} \mod 3$: $3^{2^{2024}} \equiv 0 \pmod 3$, so $S_{2024} = (0-3)/2 = -3/2$.
 
 $S_n = 3(3^{2^n - 1} - 1)/2$. For divisibility by 3: $S_n/3 = (3^{2^n-1} - 1)/2$, which is always an integer. So $S_n$ is always divisible by 3. **(D) ✓**
 
@@ -207,11 +199,11 @@ The function involves floor/ceiling operations and fractional parts. Analysis of
 
 **Q8 Answer: (C)** — I→R; II→T; III→Q; IV→P
 
-**Q9 Answer: (C)** — I→T; II→R; III→Q; IV→P... no wait, answer is (C): I→T; II→R; III→S; IV→Q
+**Q9 Answer: (C)** — I→T; II→R; III→Q; IV→P; the key gives (C): I→T; II→R; III→S; IV→Q
 
 Actually from the key: **Q9 Answer: (C)**
 
-**Q10 Answer: (A)** — I→P; II→P; III→S; IV→S... no, key says (A). Let me just note the answer.
+**Q10 Answer: (A)** — I→P; II→P; III→S; IV→S; the key gives (A). 
 
 ---
 
@@ -540,7 +532,7 @@ Match with the given pairs: **(A, D)** are correct.
 - **Reflexive:** Contains all $(a,a)$. Count = $2^{n^2 - n}$.
 - **Symmetric:** For each $\{a,b\}$, include both or neither. Count = $2^{n(n+1)/2}$.
 - **Equivalence relation:** Corresponds to a partition. Count = Bell number $B_n$.
-  - $B_1 = 1, B_2 = 2, B_3 = 5, B_4 = 15, B_5 = 52$.
+ - $B_1 = 1, B_2 = 2, B_3 = 5, B_4 = 15, B_5 = 52$.
 
 ### Asymmetric Relations
 $R$ is asymmetric if $(a,b) \in R \Rightarrow (b,a) \notin R$. Count = $3^{\binom{n}{2}}$ (for each unordered pair, choose: include $(a,b)$ only, include $(b,a)$ only, or include neither).

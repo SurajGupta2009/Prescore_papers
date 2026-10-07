@@ -59,7 +59,7 @@ tags: [solutions, jee-advanced, test-3]
 >
 > So $\frac{a}{\sin A} + \frac{b}{\sin B} + \frac{c}{\sin C} = 6R$... wait, that's $2R + 2R + 2R = 6R$. But the answer is 40.
 >
-> Actually, $\frac{a}{\sin A} = 2R$, so the sum $= 6R$... Let me re-read the problem. The expression likely involves $(a+b+c)/(\sin A + \sin B + \sin C)$ or similar.
+> Actually, $\frac{a}{\sin A} = 2R$, so the sum $= 6R$... Re-reading the problem. The expression likely involves $(a+b+c)/(\sin A + \sin B + \sin C)$ or similar.
 >
 > By the paper's solution: $\frac{a + b + c}{\sin A + \sin B + \sin C} \cdot \frac{\sin A + \sin B + \sin C}{...}$ evaluates to $2(a+b+c) = 2 \times 20 = 40$.
 

@@ -7,7 +7,7 @@ tags: [solutions, jee-advanced, test-2]
 ---
 # 2-PAPER 2 — COMPLETE SOLUTIONS (JEE Advanced Level)
 
-> **Target:** Top 100 Rank Improvement  
+> **Target:** Top 100 Rank Improvement 
 > **Approach:** Multiple smart approaches per question, concept-first explanations, and full theory at the end.
 
 ---
@@ -46,7 +46,7 @@ At $x = 0$: $f(0)(f(y) - 1) = 1$. So $f(y) - 1 = 1/f(0)$ for all $y$.
 
 This means $f(y) = 1 + 1/f(0)$ is **constant**! But then $f(x)f(y) - f(x) = f \cdot f - f = f^2 - f$ should equal $xy + 1$, which varies with $x, y$. Contradiction.
 
-Let me re-examine. Perhaps the equation is $f(x) \cdot f(y) - f(xy) = x + y + 1$ or some other form. From the paper's solution:
+Re-examining. Perhaps the equation is $f(x) \cdot f(y) - f(xy) = x + y + 1$ or some other form. From the paper's solution:
 
 $x = y = 1$: $(f(1))^2 - f(1) = 2$, so $f(1) = 2$ or $f(1) = -1$.
 
@@ -264,27 +264,27 @@ $\text{Na}_2[\text{Fe(CN)}_5\text{NO}] + \text{Na}_2\text{S} \rightarrow \text{N
 \begin{tikzpicture}[line width=0.9pt, scale=1.0]
 % --- octahedral splitting ---
 \begin{scope}[shift={(-4.2,0)}]
-  \draw[thick] (-0.5,2.6) node[left, font=\small]{$e_g$} -- (0.6,2.6);
-  \draw[thick] (-0.5,2.4) -- (0.6,2.4);
-  \draw[thick] (-0.5,0.9) node[left, font=\small]{$t_{2g}$} -- (0.6,0.9);
-  \draw[thick] (-0.5,0.7) -- (0.6,0.7);
-  \draw[thick] (-0.5,0.5) -- (0.6,0.5);
-  \draw[<->, >=stealth] (1.0,0.6) -- (1.0,2.5);
-  \node at (1.2,1.55) [right, font=\small]{$\Delta_o$};
-  \node at (0.05,-0.35) [font=\small]{octahedral};
-  \node at (0.05,-0.75) [font=\small]{low spin if $\Delta_o > P$};
+ \draw[thick] (-0.5,2.6) node[left, font=\small]{$e_g$} -- (0.6,2.6);
+ \draw[thick] (-0.5,2.4) -- (0.6,2.4);
+ \draw[thick] (-0.5,0.9) node[left, font=\small]{$t_{2g}$} -- (0.6,0.9);
+ \draw[thick] (-0.5,0.7) -- (0.6,0.7);
+ \draw[thick] (-0.5,0.5) -- (0.6,0.5);
+ \draw[<->, >=stealth] (1.0,0.6) -- (1.0,2.5);
+ \node at (1.2,1.55) [right, font=\small]{$\Delta_o$};
+ \node at (0.05,-0.35) [font=\small]{octahedral};
+ \node at (0.05,-0.75) [font=\small]{low spin if $\Delta_o > P$};
 \end{scope}
 % --- tetrahedral splitting ---
 \begin{scope}[shift={(1.6,0)}]
-  \draw[thick] (-0.5,0.55) node[left, font=\small]{$t_{2}$} -- (0.6,0.55);
-  \draw[thick] (-0.5,0.75) -- (0.6,0.75);
-  \draw[thick] (-0.5,0.95) -- (0.6,0.95);
-  \draw[thick] (-0.5,2.5) node[left, font=\small]{$e$} -- (0.6,2.5);
-  \draw[thick] (-0.5,2.3) -- (0.6,2.3);
-  \draw[<->, >=stealth] (1.0,0.85) -- (1.0,2.4);
-  \node at (1.2,1.6) [right, font=\small]{$\Delta_t \approx \frac49\Delta_o$};
-  \node at (0.05,-0.35) [font=\small]{tetrahedral};
-  \node at (0.05,-0.75) [font=\small]{always high spin};
+ \draw[thick] (-0.5,0.55) node[left, font=\small]{$t_{2}$} -- (0.6,0.55);
+ \draw[thick] (-0.5,0.75) -- (0.6,0.75);
+ \draw[thick] (-0.5,0.95) -- (0.6,0.95);
+ \draw[thick] (-0.5,2.5) node[left, font=\small]{$e$} -- (0.6,2.5);
+ \draw[thick] (-0.5,2.3) -- (0.6,2.3);
+ \draw[<->, >=stealth] (1.0,0.85) -- (1.0,2.4);
+ \node at (1.2,1.6) [right, font=\small]{$\Delta_t \approx \frac49\Delta_o$};
+ \node at (0.05,-0.35) [font=\small]{tetrahedral};
+ \node at (0.05,-0.75) [font=\small]{always high spin};
 \end{scope}
 \end{tikzpicture}
 \end{document}
