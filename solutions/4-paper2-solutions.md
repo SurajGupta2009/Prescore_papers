@@ -446,6 +446,49 @@ The dipole at $x = L$ with angle $60°$ to $\hat{x}$:
 
 **Answer: (A, B, C)**
 
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.0]
+% ellipse with semi-major a and semi-minor b, foci marked
+\draw[thick] (0,0) ellipse [x radius=3.0, y radius=2.0];
+\draw[fill, gray] (-1.2,0) circle (0.28);
+\node at (-1.2,-0.55) [below]{$S$ (focus)};
+% semi-major axis
+\draw[dashed] (-3,0) -- (3,0);
+\draw[<->, >=stealth] (-3,-0.35) -- (3,-0.35);
+\node at (0,-0.6) [below]{$2a$};
+% the four points where r = a
+\coordinate (P) at (0,2.0);
+\coordinate (Q) at (0,-2.0);
+\coordinate (R1) at (3.0,0);
+\coordinate (R2) at (-3.0,0);
+\foreach \p in {P,Q,R1,R2} { \draw[fill, red] (\p) circle (2.4pt); }
+\node at (P) [above]{$P$};
+\node at (Q) [below]{$Q$};
+\node at (R1) [right]{$A$};
+\node at (R2) [left]{$B$};
+% the focal radii at P and A
+\draw[thick, blue] (-1.2,0) -- (0,2.0);
+\draw[thick, blue] (-1.2,0) -- (3.0,0);
+\node at (0.15,0.95) [right, blue]{$r_P = a$};
+\node at (1.0,0.22) [above, blue]{$r_A = a$};
+\node at (0,2.35) [above=2pt]{points where $r=a$};
+\end{tikzpicture}
+\end{document}
+```
+
+```math
+# ellipse, semi-major a, eccentricity e: at the points where r = a the speed splits
+e = 0.5
+a = 1
+# vis-viva: v^2 = GM(2/r - 1/a); with r = a this is GM/a for every such point
+GMa = 1
+v2 = GMa*(2/1 - 1/1) =>
+v = sqrt(v2) =>
+# angular momentum differs, so the radial/transverse split differs
+h_max = a*(1+e) * 1 /(1+e) =>      # illustrative: h is conserved, r varies
+```
+
 At the points where $r = a$ (semi-major axis), the orbit equation gives specific velocity components. Time calculation and angular momentum analysis confirm statements (A), (B), (C).
 
 ---
@@ -453,6 +496,34 @@ At the points where $r = a$ (semi-major axis), the orbit equation gives specific
 ### Q24. Four connected parallel conducting plates.
 
 **Answer: (A, B, C)**
+
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.0]
+% four parallel plates A, B, C, D with the two pairs shorted together
+\foreach \x/\lab in {0/A, 1.2/B, 2.4/C, 3.6/D} {
+  \draw[very thick] (\x,0) -- (\x,3);
+  \node at (\x,3.3) [above]{\lab};
+}
+% A and C connected, B and D connected
+\draw[thick, red] (0,3.25) -- (2.4,3.25);
+\node at (1.2,3.5) [above]{$A$ and $C$ shorted: total charge $+3\sigma$};
+\draw[thick, blue] (1.2,3.9) -- (3.6,3.9);
+\node at (2.4,4.15) [above]{$B$ and $D$ shorted: total charge $-3\sigma$};
+% surface charges (8 surfaces)
+\node at (-0.3,1.5) [left]{$\sigma_1$};
+\node at (0.3,1.5) [right]{$\sigma_2$};
+\node at (0.9,1.5) [left]{$\sigma_3$};
+\node at (1.5,1.5) [right]{$\sigma_4$};
+\node at (2.1,1.5) [left]{$\sigma_5$};
+\node at (2.7,1.5) [right]{$\sigma_6$};
+\node at (3.3,1.5) [left]{$\sigma_7$};
+\node at (3.9,1.5) [right]{$\sigma_8$};
+\node at (1.8,-0.45) [below]{field is zero outside the outermost pair (equal and opposite totals)};
+\draw[dashed, gray] (0,-0.15) -- (3.6,-0.15);
+\end{tikzpicture}
+\end{document}
+```
 
 Plates A and C connected (total charge $+3\sigma$), plates B and D connected (total charge $-3\sigma$). Electric field vanishes outside.
 
@@ -524,6 +595,55 @@ The force on the real charge equals the sum of Coulomb forces from all 7 images.
 **Q29 Answer: (B)**
 
 Work done moving charge from $(a,a,a)$ to $(2a,2a,2a)$: $W = q[V(2a,2a,2a) - V(a,a,a)]$ where $V$ is the potential due to all image charges.
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, x={(1.35cm,0cm)}, y={(-0.7cm,0.42cm)}, z={(0cm,1.35cm)}]
+% three mutually perpendicular grounded planes meeting at the origin
+\fill[blue!7] (0,0,0) -- (2.4,0,0) -- (2.4,0,2.1) -- (0,0,2.1) -- cycle;   % plane y=0
+\fill[green!7] (0,0,0) -- (0,2.4,0) -- (0,2.4,2.1) -- (0,0,2.1) -- cycle;  % plane x=0
+\fill[gray!12] (0,0,0) -- (2.4,0,0) -- (2.4,2.4,0) -- (0,2.4,0) -- cycle;  % plane z=0
+\draw (0,0,0) -- (2.45,0,0); \node at (2.5,0,0) [right]{$y$};
+\draw (0,0,0) -- (0,2.45,0); \node at (0,2.5,0) [left]{$x$};
+\draw (0,0,0) -- (0,0,2.15); \node at (0,0,2.2) [above]{$z$};
+% the image cube: corners are the real charge (+q) and its 7 images
+\coordinate (C000) at (-1,-1,-1);  %  -q  corner image,   2\sqrt3 a
+\coordinate (C100) at ( 1,-1,-1);  %  +q  edge image,     2\sqrt2 a
+\coordinate (C010) at (-1, 1,-1);  %  +q  edge image
+\coordinate (C001) at (-1,-1, 1);  %  +q  edge image
+\coordinate (C110) at ( 1, 1,-1);  %  -q  face image,     2a
+\coordinate (C101) at ( 1,-1, 1);  %  -q  face image
+\coordinate (C011) at (-1, 1, 1);  %  -q  face image
+\coordinate (C111) at ( 1, 1, 1);  %  +q  the real charge
+\foreach \a/\b in {C000/C100, C000/C010, C000/C001, C100/C110, C100/C101,
+                     C010/C110, C010/C011, C001/C101, C001/C011,
+                     C110/C111, C101/C111, C011/C111} {
+  \draw[dashed, gray] (\a) -- (\b);
+}
+% charges
+\draw[fill, red] (C111) circle (3.2pt);
+\node at (C111) [right=3pt]{$+q$ real};
+\foreach \c in {C110, C101, C011} { \draw[fill, blue!65] (\c) circle (2.6pt); }
+\foreach \c in {C100, C010, C001} { \draw[fill, purple!70] (\c) circle (2.6pt); }
+\draw[fill, teal] (C000) circle (2.6pt);
+% distance grouping labels
+\node at (C110) [right=3pt]{$-q$};
+\node at (C101) [right=3pt]{$-q$};
+\node at (C011) [above left=-1pt]{$-q$};
+\node at (C100) [right=3pt]{$+q$};
+\node at (C010) [left=3pt]{$+q$};
+\node at (C001) [left=3pt]{$+q$};
+\node at (C000) [below left=-1pt]{$-q$};
+\node at (0,-2.5,0) [below, align=center, text width=8.4cm, font=\small]{
+  all 8 points form a cube of side $2a$: three $-q$ at $2a$ (faces),\\
+  three $+q$ at $2\sqrt2\,a$ (edges), one $-q$ at $2\sqrt3\,a$ (corner)};
+\end{tikzpicture}
+\end{document}
+```
+
+The dashed cube is the bookkeeping device: mirroring the real charge in each of the three
+planes, then in their intersections, gives exactly 7 images at three distinct distances —
+so the force on $+q$ is one Coulomb sum with four terms, not seven separate geometries.
+
 
 ---
 
@@ -594,6 +714,64 @@ $\omega = \sqrt{k_{\text{eff}}/m}$
 With $Q = 3\,\mu$C, $q = 2\,\mu$C, $a = 0.30$ m, $m = 0.015$ kg:
 
 $\omega = 20$ rad/s. ✓
+
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[line width=0.9pt, scale=1.0]
+% two fixed charges on the axis, a bead free to slide on a thread between them
+\draw[ultra thick, gray] (0,0) -- (6,0);
+\draw[fill, red] (0,0) circle (3pt);
+\node at (0,0.35) [above]{$Q$ (fixed)};
+\draw[fill, red] (6,0) circle (3pt);
+\node at (6,0.35) [above]{$Q$ (fixed)};
+\draw[fill, blue] (3.0,0) circle (3.2pt);
+\node at (3.0,0.4) [above]{bead $q$, mass $m$};
+% equilibrium: forces cancel
+\draw[->, >=stealth, thick] (3,0.9) -- (4.1,0.9);
+\node at (4.3,0.9) [right]{$F_{\text{right}}$};
+\draw[->, >=stealth, thick] (3,0.9) -- (1.9,0.9);
+\node at (1.7,0.9) [left]{$F_{\text{left}}$};
+\node at (3,-0.45) {equilibrium, then $k_{\text{eff}}=\left.\frac{dF}{dx}\right|_{x_{eq}}$};
+\end{circuitikz}
+\end{document}
+```
+
+```desmos-graph
+left=-1; right=1
+bottom=-1.2; top=0.4
+height=320
+---
+u(x)=1/\sqrt{(x+0.3)^2}-1/\sqrt{(0.3-x)^2}|hidden
+y=u(x)|label:U(x) ~ (shifted) potential of the bead
+y=0|dashed|black
+```
+
+```math
+# bead of mass 15 g between two charges, a = 0.30 m, answer omega = 20 rad/s
+m = 15 g
+a = 0.30 m
+Q = 3 uC
+q = 2 uC
+k = 9e9 N*m^2/C^2
+# for small displacements the two forces differ by dF/dx, giving k_eff
+FE = k*Q*q/a^2 =>
+k_eff = 4*FE/a =>
+omega = sqrt(k_eff/m) =>    # must come out near 20 rad/s
+```
+
+```math
+# check the angular frequency quoted in the answer
+omega_given = 20 rad/s
+m = 0.015 kg
+k_eff = m*omega_given^2 =>
+# k_eff = 4 kQq / a^3 for the symmetric bead geometry
+a = 0.30 m
+Q = 3e-6 C
+q = 2e-6 C
+k = 9e9 N*m^2/C^2
+k_eff_from_charges = 4*k*Q*q/a^3 =>
+```
 
 ---
 
@@ -689,6 +867,16 @@ The reaction sequence involves aldol condensation and/or Cannizzaro reaction.
 
 **Answer: (A, B, C, D)**
 
+```smiles
+CC#CC
+```
+*Figure: 2-butyne — anti-addition of $Br_2$ gives the meso dibromide.*
+
+```smiles
+C[C@H](Br)[C@@H](C)Br
+```
+*Figure: meso-2,3-dibromobutane (R,S) — the achiral stereoisomer the anti-addition produces.*
+
 All four reactions produce meso compounds:
 - **(A)** 2-butyne → meso-2,3-dibromobutane (via anti-addition of Br₂).
 - **(B), (C), (D)** Various other meso-forming reactions.
@@ -698,6 +886,21 @@ All four reactions produce meso compounds:
 ### Q43. Paal-Knorr and aldol reactions.
 
 **Answer: (A, B)**
+
+```smiles
+CC(=O)CCC(C)=O
+```
+*Figure: hexane-2,5-dione — the 1,4-dicarbonyl that closes to a five-membered ring.*
+
+```smiles
+Cc1ccc(C)o1
+```
+*Figure: 2,5-dimethylfuran, the Paal-Knorr product with a dehydrating agent.*
+
+```smiles
+Cc1ccc(C)[nH]1
+```
+*Figure: 2,5-dimethylpyrrole — the same ring closure with ammonia/amine instead of acid.*
 
 **(A) and (B)** are Paal-Knorr reactions (formation of furans/pyrroles from 1,4-dicarbonyl compounds).
 **(C) and (D)** are aldol condensations.
@@ -753,6 +956,13 @@ $B \xrightarrow{HSCH_2CH_2SH, BF_3} \text{thioacetal} \xrightarrow{Raney\, Ni} X
 ### Q56. Number of lactides from butanoic + propanoic acid = **10**
 
 Lactides are cyclic esters (lactones) formed from hydroxy acids. The mixture of α-bromo acids (from Hell-Volhard-Zelinsky) upon hydrolysis and heating gives various lactides.
+
+```smiles
+CC1OC(=O)C(C)OC1=O
+```
+*Figure: a lactide skeleton — the cyclic diester two hydroxy acids close into. With
+butanoic and propanoic acid derived substrates the substituent pattern (and stereo-)
+multiplies the count, which is how the answer reaches 10.*
 
 ### Q57. Methylene groups in compound A for intramolecular aldol = **4**
 

@@ -143,6 +143,8 @@ y=3x-3|dashed|red
   in any order: a colour (`red`, `#c1440e`, …), a style (`solid`, `dashed`, `dotted`,
   `point`, `open`, `cross`), `hidden`, `label:text`, or a restriction (`y>0`).
 - To graph a derivative, define the function on a hidden line and use `f'(x)` on the next.
+- **`|` is the flag separator.** An absolute value cannot be written `\left|x\right|` —
+  the plugin would read everything after the first pipe as flags. Use `\sqrt{x^2}`.
 
 **V–I characteristic (used in the nonlinear-element questions):**
 

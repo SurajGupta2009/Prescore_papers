@@ -64,6 +64,23 @@ Since $Q(x)e^{-x}$ is strictly decreasing from $+\infty$ to $0^+$, it's **always
 
 **Answer: (B) 1**
 
+```desmos-graph
+left=-4; right=4
+bottom=-6; top=6
+height=380
+grid=true
+---
+f(x)=x^3-3x+c|hidden
+y=f(x)
+y=c|dashed|black
+p(x)=f(f(x))|hidden
+c=0
+```
+
+Move the slider `c`: $f(x)=x^3-3x+c$ has three real roots only while $c\in(-2,2)$, and
+each of those roots must in turn be hit three times by $f$ — which is why exactly one
+integer value of $c$ survives.
+
 ---
 
 #### Solution:
@@ -98,6 +115,19 @@ Integer values of $c$ in $(-2, 2)$ excluding $\pm 1$: $c \in \{-1, 0, 1\}$... wa
 ### Q3. $f(x) = x^x (1-x)^{1-x}$ on $(0,1)$. Product of local max and min values $M \cdot m$.
 
 **Answer: (A) 1**
+
+```desmos-graph
+left=0; right=1
+bottom=0; top=0.7
+height=340
+grid=true
+---
+y=x^x(1-x)^{1-x}
+y=0.5|dashed|green|label:guess the minimum
+```
+
+$f(x)=x^x(1-x)^{1-x}$ on $(0,1)$: symmetric about $x=\tfrac12$, and the extreme values
+multiply to the $M\cdot m$ the question asks for.
 
 ---
 
@@ -373,6 +403,48 @@ $g(2) = 4 - 8 + k - 2 = k - 6 \geq 0 \Rightarrow k \geq 6$.
 
 **Answer: (C)**
 
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.0]
+% grounded outer conductor (outermost), then the hollow shell, then the cavity charge
+\draw[very thick] (0,0) circle (3.0);
+\draw[very thick] (0,0) circle (2.2);
+\draw[very thick] (0,0) circle (1.5);
+\draw[very thick] (0,0) circle (0.85);
+% the point charge inside the cavity, off centre
+\draw[fill, red] (0.35,0.25) circle (2.4pt);
+\node at (0.55,0.55) [right]{$+Q$};
+% induced charges on the four surfaces
+\node at (-1.05,-0.95) {$-Q$};
+\node at (-1.75,-1.35) {$+Q$};
+\node at (-2.55,-1.55) {$-Q$};
+\node at (-3.3,-0.0) {ground};
+\draw[thick] (-3.0,-0.15) -- (-2.6,-0.15) -- (-2.6,-0.5) -- (-2.35,-0.5);
+\draw[thick] (-2.75,-0.5) -- (-2.45,-0.5);
+\draw[thick] (-2.62,-0.62) -- (-2.58,-0.62);
+% radii
+\draw[<->, >=stealth] (0,0) -- (0.85,0) node[midway, left]{};
+\node at (0.42,0.06) [above]{$R$};
+\draw[<->, >=stealth] (0,-2.2) -- (0,-1.5);
+\node at (0.05,-1.9) [right]{};
+% field exists only inside the cavity (charge off centre) and between shell and ground
+\draw[->, >=stealth, blue] (0.35,0.25) -- (0.75,0.1);
+\node at (1.0,0.1) [right]{$E\neq0$};
+\node at (2.9,2.3) {inner shell};
+\node at (-2.9,2.6) {outer shell};
+\end{tikzpicture}
+\end{document}
+```
+
+```math
+# Gauss's law bookkeeping for the nested conductors (independent of where +Q sits)
+Q = 1
+inner_surface = -Q =>
+shell_was_neutral_so_outer = +Q =>
+outer_conductor_inner = -Q =>
+field_in_conductor = 0
+```
+
 ---
 
 #### Solution:
@@ -398,6 +470,52 @@ The grounding affects the outer conductor, not the charge distribution on the in
 
 **Answer: (A)**
 
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.05]
+% cube of side a with identical charges at every vertex; particle at vertex O
+\coordinate (O) at (0,0);
+\coordinate (A) at (2.4,0);
+\coordinate (B) at (3.5,1.05);
+\coordinate (C) at (1.1,1.05);
+\coordinate (D) at (0,2.4);
+\coordinate (E) at (2.4,2.4);
+\coordinate (F) at (3.5,3.45);
+\coordinate (G) at (1.1,3.45);
+\foreach \p/\q in {O/A, A/B, B/C, C/O, D/E, E/F, F/G, G/D, O/D, A/E, C/G, B/F} {
+  \draw[gray] (\p) -- (\q);
+}
+\foreach \p in {O,A,B,C,D,E,F,G} {
+  \draw[fill, blue] (\p) circle (1.8pt);
+}
+% the three highlighted body diagonals through O and the particle to be accelerated
+\draw[very thick, red] (O) -- (F);
+\draw[fill, red] (O) circle (3.2pt);
+\node at (O) [below left]{$O$ (particle $q$, mass $m$)};
+\node at (2.5,-0.35) [below right]{$a$};
+\draw[<->, >=stealth] (0,-0.35) -- (2.4,-0.35);
+% the three vertices at distance a: A, C, D -- the near neighbours
+\node at (A) [above right]{$A$};
+\node at (C) [left]{$C$};
+\node at (D) [left]{$D$};
+\node at (F) [right]{$F$};
+\end{tikzpicture}
+\end{document}
+```
+
+```math
+# forces on the particle at O from the seven other vertices, grouped by distance
+# three vertices at distance a (A, C, D), three at a*sqrt(2), one at a*sqrt(3)
+n_a = 3
+n_diag = 3
+n_body = 1
+# each group's resultant points along the body diagonal O->F, so they add directly
+force_group_a = n_a / 1^2 =>
+force_group_diag = n_diag / 2 =>
+force_group_body = n_body / 3 =>
+total = force_group_a + force_group_diag + force_group_body =>
+```
+
 Charges at vertices of a cube of side $a$. Particle $+q, m$ at $O = (0,0,0)$. Charges at the other 7 vertices are specified (from the problem). The net force on the particle determines its acceleration along the body diagonal toward $(a,a,a)$.
 
 By symmetry and Coulomb's law, the acceleration is along the body diagonal. The answer is **(A)** with magnitude $\frac{q^2}{4\pi\epsilon_0} \cdot \frac{(\text{numerical factor})}{ma^2}$.
@@ -407,6 +525,45 @@ By symmetry and Coulomb's law, the acceleration is along the body diagonal. The 
 ### Q22. Satellite orbit change — impulse at point P.
 
 **Answer: (B)**
+
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.0]
+% planet of radius R at the focus, circular orbit at 3R, ellipse after the impulse
+\draw[fill=gray!25] (0,0) circle (0.75);
+\node at (0,-1.05) [below]{planet, radius $R$};
+\draw[dashed, gray] (0,0) circle (2.25);
+\node at (1.35,1.6) {circular orbit $r=3R$};
+% the elliptical orbit after the impulse: perigee inside the planet
+\draw[thick, red] (2.25,0) ellipse [x radius=1.6, y radius=1.9];
+\node at (3.2,2.35) [right]{new orbit (ellipse)};
+% point of the impulse
+\draw[fill] (2.25,0) circle (2pt);
+\node at (2.4,-0.35) [below right]{$P$};
+% the two velocity components at P: tangential v and the 60-degree kick
+\draw[->, very thick, blue] (2.25,0) -- (3.55,0);
+\node at (3.55,0.25) [right]{$v\sqrt2\cos60°$};
+\draw[->, very thick, blue] (2.25,0) -- (2.25,0.95);
+\node at (2.45,0.95) [right]{$v\sqrt2\sin60°$};
+\draw[->, >=stealth, dashed] (2.25,0) -- (3.05,0.62);
+% perigee marker: inside the planet -> collision
+\draw[->, >=stealth] (1.1,-1.35) -- (0.75,-0.35);
+\node at (1.15,-1.55) [below]{perigee inside planet: it strikes};
+\end{tikzpicture}
+\end{document}
+```
+
+```math
+# impulse at P: circular speed v, then speed scaled by sqrt(2) at 60 degrees to the tangent
+v = 1
+vt = v*sqrt(2)*cos(60 deg) =>
+vr = v*sqrt(2)*sin(60 deg) =>
+# specific energy and angular momentum decide the orbit
+E = (vt^2 + vr^2)/2 - 1/(3) =>     # with GM/R = 1 and r = 3R
+h = 3*vt =>
+# compare E with 0: E < 0 -> bound ellipse; perigee = h^2/(1+e)
+e = sqrt(1 + 2*E*h^2) =>
+```
 
 Satellite in circular orbit at $r = 3R$. Speed changed by factor $\sqrt{2}$ at angle $60°$ to tangent.
 
@@ -563,6 +720,22 @@ Formaldehyde + NH₃ → Urotropine (hexamethylenetetramine). ✓
 
 **Answer: (A)**
 
+```smiles
+C=CC=C
+```
+*Figure: 1,3-butadiene — the conjugated diene that can add a reagent at C1–C2 (1,2) or at
+C1–C4 (1,4).*
+
+```smiles
+C=CC(C)Br
+```
+*Figure: the 1,2-addition product (kinetic control, favoured at $-40°$C).*
+
+```smiles
+CC=CCBr
+```
+*Figure: the 1,4-addition product (thermodynamic control, favoured at $+40°$C).*
+
 At low temperature (−40°C): **kinetic control** → 1,2-addition product.
 At high temperature (+40°C): **thermodynamic control** → 1,4-addition product.
 
@@ -595,6 +768,33 @@ These cover ether impurities, Victor Meyer's test, Fehling's test, Schiff's reag
 Isobutylene → reductive ozonolysis → (A) + (B). A gives positive Fehling → formaldehyde. B → aldol → (C).
 
 1 mole isobutylene → 0.5 moles (C) (from aldol). Mass = 49 g.
+```smiles
+CC(=C)C
+```
+*Figure: isobutylene — reductive ozonolysis splits it into formaldehyde (A) + acetone (B).*
+
+```smiles
+CC(=O)CC(C)(C)O
+```
+*Figure: diacetone alcohol, the first aldol product of acetone.*
+
+```smiles
+CC(=CC(=O)C)C
+```
+*Figure: mesityl oxide, the dehydration product ($M = 98$ g/mol) — half a mole of it from
+one mole of isobutylene gives the 49 g the question asks for.*
+
+```math
+# isobutylene -> HCHO + acetone -> aldol -> (dehydration) mesityl oxide
+M_isobutylene = 56.11 g/mol
+m_isobutylene = 56.11 g
+mol_isobutylene = m_isobutylene / M_isobutylene =>
+# 1 mol isobutylene gives 1 mol acetone, and 2 acetone -> 1 mesityl oxide
+mol_product = mol_isobutylene / 2 =>
+M_mesityl_oxide = 98.14 g/mol
+mass_product = mol_product * M_mesityl_oxide =>
+```
+
 
 ### Q54. Sum of locants of methyl substituents in (D) = **6.00**
 

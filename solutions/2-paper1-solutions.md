@@ -245,6 +245,70 @@ Actually from the key: **Q9 Answer: (C)**
 
 **Answer: (B, C)**
 
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.0]
+% convex mirror: pole P at origin, reflecting surface bulging to the right of P
+\draw[very thick] (0,2.2) arc[start angle=110, end angle=250, x radius=0.55, y radius=2.2];
+\draw[thick] (0,0) -- (0,-0.5);
+\node at (0,-0.75) [below]{$P$};
+% principal axis
+\draw[dashed, gray] (-6.2,0) -- (2.0,0);
+% focus (virtual, behind the mirror) and centre of curvature
+\draw[fill] (1.0,0) circle (1.5pt); \node at (1.0,0) [below]{$F$};
+\draw[fill] (2.0,0) circle (1.5pt); \node at (2.0,0) [below]{$C$};
+% object at distance x from the pole
+\draw[->, thick, blue] (-4.0,0) -- (-4.0,1.6);
+\node at (-4.0,-0.35) [below]{object};
+\draw[<->, >=stealth] (-4.0,1.9) -- (0,1.9);
+\node at (-2.0,2.1) [above]{$x$ (moving in at 8 cm/s)};
+% the two rays that locate the (virtual, erect, diminished) image
+\draw[->, >=stealth, blue] (-4.0,1.6) -- (0,1.1);
+\draw[->, >=stealth, blue, dashed] (0,1.1) -- (-1.6,0.35);
+\draw[gray, dashed] (0,1.1) -- (1.6,0.5);
+\draw[->, >=stealth, blue] (-4.0,1.6) -- (0,0.55);
+\draw[gray, dashed] (0,0.55) -- (-0.7,0.18);
+\draw[->, thick, red] (-0.7,0) -- (-0.7,0.18);
+\node at (-1.15,-0.35) [below]{image};
+\node at (0.25,1.05) [right]{$M$};
+\end{tikzpicture}
+\end{document}
+```
+
+```desmos-graph
+left=0; right=80
+bottom=0; top=25
+height=330
+grid=true
+---
+y=\frac{20x}{x+20}|label:image distance v(x) (cm)
+(60,15)|label:u=60
+(20,10)|label:u=20
+```
+
+```desmos-graph
+left=0; right=80
+bottom=0; top=3
+height=300
+grid=true
+---
+y=\frac{400}{(x+20)^2}*8|label:image speed (cm/s)
+(60,0.5)|open|label:0.5 cm/s
+(20,2)|open|label:2 cm/s
+```
+
+```math
+# convex mirror, f = +20 cm, object approaching from 60 cm to 20 cm at 8 cm/s
+f = 20 cm
+x60 = 60 cm
+x20 = 20 cm
+v60 = (f*x60)/(x60+f) =>
+v20 = (f*x20)/(x20+f) =>
+image_moves = v60 - v20 =>
+speed60 = 400/(x60+20)^2*8 cm/s =>
+speed20 = 400/(x20+20)^2*8 cm/s =>
+```
+
 ---
 
 #### Solution:
@@ -301,6 +365,31 @@ $= \frac{-400 \times 8 \times 2}{(u-20)^3} \times 8 = \frac{-51200}{(-40)^3} = \
 ### Q20. Biconvex + biconcave lens combination in liquid.
 
 **Answer: (A, B, C)**
+
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=0.9]
+% biconvex lens (f1) followed by a biconcave lens (f2), both immersed, share the axis
+\draw[dashed, gray] (-6,0) -- (7,0);
+% biconvex
+\draw[thick] (0,1.8) .. controls (0.55,0.6) and (0.55,-0.6) .. (0,-1.8);
+\draw[thick] (0,1.8) .. controls (-0.55,0.6) and (-0.55,-0.6) .. (0,-1.8);
+\node at (0,-2.25) [below]{biconvex, $f_1$};
+% biconcave
+\draw[thick] (4,1.8) -- (4,0.45) .. controls (3.5,0.15) and (3.5,-0.15) .. (4,-0.45) -- (4,-1.8);
+\draw[thick] (5,1.8) -- (5,0.45) .. controls (5.5,0.15) and (5.5,-0.15) .. (5,-0.45) -- (5,-1.8);
+\draw[thick] (4,1.8) -- (5,1.8);
+\draw[thick] (4,-1.8) -- (5,-1.8);
+\node at (4.5,-2.25) [below]{biconcave, $f_2$};
+% object ray
+\draw[->, >=stealth, blue] (-4.5,1.4) -- (0,1.4);
+\draw[->, >=stealth, blue] (0,1.4) -- (4,0.55);
+\draw[->, >=stealth, blue] (4,0.55) -- (7,1.0);
+\node at (-4.7,1.4) [left]{object ray};
+\node at (6.4,1.2) [above right]{final ray};
+\end{tikzpicture}
+\end{document}
+```
 
 #### Solution:
 

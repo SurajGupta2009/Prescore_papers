@@ -225,11 +225,32 @@ $X = \text{MnO}_2$ (pyrolusite). Key reaction: $\text{MnO}_2 + 4\text{HCl} \righ
 - **Q39:** (D) — CoCl₃·6NH₃ (Q, all ionizable Cl⁻), CoCl₃·3NH₃ (P, no ionizable Cl⁻).
 - **Q40:** (D) — Complex compound identification.
 
+```smiles
+OC(=O)CN(CC(=O)O)CCN(CC(=O)O)CC(=O)O
+```
+*Figure: EDTA, the hexadentate ligand behind the chelate-effect questions —
+two amine nitrogens plus four carboxylate oxygens wrap a metal ion and close
+five-membered rings. Its preference for a 1:1 complex over 2:1 is the whole point
+of the chelate effect.*
+
 ---
 
 ### Q41. Sodium nitroprusside reactions.
 
 **Answer: (D)**
+
+```math
+# crystal-field / magnetic-moment checks that decide the coordination answers
+# spin-only moment: mu = sqrt(n(n+2)) Bohr magnetons
+n3 = 3
+mu_d3 = sqrt(n3*(n3+2)) =>
+n5 = 5
+mu_d5 = sqrt(n5*(n5+2)) =>
+# charge balance for Na2[Fe(CN)5NO]: two Na+ leave the complex at 2-
+ox = 2
+CN = 5
+NO_charge = -2 - ox + CN*1 =>
+```
 
 $X = \text{Na}_2[\text{Fe(CN)}_5\text{NO}]$ (sodium nitroprusside). Used as a test for sulfide ions:
 

@@ -234,6 +234,11 @@ def check_desmos(body: str, where: str) -> tuple[list[str], list[str]]:
         equation, flags = parts[0], parts[1:]
         if not equation:
             errors.append("empty equation in %r" % eq)
+        # '|' is the flag separator, so an absolute value must be written another way
+        if "\\left|" in equation or "\\right|" in equation or "|" in equation:
+            errors.append(
+                "'|' is the Desmos flag separator, so it cannot appear inside the "
+                "equation - write an absolute value as \\sqrt{x^2} instead (%r)" % eq)
         for f in flags:
             low = f.lower()
             if low in DESMOS_STYLES or low in DESMOS_COLOURS:

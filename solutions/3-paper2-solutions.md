@@ -196,6 +196,22 @@ tags: [solutions, jee-advanced, test-3]
 
 **Answer: (A)**
 
+```desmos-graph
+left=-6.5; right=6.5
+bottom=0; top=52
+height=330
+grid=true
+---
+y=16+9+2*4*3\cos(x)|label:I = 25 + 24cos(phi)
+y=25|dashed|green|label:I1+I2 = 25
+y=1|dashed|red|label:min = 1
+(1.5708,25)|open|label:phi = pi/2
+```
+
+$I_1=16I_0$, $I_2=9I_0$ (amplitudes 4 and 3), so
+$I=I_1+I_2+2\sqrt{I_1I_2}\cos\phi = 25I_0+24I_0\cos\phi$ — with the slab and liquid the
+working point is shifted by the extra phase $\phi_0+\delta$, not by changing the envelope.
+
 > [!abstract]- Setup
 > Slit separation $d = 0.80$ mm, screen distance $D = 2.0$ m, liquid $\mu = 5/4$, wavelength $\lambda_0 = 600$ nm.
 >
@@ -217,6 +233,47 @@ tags: [solutions, jee-advanced, test-3]
 
 **Answer: (C) 74°**
 
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.0]
+% three media: air (top), water (middle layer), glass (bottom), one flat interface each
+\fill[blue!5] (-5,0) rectangle (5,-1.6);
+\fill[blue!12] (-5,-1.6) rectangle (5,-3.2);
+\draw[thick] (-5,0) -- (5,0);
+\draw[thick] (-5,-1.6) -- (5,-1.6);
+\draw[thick] (-5,-3.2) -- (5,-3.2);
+\node at (4.2,-0.4) {water $\mu=\frac43$};
+\node at (4.2,-2.0) {glass $\mu=\frac32$};
+\node at (4.2,0.45) {air};
+% normal
+\draw[dashed, gray] (0,1.6) -- (0,-3.2);
+\node at (0.1,1.75) [above]{normal};
+% incident ray in air, refracted in water, then Brewster at the water-glass interface
+\draw[->, very thick, red] (-3.6,1.5) -- (0,0);
+\node at (-3.0,1.55) [above]{$i \approx 74°$};
+\draw[->, very thick, orange] (0,0) -- (1.35,-1.6);
+\node at (1.75,-0.8) [right]{$\theta_B = 48.4°$};
+% reflected ray at the water-glass interface (polarised, perpendicular to the page)
+\draw[->, very thick, purple] (0,-1.6) -- (1.6,-0.35);
+% the transmitted ray is fully refracted (no reflected component of the other polarisation)
+\draw[->, very thick, orange] (0,-1.6) -- (1.75,-3.2);
+% the 90-degree condition at Brewster incidence
+\draw[dashed, purple] (0,-1.6) -- (1.75,-3.2);
+\node at (0.0,-1.15) [left]{$\theta_B$};
+\node at (0.0,-2.05) [left]{$90°$};
+\end{tikzpicture}
+\end{document}
+```
+
+```math
+# Brewster at water->glass, then back out to air through Snell
+ng = 3/2
+nw = 4/3
+thetaB = atan(ng/nw) to deg =>
+sin_i = nw * sin(thetaB) =>
+i = asin(sin_i) to deg =>
+```
+
 > [!example]- Solution
 > At the water-glass interface, Brewster's angle: $\tan\theta_B = \frac{n_{\text{glass}}}{n_{\text{water}}} = \frac{3/2}{4/3} = \frac{9}{8}$.
 >
@@ -234,6 +291,34 @@ tags: [solutions, jee-advanced, test-3]
 
 **Answer: (B)**
 
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american, line width=0.8pt]
+% capacitor plates with a dielectric slab and the displacement current between them
+\draw[very thick] (0,3) -- (6,3);
+\draw[very thick] (0,0) -- (6,0);
+\fill[blue!8] (0,0.5) rectangle (6,2.5);
+\node at (3,1.5) {dielectric $\varepsilon_r$, conductivity $\sigma$};
+% conduction current in the wires
+\draw (0,3) -- (-1.4,3) -- (-1.4,1.5);
+\draw (0,0) -- (-1.4,0) -- (-1.4,1.5);
+\node at (-1.4,1.5) [left]{$i_c$};
+% displacement current density between the plates
+\draw[->, >=stealth, thick, red] (2.0,3.2) -- (2.0,2.6);
+\draw[->, >=stealth, thick, red] (3.0,3.2) -- (3.0,2.6);
+\draw[->, >=stealth, thick, red] (4.0,3.2) -- (4.0,2.6);
+\node at (4.9,2.95) [right]{$J_d$};
+% the magnetic field wraps around the axis (circles seen edge-on)
+\draw[->, >=stealth, thick, blue] (-0.7,1.5) arc[start angle=200, end angle=340, radius=0.7];
+\node at (-0.9,2.3) [left]{$\vec B$ (from $J_d$)};
+\node at (0,3.3) [above]{plate};
+\draw[<->, >=stealth] (6.4,0) -- (6.4,3);
+\node at (6.6,1.5) [right]{$d$};
+\end{circuitikz}
+\end{document}
+```
+
 > [!abstract]- Diagram
 > Circular capacitor, inner region ($r < R/2$) filled with dielectric $\epsilon_r = 4$, outer region air.
 >
@@ -246,6 +331,20 @@ tags: [solutions, jee-advanced, test-3]
 ### Q20. Standing wave energy in portion of string.
 
 **Answer: (A)**
+
+```desmos-graph
+left=0; right=1
+bottom=0; top=1.1
+height=300
+grid=true
+---
+y=\sin^2(5\pi x)|label:energy density ~ sin^2(5 pi x / L)
+y=0.5|dashed|green|label:mean
+```
+
+At $t=0$ a standing wave has all its energy in the stretched string, distributed as
+$\sin^2(5\pi x/L)$. The energy in any segment is the area under this curve, which is why
+the ratio for the quoted interval is not simply its length ratio.
 
 > [!example]- Solution
 > Fifth harmonic: $y = A\sin\frac{5\pi x}{L}\cos\omega t$.

@@ -80,6 +80,22 @@ tags: [solutions, jee-advanced, test-3]
 
 **Answer: (B) 1**
 
+```desmos-graph
+left=-1; right=2.5
+bottom=-1; top=4
+height=340
+grid=true
+---
+y=\sqrt{x^2}+\sqrt{(x-1)^2}|label:f(t) = abs(t)+abs(t-1)
+y=2x-1|dashed|red|label:slope 2 (t>1)
+y=1|dashed|green|label:slope 0 (0<t<1)
+y=-2x+1|dashed|purple|label:slope -2 (t<0)
+```
+
+The two corners at $t=0$ and $t=1$ are exactly why $g(x)=\int_0^{x^2}f(t)\,dt$ picks up
+extra non-differentiable points: the corners reach the moving upper limit when $x^2=0$ and
+$x^2=1$, and the lower limit produces its own corner at $x=0$.
+
 ---
 
 #### Approach — Fundamental Theorem + Chain Rule
@@ -143,6 +159,20 @@ From the limit evaluation: $c = 0$, $b = 2$, $a \in \mathbb{R}$.
 
 **Answer: (A, B)**
 
+```desmos-graph
+left=1.7; right=2.3
+bottom=-0.05; top=0.05
+height=340
+---
+y=(x-2)^2\cos\left(\frac{1}{x-2}\right)+(x-2)\sqrt{(x-2)^2}|label:h(x)
+y=(x-2)^2|dashed|red|label:\pm(x-2)^2 envelope
+y=-(x-2)^2|dashed|red
+```
+
+Zoomed near $x=2$: the cosine term oscillates infinitely often but is pinned inside the
+$\pm(x-2)^2$ envelope, while $(x-2)|x-2|$ is the part with a corner —
+the graph is what makes the differentiability argument visible.
+
 > [!example]- Solution
 > $f(2) = 0$. Since $|(x-2)^2\cos\frac{1}{x-2}| \leq (x-2)^2$ and $(x-2)|x-2| = O((x-2)^2)$:
 >
@@ -198,6 +228,21 @@ From the limit evaluation: $c = 0$, $b = 2$, $a \in \mathbb{R}$.
 ### Q17. Transverse wave on string — displacement and velocity.
 
 **Answer: (A)**
+
+```desmos-graph
+left=0; right=2
+bottom=-6; top=6
+height=320
+grid=true
+---
+y=3\cos(2\pi x)-4\sin(2\pi x)|label:y(x,0)
+y=5\cos(2\pi x)|dashed|red|label:A=5 envelope
+y=-5\cos(2\pi x)|dashed|red
+```
+
+At $t=0$ the two components $3\cos 2\pi x$ and $4\sin 2\pi x$ combine into a single
+sinusoid of amplitude $\sqrt{3^2+4^2}=5$ mm with $\tan\phi=-4/3$ — the phase that decides
+whether P (where $y_P=4$ mm) is moving up or down.
 
 > [!abstract]- Diagram
 > The wave $y(x,t) = 3\cos(4\pi t - 2\pi x) + 4\sin(4\pi t - 2\pi x)$ mm.
