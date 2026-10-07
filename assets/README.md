@@ -13,5 +13,5 @@ assets/
 └── diagrams/      ← optional: Excalidraw drawings, imported screenshots
 ```
 
-Embed anything here the usual way: `![[assets/diagrams/my-figure.png]]`.
+Embed anything here the usual way: `![[assets/my-figure.png]]`.
 Keep Excalidraw drawings as `.excalidraw.md` files so they stay editable.

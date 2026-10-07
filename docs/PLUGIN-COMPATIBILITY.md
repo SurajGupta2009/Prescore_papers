@@ -121,7 +121,7 @@ folder per device** — no syncing fights, no "unsupported device" prompts:
    `starred.json` and the plugin `data.json` files (already in this repo's `.gitignore`).
 
 The figures those desktop plugins draw are still worth sharing: export them to
-`assets/diagrams/` and embed the PNG/SVG, or redraw them as `tikz` / `smiles` blocks so
+`assets/` and embed a hand-made PNG, or redraw the idea as a `tikz` / `smiles` block so
 they render on both devices — see [PLUGIN-FIGURES.md](PLUGIN-FIGURES.md).
 
 ---

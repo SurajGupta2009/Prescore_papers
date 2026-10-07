@@ -67,15 +67,16 @@ ChemEdit Universal / Chem / Chemtrails draw it live — one SMILES per line, no 
 
 ````markdown
 ```desmos-graph
-y = x^3 - 3x + 1
-y = 3x - 3   @ tangent at x = 2
-x: [-4, 4]
-y: [-8, 8]
-title: Cubic and its tangent
+left=-4; right=4
+bottom=-8; top=8
+height=300
+---
+y=x^3-3x+1|label:cubic
+y=3x-3|dashed|red|label:tangent at x=2
+(2,3)|open
 ```
 ````
 
-![[assets/diagrams/plot-dbd764a532.svg]]
 
 For vectors and coordinate geometry, GeoGebra in the browser is the power tool:
 [geogebra.org/classic](https://www.geogebra.org/classic) → export PNG → embed.
