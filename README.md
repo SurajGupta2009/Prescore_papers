@@ -1,6 +1,6 @@
 # Prescore Papers — JEE Advanced Solutions Vault
 
-> **Target Rank:** Top 100 | **Format:** Obsidian Vault | **Approach:** Multi-method solutions with complete theory
+> **Target Rank:** Top 100 | **Format:** Obsidian Vault | **Approach:** Multi-method solutions with complete theory and **live plugin figures**
 
 ---
 
@@ -21,58 +21,59 @@ Each question includes:
 - **Concept explanations** (general statements for understanding)
 - **JEE tricks** (shortcuts, including out-of-syllabus ones)
 - **Complete theory** at the end of each paper
+- **Figures drawn live by plugins** — circuits, molecules, graphs (see below)
 
-## 📱 Works On Any Device (Phones Included)
+## 🧩 Figures Render Inside Obsidian
 
-This vault used to advertise chemistry/graph/circuit figures through plugins that **cannot
-run on Android or iOS** — Molren, Ketcher, Plot Vectors and Graphs and Circuit Sketcher are
-all published as desktop-only, so Obsidian refuses to enable them on a phone.
+Nothing is exported to image files. Four mobile-capable plugins render four kinds of block:
 
-That is fixed, in two ways:
-
-1. **Figures are pre-rendered into plain SVG** by [`tools/render_figures.py`](tools/render_figures.py).
-   Every client — Android, iOS, Windows, macOS, Linux — displays an SVG natively. No
-   community plugin involved, works offline, works in PDF exports and on GitHub.
-2. **The plugin list only contains mobile-capable plugins**, with correct IDs
-   (e.g. `numerals`, not `obsidian-numerals`).
-
-| Write this | Get this | Replaces (desktop-only) |
+| Block | Plugin (install ID) | Draws |
 |---|---|---|
-| ```` ```smiles ```` | RDKit molecule drawing | Molren, Ketcher, chemfig |
-| ```` ```plot ```` | matplotlib function graph | Plot Vectors and Graphs, Desmos (static) |
-| ```` ```circuit ```` | schemdraw circuit / vector diagram | Circuit Sketcher, circuitikz |
+| ```` ```tikz ```` | TikZJax (`obsidian-tikzjax`) | circuits (circuitikz), molecules (chemfig), plots (pgfplots), geometry |
+| ```` ```desmos-graph ```` | Desmos (`obsidian-desmos`) | function graphs, V–I curves, SHM, tangents |
+| ```` ```smiles ```` | ChemEdit Universal (`chemedit-universal`), or Chem (`chem`), or Chemtrails (`chemtrails`) | structures from SMILES |
+| ```` ```math ```` | Numerals (`numerals`) | unit-aware calculations that check the arithmetic |
 
-- **Why the plugins fail:** [docs/PLUGIN-COMPATIBILITY.md](docs/PLUGIN-COMPATIBILITY.md)
-- **What to use instead:** [docs/DIAGRAMS-WITHOUT-PLUGINS.md](docs/DIAGRAMS-WITHOUT-PLUGINS.md)
-- **See it rendered now:** [examples/figures-demo.md](examples/figures-demo.md)
-- **Plugin list with a mobile column:** [docs/RECOMMENDED-PLUGINS.md](docs/RECOMMENDED-PLUGINS.md)
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american]
+  \draw (0,0) to[battery1, l=$V$] (0,2.5) to[R, l=$R$] (3,2.5) to[C, l=$C$] (3,0) -- (0,0);
+\end{circuitikz}
+\end{document}
+```
 
-## 🔌 Obsidian Vault
+```smiles
+CC(=O)Oc1ccccc1C(=O)O
+```
 
-This repository is an **Obsidian vault**. Open the folder in Obsidian to get:
+```desmos-graph
+left=-4; right=4
+bottom=-8; top=8
+height=300
+---
+y=x^3-3x+1
+y=3x-3|dashed|red
+```
 
-- ✏️ **Excalidraw** — freehand diagrams (mobile ✅)
-- 📈 **Dataview** — progress dashboards
-- 🧪 **Molecules & graphs** — via committed SVG, no plugin needed
-- ⚡ **Circuits** — schematic SVG, or TikZJax for light cases (mobile ✅)
-- 📝 **LaTeX Suite** — fast math typing
-
-See [docs/RECOMMENDED-PLUGINS.md](docs/RECOMMENDED-PLUGINS.md) — every plugin row states
-whether it actually runs on a phone.
+> **Before you open a solution file:** install the four plugins above. Until then Obsidian
+> shows the raw code instead of the picture. Full syntax reference:
+> **[docs/PLUGIN-FIGURES.md](docs/PLUGIN-FIGURES.md)** · install table:
+> **[docs/RECOMMENDED-PLUGINS.md](docs/RECOMMENDED-PLUGINS.md)**
 
 ## 📁 Directory Structure
 
 ```
-├── solutions/          ← Solved papers (Markdown)
-├── examples/           ← figures-demo.md: the figure pipeline, rendered
-├── templates/          ← Templater templates for new solutions
-├── docs/               ← Guides and documentation
+├── solutions/          ← Solved papers (Markdown + live plugin figures)
+├── docs/               ← Guides
 │   ├── VAULT-GUIDE.md
-│   ├── PLUGIN-COMPATIBILITY.md      ← why desktop-only plugins fail
-│   ├── DIAGRAMS-WITHOUT-PLUGINS.md  ← the alternatives playbook
-│   └── RECOMMENDED-PLUGINS.md
-├── tools/              ← render_figures.py (fences → SVG)
-├── assets/diagrams/    ← generated + hand-made figures (committed)
+│   ├── PLUGIN-FIGURES.md            ← tikz / desmos / smiles / math syntax
+│   ├── PLUGIN-COMPATIBILITY.md      ← which plugins work on phones, with evidence
+│   ├── RECOMMENDED-PLUGINS.md       ← install table (ID + mobile support)
+│   └── SOLUTION-TEMPLATE.md
+├── templates/          ← Templater template for new solutions
+├── tools/              ← check_figures.py, check_plugin_ids.py
+├── assets/             ← hand-made exports (Excalidraw, screenshots)
 ├── *.pdf               ← Original question papers
 └── .obsidian/          ← Vault configuration (mobile-safe plugin list)
 ```
@@ -81,19 +82,16 @@ whether it actually runs on a phone.
 
 1. **Clone** this repository
 2. **Open** the folder in Obsidian (File → Open Vault → Open folder as vault)
-3. Install plugins from [docs/RECOMMENDED-PLUGINS.md](docs/RECOMMENDED-PLUGINS.md) —
-   on a phone the list is already trimmed to what works
+3. **Install the four figure plugins** (list above) — one-time, 5 minutes
 4. **Navigate** using the graph view or the index in [docs/VAULT-GUIDE.md](docs/VAULT-GUIDE.md)
 
-## 🔧 Rebuilding figures
+## 🔧 Checks
 
 ```bash
-pip install -r tools/requirements.txt
-python3 tools/render_figures.py     # fences → SVG (rewrites the notes in place)
-make check                          # fail if a committed figure is stale
+python3 tools/check_figures.py     # every tikz/desmos/smiles/math block parses
+python3 tools/check_plugin_ids.py  # every plugin ID exists and is mobile-capable
+make check                         # both, as CI runs them
 ```
-
-Figures can also be rendered by CI: **Actions → Render vault figures → Run workflow**.
 
 ---
 

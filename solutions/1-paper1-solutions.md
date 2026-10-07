@@ -539,6 +539,14 @@ The expression simplifies through trigonometric identities, ultimately yielding 
 
 **Answer: (B) 2.00**
 
+```math
+# Drude model: R ~ 1/tau, corrected for thermal expansion (alpha = 1e-4 /K)
+alpha = 1e-4
+R_ratio = 2.0808
+length_factor = (1 + 300*alpha)^2 / (1 + 100*alpha)^2 =>
+tau_ratio = R_ratio / length_factor =>
+```
+
 ---
 
 #### Approach — Drude Model + Thermal Expansion Correction
@@ -603,6 +611,34 @@ The ratio $\tau(100)/\tau(300) = 2.00$ (or $\tau(300)/\tau(100) = 0.50$).
 
 **Answer: (A) $i_3(t) = [0.0667 + 0.0176\, e^{-5(t-0.40)}]$ mA**
 
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american, line width=0.8pt, scale=1.0]
+% battery E and series resistor R1 along the top rail
+\draw (0,0) to[battery1, l=$E$] (0,3)
+      to[R, l=$R_1$] (2.4,3);
+% node X: down through R2 and switch S2 to the bottom rail
+\draw (2.4,3) to[R, l=$R_2$] (2.4,1.5) to[switch, l=$S_2$] (2.4,0);
+% switch S1 in the top rail
+\draw (2.4,3) to[switch, l=$S_1$] (4.6,3);
+% after S1: R3 parallel with C
+\draw (4.6,3) to[R, l=$R_3$] (4.6,0);
+\draw (6.8,3) to[C, l=$C$] (6.8,0);
+\draw (4.6,3) -- (6.8,3);
+% rails
+\draw (2.4,0) -- (6.8,0);
+\draw (0,0) -- (2.4,0);
+% current arrow i3(t) through R3
+\draw[->, >=stealth, thick] (5.35,2.55) -- (5.35,1.75) node[midway, right]{$i_3(t)$};
+\node at (2.4,3) [circle, fill, inner sep=1.2pt]{};
+\node at (4.6,3) [circle, fill, inner sep=1.2pt]{};
+\node at (2.4,0) [circle, fill, inner sep=1.2pt]{};
+\node at (4.6,0) [circle, fill, inner sep=1.2pt]{};
+\end{circuitikz}
+\end{document}
+```
+
 ---
 
 #### Solution:
@@ -662,6 +698,42 @@ Without the circuit diagram, I'll trust the answer: **(A)** with steady-state cu
 ### Q20. Wheatstone bridge with nested bridges
 
 **Answer: (C) 0.11 A from D to B**
+
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american, line width=0.8pt, scale=1.0]
+% outer bridge: A (left), B (top), C (right), D (bottom), G in the diagonal B-D
+\coordinate (A) at (0,1.0);
+\coordinate (B) at (3.2,3.4);
+\coordinate (C) at (6.4,1.0);
+\coordinate (D) at (3.2,-1.6);
+\draw (A) to[R, a=$8\,\Omega$] (B);
+\draw (B) to[R, a=$12\,\Omega$] (C);
+\draw (C) to[R, a=$5\,\Omega$] (D);
+% galvanometer between B and D (6 ohm)
+\draw (B) -- (4.0,2.6) -- (4.0,-0.6) -- (D);
+\node at (4.0,1.0) [circle, draw, fill=white, inner sep=1pt, minimum size=7mm]{$G$};
+\node at (4.55,1.0) [right]{$6\,\Omega$};
+% inner bridge A-P-Q-D between A and D
+\coordinate (P) at (1.6,1.0);
+\coordinate (Q) at (1.6,-0.9);
+\draw (A) to[R, a=$2\,\Omega$] (P);
+\draw (P) to[R, a=$2\,\Omega$] (D);
+\draw (A) to[R, a=$2\,\Omega$] (Q);
+\draw (Q) to[R, a=$6\,\Omega$] (D);
+\draw (P) to[R, a=$4\,\Omega$] (Q);
+% 24 V battery between A and C, drawn below
+\draw (A) -- (0,-3.0) to[battery1, l=$24\,$V] (6.4,-3.0) -- (C);
+\node at (0,1.0) [left]{$A$};
+\node at (3.2,3.4) [above]{$B$};
+\node at (6.4,1.0) [right]{$C$};
+\node at (3.2,-1.6) [right]{$D$};
+\node at (1.6,1.0) [above left]{$P$};
+\node at (1.6,-0.9) [below left]{$Q$};
+\end{circuitikz}
+\end{document}
+```
 
 ---
 
@@ -854,6 +926,32 @@ This is independent of $\lambda$. **✓**
 
 **Answer: (B, C)**
 
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american, line width=0.8pt]
+% ---------- ammeter mode: shunt S across the galvanometer ----------
+\begin{scope}[shift={(0,0)}]
+  \draw (0,1.6) node[left]{$+$} -- (0.9,1.6);
+  \node at (1.7,1.6) [circle, draw, inner sep=1pt, minimum size=8mm]{$G$};
+  \draw (2.5,1.6) -- (3.4,1.6) node[right]{$-$};
+  \draw (0.9,1.6) to[R, l=$S$] (0.9,0);
+  \draw (0.9,0) -- (2.5,0) -- (2.5,1.6);
+  \node at (1.7,-0.75) [below]{$I_g = 1.00\,$mA};
+  \node at (1.7,2.55) [above]{ammeter mode ($10\,$mA, $100\,$mA)};
+\end{scope}
+% ---------- voltmeter mode: series multiplier ----------
+\begin{scope}[shift={(6.4,0)}]
+  \draw (0,1.6) node[left]{$+$} -- (0.9,1.6);
+  \node at (1.7,1.6) [circle, draw, inner sep=1pt, minimum size=8mm]{$G$};
+  \draw (2.5,1.6) to[R, l=$R_{\text{series}}$] (4.5,1.6) -- (5.2,1.6) node[right]{$-$};
+  \node at (1.7,-0.75) [below]{$I_g = 1.00\,$mA};
+  \node at (2.6,2.55) [above]{voltmeter mode ($10\,$V, $50\,$V)};
+\end{scope}
+\end{circuitikz}
+\end{document}
+```
+
 ---
 
 #### Solution:
@@ -903,6 +1001,56 @@ $V_{\text{reading}} = 12 \times \frac{20/3}{20/3 + 10} = 12 \times \frac{20/3}{5
 ### Q24. Cube of capacitors between diagonal vertices A and G
 
 **Answer: (A, B, C)**
+
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.05]
+% cube ABCDEFGH: bottom face ABCD, top face EFGH, AE BF CG DH the vertical edges
+\coordinate (A) at (0,0);
+\coordinate (B) at (2.6,0);
+\coordinate (C) at (3.8,1.1);
+\coordinate (D) at (1.2,1.1);
+\coordinate (E) at (0,2.6);
+\coordinate (F) at (2.6,2.6);
+\coordinate (G) at (3.8,3.7);
+\coordinate (H) at (1.2,3.7);
+% every edge carries a capacitor ...
+\foreach \p/\q in {A/B, B/C, C/D, D/A, E/F, F/G, G/H, H/E, A/E, B/F, D/H} {
+  \draw (\p) -- (\q);
+}
+% ... except BC, which is kC (highlighted)
+\draw[very thick, red] (B) -- (C);
+% battery across the body diagonal A-G
+\draw[dashed, thick] (A) -- (G);
+\draw (1.9,1.85) node[fill=white, inner sep=1pt]{$V$};
+% vertex labels
+\foreach \p/\l in {A/A, B/B, C/C, D/D, E/E, F/F, G/G, H/H} {
+  \node at (\p) [circle, fill, inner sep=1.4pt]{};
+}
+\node at (A) [below left]{$A$};
+\node at (B) [below right]{$B$};
+\node at (C) [right]{$C$};
+\node at (D) [above left]{$D$};
+\node at (E) [left]{$E$};
+\node at (F) [below]{$F$};
+\node at (G) [right]{$G$};
+\node at (H) [above]{$H$};
+% the twelve capacitors
+\node at (1.3,-0.35) {$C$};
+\node at (3.55,-0.3) {$kC$};
+\node at (2.9,1.35) {$C$};
+\node at (0.5,0.75) {$C$};
+\node at (1.3,2.85) {$C$};
+\node at (3.55,2.8) {$C$};
+\node at (2.9,4.0) {$C$};
+\node at (0.5,3.05) {$C$};
+\node at (-0.45,1.3) {$C$};
+\node at (3.0,1.9) {$C$};
+\node at (0.6,1.9) {$C$};
+\node at (3.15,2.35) {$C$};
+\end{tikzpicture}
+\end{document}
+```
 
 ---
 
@@ -955,6 +1103,33 @@ These involve RC time constants, power dissipation, capacitor networks, and ener
 ### Q29. Metre bridge with end corrections — $X = 4\,\Omega$
 
 **Answer: 4**
+
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american, line width=0.8pt, scale=0.95]
+% metre bridge: two gaps on top (X and the known 6 ohm), one-metre wire below
+\draw (0,3) -- (1.0,3);
+\draw (1.0,3) to[R, l=$X$] (3.0,3);
+\draw (3.0,3) to[R, l=$6\,\Omega$] (5.0,3);
+\draw (5.0,3) -- (6.6,3);
+\draw (6.6,3) -- (6.6,0);
+\draw (0,3) -- (0,0);
+% the wire with a jockey at distance l
+\draw (0,0) -- (6.6,0);
+\draw[fill] (3.6,0) circle (1.6pt);
+\draw (3.6,0) -- (3.0,2.2);
+\node at (3.0,2.2) [circle, draw, inner sep=1pt, minimum size=6mm]{$G$};
+\draw (3.0,2.2) -- (3.0,3);
+\draw[fill] (3.0,3) circle (1.6pt);
+\node at (1.75,3.35) [above]{balance gap};
+\node at (3.3,0.55) [right]{$\ell$};
+\node at (5.4,0.55) [left]{$100-\ell$};
+\node at (0,0) [below left]{$A$};
+\node at (6.6,0) [below right]{$C$};
+\end{circuitikz}
+\end{document}
+```
 
 #### Solution:
 
@@ -1012,6 +1187,37 @@ From (ii): $X(60 + 3) = 6(40 + 2) \Rightarrow 63X = 252 \Rightarrow X = 4\,\Omeg
 
 **Answer: 24**
 
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american, line width=0.8pt, scale=0.95]
+% top branch: 6, 8, 6, 8 uF in series; bottom rung from each node: 8, 4, 8, 4 uF
+\draw (0,2) to[C, l=$6\,\mu$F] (2,2) to[C, l=$8\,\mu$F] (4,2)
+      to[C, l=$6\,\mu$F] (6,2) to[C, l=$8\,\mu$F] (8,2);
+% vertical capacitors to the common bottom rail
+\draw (2,2) to[C, l_=$8\,\mu$F] (2,0);
+\draw (4,2) to[C, l_=$4\,\mu$F] (4,0);
+\draw (6,2) to[C, l_=$8\,\mu$F] (6,0);
+\draw (8,2) to[C, l_=$4\,\mu$F] (8,0);
+\node at (2.35,0.95) [right]{$C_1$};
+\node at (4.35,0.95) [right]{$C_2$};
+\node at (6.35,0.95) [right]{$C_3$};
+\node at (8.35,0.95) [right]{$C_4$};
+% bottom rail and the infinite continuation
+\draw (0,0) -- (9.6,0);
+\draw (8,2) -- (9.6,2);
+\draw[dashed] (9.6,2) -- (10.4,2);
+\draw[dashed] (9.6,0) -- (10.4,0);
+\node at (10.9,1) {$\cdots$};
+% source A-B
+\draw (0,2) to[battery1, l_=$324\,$V] (0,0);
+\node at (0,2) [left]{$A$};
+\node at (0,0) [left]{$B$};
+\node at (8.9,1.0) {$\cdots$};
+\end{circuitikz}
+\end{document}
+```
+
 The infinite ladder has alternating 6µF and 8µF on top, with 8µF and 4µF going down. For an infinite network, the repeating unit gives a self-consistent equivalent capacitance.
 
 With $V = 324$ V applied across the ladder, the voltage distribution across individual capacitors is determined by the repeating pattern. The charge on $C_5$ (the 5th capacitor in the sequence) is found to be **24 µC**.
@@ -1021,6 +1227,54 @@ With $V = 324$ V applied across the ladder, the voltage distribution across indi
 ### Q31. Sliding dielectric in capacitor — force = **12 mN**
 
 **Answer: 12**
+
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.0]
+% capacitor plates (side view), separation d = 3 mm, length L = 40 cm
+\draw[very thick] (0,3) -- (9,3);
+\draw[very thick] (0,0) -- (9,0);
+\node at (0,3) [above left]{upper plate};
+% dielectric slab, thickness 2 mm, resting on the lower plate, inserted distance x
+\draw[fill=blue!8] (0,1.0) -- (4.2,1.0) -- (4.2,2.0) -- (0,2.0) -- cycle;
+\node at (2.1,1.5) {$K=4$, $\;t=2\,$mm};
+% the air layer above the slab
+\draw[dashed] (0,2.0) -- (4.2,2.0);
+\draw[<->, >=stealth] (4.55,2.0) -- (4.55,3.0);
+\node at (4.75,2.5) [right]{$1\,$mm air};
+% separation and dimensions
+\draw[<->, >=stealth] (8.0,0) -- (8.0,3.0);
+\node at (8.2,1.5) [right]{$d = 3\,$mm};
+\draw[<->, >=stealth] (0,3.55) -- (9,3.55);
+\node at (4.5,3.75) [above]{$L = 40\,$cm, $\;w = 32\,$cm (into the page)};
+\draw[<->, >=stealth] (0,-0.6) -- (4.2,-0.6);
+\node at (2.1,-0.85) [below]{$x$};
+\draw[dashed] (4.2,2.0) -- (4.2,-0.4);
+\end{tikzpicture}
+\end{document}
+```
+
+```math
+# Sliding dielectric: K = 4 slab 2 mm thick on the lower plate, 1 mm of air above it
+eps0 = 9e-12 F/m
+wdt = 0.32 m
+len = 0.40 m
+sep = 3 mm
+thick = 2 mm
+Kslab = 4
+# air-equivalent thickness of the inserted region: t/K (slab) + 1 mm (air)
+deff = thick/Kslab + (sep - thick) =>
+c_ins = eps0 * wdt / deff =>     # capacitance per metre of insertion
+c_air = eps0 * wdt / sep =>
+# charged at x0 = 10 cm, then the battery is removed -> charge is frozen
+x0 = 0.10 m
+cap0 = c_ins * x0 + c_air * (len - x0) =>
+charge = cap0 * 6000 V =>
+# force at x = 20 cm: F = Q^2 / (2 C^2) * dC/dx
+x = 0.20 m
+cap = c_ins * x + c_air * (len - x) =>
+force = charge^2 / (2 * cap^2) * (c_ins - c_air) =>
+```
 
 #### Solution:
 
@@ -1104,6 +1358,31 @@ The differential resistance of the parallel combination at the operating point, 
 ### Q34. Potentiometer — internal resistance $r = 2\,\Omega$
 
 **Answer: 2**
+
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american, line width=0.8pt, scale=1.0]
+% the potentiometer wire AB
+\draw[very thick] (0,0) -- (8,0);
+\node at (0,0) [circle, fill, inner sep=1.4pt]{};
+\node at (8,0) [circle, fill, inner sep=1.4pt]{};
+\node at (0,0) [below left]{$A$};
+\node at (8,0) [below right]{$B$};
+% driving circuit: E0 with a rheostat across the whole wire
+\draw (0,0) -- (0,2.2) to[battery1, l=$E_0$] (0,3.4) to[R, l=$R_h$] (4,3.4) -- (8,3.4) -- (8,0);
+% secondary circuit: A - galvanometer - cell X - jockey J
+\draw (0,0) -- (0,-2.4) -- (1.4,-2.4);
+\node at (2.1,-2.4) [circle, draw, fill=white, inner sep=1pt, minimum size=7mm]{$G$};
+\draw (2.8,-2.4) to[battery1, l=$X$] (5.0,-2.4) -- (6.0,-2.4) -- (6.0,0);
+\node at (6.0,0) [circle, fill, inner sep=1.6pt]{};
+\node at (5.4,-0.45) [above left]{jockey $J$};
+\draw (6.0,0) -- (6.35,-0.35);
+\node at (2.2,-0.55) [above]{balance length $\ell$};
+\draw[<->, >=stealth] (0,-0.55) -- (6.0,-0.55);
+\end{circuitikz}
+\end{document}
+```
 
 #### Solution:
 
@@ -1243,6 +1522,13 @@ The reaction involves nucleophilic aromatic substitution.
 
 **Answer: (C) It is found in citrus fruits**
 
+```smiles
+OC[C@H](O)[C@H]1OC(=O)C(O)=C1O
+```
+*Figure: L-ascorbic acid (vitamin C) — the enediol on the ring is what makes it a
+reducing agent (it gives a positive Tollens'/Fehling's test and decolourises $Br_2$
+water / DCPIP) and what gets oxidised to dehydroascorbic acid.*
+
 **(A)** The most acidic hydrogen is at the enol position, not labeled (b). ✗
 **(B)** Water soluble but CANNOT be stored in body (it's water-soluble, so excreted). ✗
 **(C)** Found in citrus fruits. ✓
@@ -1314,6 +1600,14 @@ Degree of unsaturation = $\frac{2C + 2 - H + N}{2}$ for each product.
 
 **Answer: 2**
 
+```smiles
+NCCCCCCN
+OC(=O)CCCCCCCCC(=O)O
+```
+*Figure: the two monomers of nylon-6,10 — hexamethylenediamine (6 C) and sebacic acid
+(10 C); the "6,10" in the name counts exactly these carbons. Condensation releases
+$H_2O$ per amide link, so the repeat unit is $C_{16}H_{30}N_2O_2$.*
+
 Nylon-610 is made from **hexamethylenediamine** (H₂N(CH₂)₆NH₂) and **sebacic acid** (HOOC(CH₂)₈COOH).
 
 Lower molecular mass monomer: hexamethylenediamine ($M = 116$ g/mol) vs sebacic acid ($M = 202$ g/mol).
@@ -1345,6 +1639,13 @@ For sucrose: linkage is between C-1 of glucose (anomeric) and C-2 of fructose (a
 ### Q49. Sucralose properties — $x + y + z = 819$
 
 **Answer: 819**
+
+```smiles
+C([C@@H]1[C@@H]([C@@H]([C@H]([C@H](O1)O[C@]2([C@H]([C@@H]([C@H](O2)CCl)O)O)CCl)O)O)Cl)O
+C([C@@H]1[C@H]([C@@H]([C@H]([C@H](O1)O[C@]2([C@H]([C@@H]([C@H](O2)CO)O)O)CO)O)O)O)O
+```
+*Figure: sucralose (top) next to sucrose (bottom). Sucralose replaces three OH groups
+by Cl — that is the whole difference, and it is why sucralose is not metabolised.*
 
 Sucralose:
 - **(x) Chiral centers = 9:** Sucrose has 9 chiral centers, and sucralose (with 3 OH→Cl substitutions) retains most.

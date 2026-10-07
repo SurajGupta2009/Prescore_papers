@@ -14,19 +14,16 @@ tags: [solutions, jee-advanced, test-<% test %>]
 # <% test %>-PAPER <% paper %> — COMPLETE SOLUTIONS (JEE Advanced Level)
 
 <!--
-FIGURES — no desktop-only plugin needed
-Leave a fence unquoted (not inside a callout) and the build draws it into a committed SVG
-that renders on every device, Obsidian Mobile included:
+FIGURES - all rendered live by plugins, no exported images.
 
-    ```smiles      molecule          e.g.  CC(=O)O Aspirin
-    ```plot        function graph    e.g.  y = x^3 - 3x + 1
-    ```circuit     circuit / vectors e.g.  d += elm.Resistor().right()
+    ```tikz           circuits (circuitikz), molecules (chemfig), plots, geometry
+    ```desmos-graph    function graphs (settings, ---, then equations)
+    ```smiles          one SMILES per line (ChemEdit Universal / Chem / Chemtrails)
+    ```math            unit-aware calculation checks (Numerals)
 
-then run:  python3 tools/render_figures.py      (or: make figures)
-
-Live examples: examples/figures-demo.md  |  Why plugins fail on phones: docs/PLUGIN-COMPATIBILITY.md
+Validate before committing:  python3 tools/check_figures.py
+Syntax reference: docs/PLUGIN-FIGURES.md
 -->
-
 > [!info] Paper Details
 > **Target:** Top 100 Rank Improvement
 > **Date:** <% date %>
@@ -75,11 +72,13 @@ Live examples: examples/figures-demo.md  |  Why plugins fail on phones: docs/PLU
 #### Solution
 
 > [!abstract]- Diagram
-> ```circuit
-> d += elm.SourceV().up().label('12 V')
-> d += elm.Resistor().right().label('R = 4 Ω')
-> d += elm.Line().down()
-> d += elm.Line().left()
+> ```tikz
+> \usepackage{circuitikz}
+> \begin{document}
+> \begin{circuitikz}[american]
+>   \draw (0,0) to[battery1, l=$V$] (0,2.5) to[R, l=$R$] (3,2.5) to[C, l=$C$] (3,0) -- (0,0);
+> \end{circuitikz}
+> \end{document}
 > ```
 
 > [!example]- Step-by-Step

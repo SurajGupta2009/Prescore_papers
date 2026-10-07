@@ -1,0 +1,28 @@
+name: Vault checks
+
+# The vault is Obsidian-only: figures are rendered live by plugins, so a malformed
+# fence means an empty box on the reader's device. These checks catch that before
+# it reaches a phone - and verify that every plugin the vault relies on exists and
+# is mobile-capable.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate figure blocks (tikz / desmos / smiles / math)
+        run: python3 tools/check_figures.py
+
+      - name: Audit plugin IDs and mobile support
+        run: python3 tools/check_plugin_ids.py

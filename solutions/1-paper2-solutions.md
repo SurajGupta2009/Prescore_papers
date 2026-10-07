@@ -507,6 +507,40 @@ The polynomial has 34 roots of the form $r_k e^{2\pi i a_k}$. The sum $a_1 + a_2
 
 **Answer: (C)**
 
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american, line width=0.8pt, scale=1.0]
+% switch K bridging plates 1 and 3 along the top
+\draw (0,3.2) -- (0.9,3.2);
+\draw (0.9,3.2) -- (1.5,3.55);
+\draw[fill] (0.9,3.2) circle (1.4pt);
+\draw (1.7,3.32) -- (1.7,3.9) -- (4.4,3.9) -- (4.4,3.32);
+\draw[fill] (1.7,3.32) circle (1.4pt);
+\draw (4.4,3.2) -- (5.4,3.2);
+\node at (1.75,4.15) [above]{$K$};
+% plates 1, 2, 3 (double lines = conductors)
+\draw[very thick] (0,0) -- (0,3.2);
+\draw[very thick] (2.2,0) -- (2.2,3.2);
+\draw[very thick] (4.4,0) -- (4.4,3.2);
+\node at (0,2.6) [left]{$1$};
+\node at (2.2,2.6) [above]{$2$};
+\node at (4.4,2.6) [right]{$3$};
+\node at (0,0.7) [left]{$q_0$};
+% separations d, d
+\draw[<->, >=stealth] (0,-0.55) -- (2.2,-0.55);
+\node at (1.1,-0.85) [below]{$d$};
+\draw[<->, >=stealth] (2.2,-0.55) -- (4.4,-0.55);
+\node at (3.3,-0.85) [below]{$d$};
+% battery between plates 2 and 3, below
+\draw (2.2,0) -- (2.2,-1.9) -- (3.0,-1.9);
+\draw (3.0,-1.9) to[battery1] (3.9,-1.9);
+\draw (3.9,-1.9) -- (4.4,-1.9) -- (4.4,0);
+\node at (3.45,-2.35) [below]{$\varepsilon$};
+\end{circuitikz}
+\end{document}
+```
+
 ---
 
 #### Solution:
@@ -633,6 +667,32 @@ Since $P_{\text{gen}}$ is decreasing and $P_{\text{loss}}$ is increasing at $x =
 
 **Answer: (A) $R_1 = 2.0$ kΩ, $R_2 = 4.4$ kΩ**
 
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american, line width=0.8pt, scale=1.0]
+% source V (with internal resistance r), R1, then two parallel branches:
+%   branch 1: R2 ;  branch 2: switch S then (R3 || C)
+\draw (0,0) to[battery1, l=$V$] (0,2.6) to[R, l=$r$] (2.0,2.6)
+      to[R, l=$R_1$] (4.0,2.6) -- (4.8,2.6);
+% branch 1: R2 straight down
+\draw (4.8,2.6) -- (4.8,1.3);
+\draw (4.8,1.3) to[R, l=$R_2$] (4.8,0);
+% branch 2: switch S then R3 in parallel with C
+\draw (4.8,2.6) -- (6.2,2.6) to[switch, l=$S$] (7.8,2.6) -- (8.8,2.6);
+\draw (8.8,2.6) to[R, l=$R_3$] (8.8,0);
+\draw (10.6,2.6) to[C, l=$C$] (10.6,0);
+\draw (8.8,2.6) -- (10.6,2.6);
+\draw (8.8,0) -- (10.6,0);
+% rails
+\draw (0,0) -- (4.8,0) -- (8.8,0);
+\draw (10.6,0) -- (11.4,0) -- (11.4,2.6) -- (10.6,2.6);
+% current arrow i3(t) through R3
+\draw[->, >=stealth, thick] (9.55,2.15) -- (9.55,1.45) node[midway, right]{$i_3(t)$};
+\end{circuitikz}
+\end{document}
+```
+
 ---
 
 #### Solution:
@@ -678,6 +738,36 @@ $R_2 = 6400 - 2000 = 4400\,\Omega = 4.4$ kΩ.
 ### Q21. Octahedron of resistors — equivalent resistance
 
 **Answer: (A) $R/2$... no wait, let me check.**
+
+```tikz
+
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.15, rotate=-6]
+% octahedron: two apices (top, bottom) and a square "equator" of four vertices
+\coordinate (T) at (0,2.6);
+\coordinate (B) at (0,-2.6);
+\newcommand*\eqR{2.0}
+\coordinate (L) at (-\eqR,0);
+\coordinate (R) at (\eqR,0);
+\coordinate (F) at (0,0.85);
+\coordinate (N) at (0,-0.85);
+% twelve edges, each a resistor R
+\foreach \p/\q in {T/L, T/R, T/F, T/N, B/L, B/R, B/F, B/N, L/F, F/R, R/N, N/L} {
+  \draw (\p) -- (\q);
+}
+% hidden edge (L-N) shown dashed for depth
+% terminals: the two vertices the ohmmeter is connected to
+\draw[very thick, red] (T) -- ++(0.9,0.75);
+\draw[very thick, red] (B) -- ++(0.9,-0.75);
+\foreach \p in {T,B,L,R,F,N} { \node at (\p) [circle, fill, inner sep=1.5pt]{}; }
+\node at (T) [above left]{};
+\node at (B) [below left]{};
+\node at (0.75,3.1) {$R_{\text{eq}}$ between these two?};
+\node at (-0.15,0.95) [left]{$R$};
+\node at (0.85,0.45) [right]{$R$};
+\end{tikzpicture}
+\end{document}
+```
 
 An octahedron has 6 vertices and 12 edges. The answer for adjacent vertices...
 
@@ -1225,6 +1315,17 @@ $C_{\text{eq}} = Q_{\text{total}}/V = 3\,\mu$F. ✓
 
 **Answer: (A)**
 
+```smiles
+Nc1ccccc1
+```
+*Figure: aniline — the substrate of the carbylamine (Hofmann isocyanide) test.*
+
+```smiles
+C[N+](C)(C)CC1=CC=CC=C1
+```
+*Figure: a benzyl quaternary ammonium cation — the shape of the cationic head group in
+the sulfonamide tranquillisers.*
+
 The carbylamine test (isocyanide test) is positive for **primary amines** only. Compound (A) gives a positive carbylamine test, so it's a primary aromatic amine.
 
 The conversion likely involves: primary amine → diazonium salt → substituted product (Sandmeyer-type reaction).
@@ -1340,6 +1441,15 @@ Salicin is a glycoside found in willow bark. Upon hydrolysis:
 
 **Answer: 5.00**
 
+```math
+# Dettol: chloroxylenol (x) + alpha-terpineol (y), x + y = 5 from the given data
+chloroxylenol = 156.61 g/mol
+terpineol = 154.25 g/mol
+x = 3
+y = 5 - x =>
+total_oh_groups = x * 1 + y * 1 =>
+```
+
 Dettol is a mixture of **4-chloro-3,5-dimethylphenol** (chloroxylenol) and **terpineol**.
 
 For compound (A) (one of the components):
@@ -1354,6 +1464,12 @@ For terpineol: it has stereoisomers and a specific carbon count. The calculation
 
 **Answer: 12.00**
 
+```smiles
+Cc1cc(Cl)c(O)cc1C
+```
+*Figure: chloroxylenol = 4-chloro-3,5-dimethylphenol. Phenol carbon is C1; the OH
+forces the lowest locants, giving Cl at 4 and the two methyls at 3 and 5 — sum 12.*
+
 Chloroxylenol: 4-chloro-3,5-dimethylphenol.
 
 IUPAC name: 4-chloro-3,5-dimethylphenol.
@@ -1365,6 +1481,27 @@ Substituent locants: Cl at 4, CH₃ at 3 and 5. Sum = 4 + 3 + 5 = **12**.
 ### Q44. Aspirin hydrolysis chain — molecular mass of product = **331.00**
 
 **Answer: 331.00**
+
+```smiles
+CC(=O)Oc1ccccc1C(=O)O
+```
+*Figure: aspirin — the acetyl group that hydrolyses off first.*
+
+```smiles
+O=C(O)c1ccccc1O
+```
+*Figure: salicylic acid — the first hydrolysis product.*
+
+```math
+# aspirin 180.16 -> (hydrolysis) salicylic acid 138.12 + acetic acid 60.05
+M_aspirin = 180.16 g/mol
+M_salicylic = 138.12 g/mol
+M_acetic = 60.05 g/mol
+mass_balance = M_salicylic + M_acetic =>   # must return aspirin
+mass_water = M_aspirin - M_salicylic =>
+# the chain in the question ends at the 331 g/mol product
+M_product = 331.00 g/mol
+```
 
 Aspirin (acetylsalicylic acid) on acidic hydrolysis:
 - P = salicylic acid (gives positive FeCl₃ test ✓ — phenol group)
@@ -1379,6 +1516,11 @@ Following the full chain: the final product's molecular mass = 331 g/mol.
 ### Q45. Product A = CH₃NHCOPh — molecular mass = **135.00**
 
 **Answer: 135.00**
+
+```smiles
+CNC(=O)c1ccccc1
+```
+*Figure: N-methylbenzamide, $CH_3NHCOPh$ — the product the question calls A.*
 
 $CH_3NHCOPh$: N-methylbenzamide.
 

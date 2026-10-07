@@ -24,14 +24,13 @@ Prescore_papers/
 │
 ├── 📂 docs/                   ← Documentation & guides
 │   ├── VAULT-GUIDE.md               ← You are here
+│   ├── PLUGIN-FIGURES.md            ← tikz / desmos / smiles / math syntax
 │   ├── PLUGIN-COMPATIBILITY.md      ← why desktop-only plugins fail on phones
-│   ├── DIAGRAMS-WITHOUT-PLUGINS.md  ← the alternatives playbook
 │   ├── RECOMMENDED-PLUGINS.md       ← plugin list, mobile support on every row
 │   └── SOLUTION-TEMPLATE.md         ← Full solution template
 │
-├── 📂 examples/               ← figures-demo.md: the figure pipeline, rendered
-├── 📂 tools/                  ← render_figures.py (fences → SVG)
-├── 📂 assets/                 ← Diagrams & images (all committed, phone-readable)
+├── 📂 tools/                  ← check_figures.py, check_plugin_ids.py
+├── 📂 assets/                 ← hand-made exports (Excalidraw, screenshots)
 │   ├── diagrams/
 │   └── chemistry/
 │
@@ -98,64 +97,40 @@ Each solution file follows this structure:
 
 ## 🔌 Essential Plugins
 
-Everything in this list is **mobile-capable** (verified against each plugin's manifest).
-The desktop-only plugins that used to be recommended here — Molren, Ketcher, Plot Vectors &
-Graphs, Circuit Sketcher — cannot run on Android/iOS; see
-[[PLUGIN-COMPATIBILITY]] for the evidence and [[DIAGRAMS-WITHOUT-PLUGINS]] for what to use
-instead.
+Install these from **Settings → Community plugins → Browse** (IDs in brackets). All are
+mobile-capable — verified by `tools/check_plugin_ids.py`, explained in [[PLUGIN-COMPATIBILITY]].
 
-1. **Latex Suite** (`obsidian-latex-suite`) — type math 10x faster
-2. **Desmos** (`obsidian-desmos`) — interactive function plots
-3. **Numerals** (`numerals`) — calculators in a code block (the ID matters!)
-4. **ChemEdit Universal** (`chemedit-universal`) — molecules, offline
-5. **Excalidraw** (`obsidian-excalidraw-plugin`) — freehand diagrams
-6. **TikZJax** (`obsidian-tikzjax`) — LaTeX/circuitikz/chemfig diagrams
-7. **Templater** + **Dataview** + **Linter** — keep the vault tidy
+**Required for the figures to show up at all:**
 
-> [!tip] Figures that need no plugin at all
-> Molecules, graphs and circuits in this vault are pre-rendered into SVG
-> (`assets/diagrams/`) by `tools/render_figures.py` — see
-> [[DIAGRAMS-WITHOUT-PLUGINS]] and open `examples/figures-demo.md` on the phone.
+1. **TikZJax** (`obsidian-tikzjax`) — circuits, molecules, pgfplots, geometry
+2. **Desmos** (`obsidian-desmos`) — function graphs
+3. **ChemEdit Universal** (`chemedit-universal`) — chemical structures (or `chem` / `chemtrails`)
+4. **Numerals** (`numerals`) — calculation blocks
 
----
+**Recommended for working the papers:**
 
-## 📊 Progress Tracking
+5. **Latex Suite** (`obsidian-latex-suite`) — type math at handwriting speed
+6. **Excalidraw** (`obsidian-excalidraw-plugin`) — freehand force/ray diagrams
+7. **Dataview** + **Templater** + **Linter** — dashboards, templates, tidy formatting
 
-Use Dataview to track which papers are solved:
-
-```dataview
-TABLE file.name AS "Paper", 
-      length(file.name) AS "Size (chars)"
-FROM "solutions"
-SORT file.name ASC
-```
-
----
-
-## 🧠 How to Use This Vault
-
-### For Revision
-1. Open a solution file
-2. Read the question, try solving yourself first
-3. Check against the multiple approaches provided
-4. Note the **concept callout** for the underlying theory
-5. Review the **theory section** at the end of each paper
-
-### For Adding New Solutions
-1. Use the template from [[SOLUTION-TEMPLATE]]
-2. Follow the callout format for consistency
-3. Include at least 2 approaches per question
-4. Add theory at the end of the file
+> [!tip] Figures are code, not images
+> Every diagram in the solutions is a `tikz`, `desmos-graph`, `smiles` or `math` block that
+> the plugin draws live. Nothing is exported, so you can change a resistor value and the
+> circuit redraws. Syntax reference: [[PLUGIN-FIGURES]].
 
 ### For Creating Diagrams
-- **Chemistry:** a ` ```smiles ` fence (RDKit renders it) — see [[DIAGRAMS-WITHOUT-PLUGINS]]
-- **Circuits / vectors:** a ` ```circuit ` fence (schemdraw), or `\circuitikz` with TikZJax
-- **Graphs:** a ` ```plot ` fence for a static graph, ` ```desmos-graph ` when you want sliders
-- **Freehand:** Canvas (core) or Excalidraw for ray diagrams, force diagrams, etc.
-- **Flowcharts:** Mermaid (core plugin, now enabled)
+- **Circuits / vectors / ray optics / geometry:** a ` ```tikz ` block (circuitikz or plain TikZ)
+- **Molecules:** a ` ```smiles ` block — one SMILES per line, no trailing name
+- **Graphs:** a ` ```desmos-graph ` block — settings, `---`, then one equation per line
+- **Arithmetic checks:** a ` ```math ` block (Numerals), units included
+- **Freehand:** Canvas (core) or Excalidraw
+- **Flowcharts:** Mermaid (core plugin, enabled)
 
-Then rebuild the pictures and they appear on every device — including the phone:
+Before committing a note, run:
 
 ```bash
-python3 tools/render_figures.py     # or: make figures
+python3 tools/check_figures.py     # or: make check
 ```
+
+It validates every block (balanced environments, allowed packages, one SMILES per line, …)
+so a typo cannot turn into an empty box on your phone.

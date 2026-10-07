@@ -34,22 +34,20 @@ Legend: ✅ mobile-capable · ❌ desktop-only (store hides it on phones) · ⭐
 | `chem` | **Chem** | ✅ | Renders `chem`/`smiles` code blocks, 100+ stars, actively maintained |
 | `chemtrails` | **Chemtrails** | ✅ | Lightweight SMILES → crisp SVG |
 | `chemical-structure-renderer` | **Chemical Structure Renderer** | ✅ | SMILES → PNG/SVG (Indigo service needed for full features) |
-| `molren` | **Molren** | ❌ | Desktop-only (RDKit WASM design) — use `chem`/`chemedit-universal`, or this repo's ```` ```smiles ```` pipeline |
-| `ketcher` | **Ketcher** | ❌ | Desktop-only (registry ID is `ketcher`, not `obsidian-ketcher` — the old README used the repo name). Use the [online Ketcher demo](https://lifescience.opensource.epam.com/KetcherDemoSA/index.html) in the phone browser, or the ```` ```smiles ```` pipeline |
+| `molren` | **Molren** | ❌ | Desktop-only (RDKit WASM design) — use `chem` / `chemedit-universal`, which render the same ```` ```smiles ```` fences |
+| `ketcher` | **Ketcher** | ❌ | Desktop-only (registry ID is `ketcher`, not `obsidian-ketcher` — the old README used the repo name). Desktop-only. Use the [online Ketcher demo](https://lifescience.opensource.epam.com/KetcherDemoSA/index.html) in a browser to *draw*, then paste the SMILES into a ```` ```smiles ```` block, which renders on the phone |
 | `chemedit` | **ChemEdit** (the older one) | ❌ | Superseded by `chemedit-universal` |
 
-### Molecule without any plugin — the pipeline in this repo
+### Molecule rendering that works on a phone
 
 ````markdown
 ```smiles
-CC(=O)Oc1ccccc1C(=O)O Aspirin (acetylsalicylic acid)
-C[C@H](N)C(=O)O L-Alanine (wedge shown)
+CC(=O)Oc1ccccc1C(=O)O
+C[C@H](N)C(=O)O
 ```
 ````
 
-renders to a committed SVG that any device displays:
-
-![[assets/diagrams/smiles-2763fbacc5.svg]]
+ChemEdit Universal / Chem / Chemtrails draw it live — one SMILES per line, no names:
 
 ---
 
@@ -65,10 +63,10 @@ renders to a committed SVG that any device displays:
 | `math-plotter` | **Math Plotter** | ❌ | Desktop-only despite the name |
 | `live-plots` | **Live Plots** | ❌ | Desktop-only |
 
-### Static graph without any plugin
+### Graph that renders live
 
 ````markdown
-```plot
+```desmos-graph
 y = x^3 - 3x + 1
 y = 3x - 3   @ tangent at x = 2
 x: [-4, 4]
@@ -94,18 +92,20 @@ For vectors and coordinate geometry, GeoGebra in the browser is the power tool:
 | `circuit-sketcher` | **Circuit Sketcher** | ❌ | Desktop-only canvas editor. Use the ```` ```circuit ```` fence, or [Falstad CircuitJS](https://www.falstad.com/circuit/circuitjs.html) in the browser (it *simulates*) |
 | `obsidian-circuitjs` | **CircuitJS** | ❌ | Desktop-only. Browser version linked above |
 
-### Circuit or vector diagram without any plugin
+### Circuit that renders live
 
 ````markdown
 ```circuit width=680
-d += elm.SourceV().up().at((0, 0)).length(2.5).label('V = 12 V')
-d += elm.Resistor().right().label('R = 1 kΩ')
-d += elm.Capacitor().down().length(2.5).label('C = 10 µF')
-d += elm.Line().left().length(3)
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}[american]
+  \draw (0,0) to[battery1, l=$V$] (0,2.5)
+        to[R, l=$R$] (3,2.5)
+        to[C, l=$C$] (3,0) -- (0,0);
+\end{circuitikz}
+\end{document}
 ```
 ````
-
-![[assets/diagrams/circuit-662653c049.svg|680]]
 
 ---
 
@@ -187,5 +187,5 @@ What do you need to draw?
 ## Related
 
 - [PLUGIN-COMPATIBILITY.md](PLUGIN-COMPATIBILITY.md) — why the desktop-only ones fail, with evidence
-- [DIAGRAMS-WITHOUT-PLUGINS.md](DIAGRAMS-WITHOUT-PLUGINS.md) — the full alternatives playbook
-- [`examples/figures-demo.md`](../examples/figures-demo.md) — the three fences, rendered
+- [PLUGIN-FIGURES.md](PLUGIN-FIGURES.md) — the exact syntax of every figure block
+- `solutions/1-paper1-solutions.md` — worked examples of all four block types

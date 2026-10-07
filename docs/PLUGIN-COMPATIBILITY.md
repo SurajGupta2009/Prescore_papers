@@ -77,7 +77,7 @@ diagrams" as vault features. That mismatch is the bug this repo now fixes.
 |---|---|
 | `.obsidian/community-plugins.json` | Only **mobile-capable** plugins are enabled by default; IDs corrected (`numerals`, `callout-manager`). |
 | `.obsidian/core-plugins.json` | Added the built-in **Mermaid** and **Canvas** core plugins — diagrams with *zero* community plugins. |
-| Chemistry, graphs, circuits | Rendered **ahead of time** into committed SVG by `tools/render_figures.py` — no plugin at runtime, on any device. See **[DIAGRAMS-WITHOUT-PLUGINS.md](DIAGRAMS-WITHOUT-PLUGINS.md)**. |
+| Chemistry, graphs, circuits | Rendered **live** by four mobile-capable plugins — TikZJax (tikz), Desmos, ChemEdit Universal (smiles), Numerals (math). See **[PLUGIN-FIGURES.md](PLUGIN-FIGURES.md)**. |
 | Plugins that *do* support mobile | Documented in the rewritten **[RECOMMENDED-PLUGINS.md](RECOMMENDED-PLUGINS.md)**, with a device-support column on every row. |
 
 ---
@@ -121,8 +121,8 @@ folder per device** — no syncing fights, no "unsupported device" prompts:
    `starred.json` and the plugin `data.json` files (already in this repo's `.gitignore`).
 
 The figures those desktop plugins draw are still worth sharing: export them to
-`assets/diagrams/` and embed them — see
-[DIAGRAMS-WITHOUT-PLUGINS.md](DIAGRAMS-WITHOUT-PLUGINS.md).
+`assets/diagrams/` and embed the PNG/SVG, or redraw them as `tikz` / `smiles` blocks so
+they render on both devices — see [PLUGIN-FIGURES.md](PLUGIN-FIGURES.md).
 
 ---
 
@@ -130,7 +130,7 @@ The figures those desktop plugins draw are still worth sharing: export them to
 
 | You want | Read |
 |---|---|
-| The alternatives playbook (phone browser tools, plugin swaps, offline pipeline) | [DIAGRAMS-WITHOUT-PLUGINS.md](DIAGRAMS-WITHOUT-PLUGINS.md) |
+| The syntax of every figure block (tikz / desmos / smiles / math) | [PLUGIN-FIGURES.md](PLUGIN-FIGURES.md) |
 | A plugin list that is honest about device support | [RECOMMENDED-PLUGINS.md](RECOMMENDED-PLUGINS.md) |
-| To see it working end-to-end | open `examples/figures-demo.md` on the phone |
-| To rebuild the figures | `python3 tools/render_figures.py` |
+| To see it working end-to-end | open `solutions/1-paper1-solutions.md` on the phone |
+| To validate every figure block before committing | `python3 tools/check_figures.py` |

@@ -1,15 +1,15 @@
 [
-  "obsidian-excalidraw-plugin",
   "obsidian-tikzjax",
-  "chemedit-universal",
   "obsidian-desmos",
+  "chemedit-universal",
   "numerals",
-  "callout-manager",
   "obsidian-latex-suite",
-  "templater-obsidian",
+  "obsidian-excalidraw-plugin",
   "dataview",
-  "obsidian-mind-map",
+  "templater-obsidian",
   "obsidian-linter",
   "table-editor-obsidian",
-  "obsidian-columns"
+  "obsidian-columns",
+  "obsidian-mind-map",
+  "callout-manager"
 ]
