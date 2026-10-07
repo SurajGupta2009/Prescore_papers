@@ -1,37 +1,61 @@
-# Open items — where the solutions still need work
+# Open items — where the vault still needs work
 
-Everything below is a *known* loose end. It is listed here so nothing is silently wrong:
-figures are section-by-section verified against the source PDFs, but a handful of written
-derivations still stop short of the answer key.
+`python3 tools/check_coverage.py` is the source of truth for this page: it compares every
+solution note against the printed answer key of its paper and reports
 
-`make prose` (or `python3 tools/check_prose.py`) lists the paragraphs that still read like a
-scratch pad; run it after editing a solution.
+* **missing** — questions with no section at all, and
+* **thin** — sections shorter than the threshold (answer letter only, no working).
 
-## Derivations that do not yet reach the key
+Re-run it after any editing session; `make coverage` does the same thing.
 
-| Where | What is missing | Key's answer |
-|---|---|---|
-| `1-paper2` — Q18, three plates with a switch and a battery | the surface-charge bookkeeping is started twice and never closed; the text ends by trusting the key | (C) |
-| `1-paper2` — Q10–Q11, normals to the image of a circle under $z \mapsto 1/z$ | the draft lands on $m^2 = 9/8$ (product $-9/8$) while the key gives $-3$; one of the two set-ups must be re-read from the paper's figure | $-3.00$ |
-| `1-paper2` — ring of three batteries with three capacitors | the node analysis is restarted three times and ends on "trust the answer" | $14\ \mu$C |
-| `1-paper2` — Q6, $\zeta$ a 38th root of unity | the closed form is quoted from the key ($\alpha=4$, $\beta=-2$, $\gamma=-38$) without deriving it | (A, B) |
-| `2-paper1` — Q9/Q10, match-the-column optics and circuits | only the key's letters are recorded; the matching argument is not written out | (C) / (A) |
-| `4-paper1` — Q18, $f(x) = x^x(x+1)^{-(x+1)}$ on $(0,\infty)$ | the reconstructed statement does not produce the key's value (the formula in the paper is an image, so the transcription itself is suspect) | 1 |
-| `4-paper2` — Q38, flux through a cylindrical annulus | the check is written as "the key gives 100" instead of integrating $\rho r^2$ term by term | 100 |
+## Status after the Test-3 overhaul
 
-## Style debt
+| Note | Questions | Missing | Thin (answer-only) |
+|---|---|---|---|
+| 1-paper1 | 51 | 0 | 29 |
+| 1-paper2 | 51 | 0 | 17 |
+| 2-paper1 | 54 | **8** (Q47–Q54) | 28 |
+| 2-paper2 | 54 | **24** (Q11–18, Q29–36, Q47–54) | 12 |
+| 3-paper1 | 48 | 0 | 1 |
+| 3-paper2 | 48 | **32** (all of maths Q9–16, physics Q21–32, chem Q37–48) | 6 |
+| 4-paper1 | 57 | 0 | 40 |
+| 4-paper2 | 57 | 0 | 34 |
 
-- `tools/check_prose.py` still reports the items above; the rest of the vault is clean.
-- The theory sections at the end of each paper are unchanged from the first pass and have
-  not been re-read against the syllabus.
+**Totals: 64 questions not written at all, 167 written as answer-only.**
+
+## Order of work
+
+1. **3-paper2** — 32 missing questions. The booklet prints worked solutions for mathematics
+   Q1–Q8 only; everything else (maths Q9–16, all 12 physics numericals and MCQ sections, all
+   of chemistry from Q37) has to be worked from scratch.
+2. **2-paper2** — 24 missing (maths numericals Q11–18, physics numericals Q29–36, chemistry
+   numericals Q47–54). The printed booklet has solutions for these, so the answers can be
+   cross-checked easily.
+3. **2-paper1** — 8 missing (Q47–Q54, numericals).
+4. **Thin sections** — 167 answer-only entries in papers 1, 4-1, 4-2, 2-1. These are the
+   legacy multi-question blocks ("Q7–Q10. Various …" followed by bullets). Each needs to be
+   split into per-question sections with working.
+
+## Known content defects (not coverage)
+
+| Where | What is wrong |
+|---|---|
+| `1-paper2` Q10–Q11 | draft lands on $m^2=9/8$ while the key gives $-3$; the set-up needs re-reading from the paper |
+| `1-paper2` ring of 3 batteries + 3 capacitors | node analysis restarted three times, ends on "take the key's value" |
+| `1-paper2` Q18 (three plates + switch) | surface-charge bookkeeping started twice, never closed |
+| `4-paper1` Q18 | the reconstructed statement $f=x^{x}(x+1)^{-(x+1)}$ does not give the key's value (the formula is an image in the paper, so the transcription is suspect) |
+| `4-paper2` Q38 | flux written as "the key gives 100" instead of integrating $\rho r^{2}$ |
+
+`python3 tools/check_prose.py` (`make prose`) lists the paragraphs that still read like a
+scratch pad — currently one line, and the table above is the honest remainder.
 
 ## What *is* verified
 
-- Every figure block renders inside Obsidian through the four mobile-capable plugins; the
-  vault check (`make check`) validates 85 blocks in 8 notes.
+- Figures render inside Obsidian through mobile-capable plugins only; `make check` validates
+  every block (139 at the time of writing, 0 errors / 0 warnings).
 - Figures that encode numbers were re-derived from the source PDFs and corrected where the
-  first pass was wrong: cube-of-charges (Q21/4-1), satellite impulse (Q22/4-1), bead
-  oscillation (Q36/4-2), Brewster geometry and the circular capacitor (Q18, Q19/3-2),
-  energy density in the fifth harmonic (Q20/3-2), $r=a$ points of an ellipse (Q23/4-2),
-  the four-plate stack (Q24/4-2), the octahedron network (**5R/12**, Q21/1-2) and the
-  convex-mirror image motion (Q19/2-1).
+  first pass was wrong (cube of charges, satellite impulse, bead oscillation, Brewster
+  geometry, circular capacitor, fifth-harmonic energy density, $r=a$ points of an ellipse,
+  four-plate stack, octahedron resistance $5R/12$, convex-mirror image motion).
+- **3-paper1 is fully worked**: all 48 questions, every numeric answer reproduced
+  independently of the key (see the note itself for each derivation).
