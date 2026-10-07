@@ -155,41 +155,63 @@ From the limit evaluation: $c = 0$, $b = 2$, $a \in \mathbb{R}$.
 
 ---
 
-### Q7. $h(x) = f(x)g(x)$ where $f(x) = (x-2)^2\cos\frac{1}{x-2} + (x-2)|x-2|$.
+### Q7. $h(x) = f(x)g(x)$ where $f(x) = (x-2)^2\cos\frac{\pi x}{4} + (x-2)|x-2|$.
 
 **Answer: (A, B)**
 
 ```desmos-graph
-left=1.7; right=2.3
-bottom=-0.05; top=0.05
+left=0; right=4
+bottom=-1.4; top=1.4
 height=340
+grid=true
 ---
-y=(x-2)^2\cos\left(\frac{1}{x-2}\right)+(x-2)\sqrt{(x-2)^2}|label:h(x)
-y=(x-2)^2|dashed|red|label:\pm(x-2)^2 envelope
-y=-(x-2)^2|dashed|red
+y=(x-2)^2\cos(\frac{\pi x}{4})+(x-2)\sqrt{(x-2)^2}|label:f(x)
+y=(x-2)^2\cos(\frac{\pi x}{4})|dashed|blue|label:first term
+y=(x-2)\sqrt{(x-2)^2}|dashed|red|label:absolute-value term
+(2,0)|open|label:f(2)=0, f'(2)=0
 ```
 
-Zoomed near $x=2$: the cosine term oscillates infinitely often but is pinned inside the
-$\pm(x-2)^2$ envelope, while $(x-2)|x-2|$ is the part with a corner —
-the graph is what makes the differentiability argument visible.
+```desmos-graph
+left=1.6; right=2.4
+bottom=-0.5; top=0.5
+height=300
+grid=true
+---
+y=((x-2)^2\cos(\frac{\pi x}{4})+(x-2)\sqrt{(x-2)^2})/(x-2)|label:f(x)/(x-2)
+(2,0)|open|label:the ratio dies at x = 2
+```
+
+Both pieces of $f$ vanish at $x=2$ *and* have zero derivative there, so the quotient
+$f(x)/(x-2)$ tends to $0$ — that single limit is what makes $h=f\cdot g$ differentiable at
+$x=2$ for any $g$ that is bounded near $2$.
 
 > [!example]- Solution
-> $f(2) = 0$. Since $|(x-2)^2\cos\frac{1}{x-2}| \leq (x-2)^2$ and $(x-2)|x-2| = O((x-2)^2)$:
+> **Step 1 — differentiate $f$ at $x=2$.** The first term is smooth:
+> $\frac{d}{dx}\left[(x-2)^2\cos\frac{\pi x}{4}\right] = 2(x-2)\cos\frac{\pi x}{4} - \frac{\pi}{4}(x-2)^2\sin\frac{\pi x}{4} \to 0$.
+> The second term satisfies $(x-2)|x-2| = \pm(x-2)^2$, whose derivative $2|x-2| \to 0$.
+> Hence $f(2)=0$ and $f'(2)=0$, i.e. $f(x) = o(x-2)$.
 >
-> $f(x) = O((x-2)^2)$ near $x = 2$.
+> **Step 2 — test $h$ at $x=2$.**
+> $h'(2) = \lim_{x\to2}\frac{f(x)g(x)-f(2)g(2)}{x-2} = \lim_{x\to2}\frac{f(x)}{x-2}\,g(x)$.
+> Since $\frac{f(x)}{x-2} \to f'(2) = 0$ and $g$ is bounded in a neighbourhood of $2$, the
+> product tends to $0$ and $h'(2)=0$.
 >
-> $h'(2) = \lim_{x \to 2} \frac{f(x)g(x)}{x-2} = \lim_{x \to 2} \frac{f(x)}{x-2} \cdot g(x)$
+> **(A) is TRUE:** if $\lim_{x\to2}g(x)$ exists then $g$ is bounded near $2$, so $h'(2)=0$.
 >
-> Since $f(x)/(x-2) \to 0$ and $g$ is bounded → $h'(2) = 0$.
+> **(B) is TRUE:** boundedness of $g$ on an open interval around $2$ is exactly what the
+> estimate above needs.
 >
-> **(A) and (B) are TRUE** (bounded $g$ or existence of $\lim g$ suffices).
+> **(C) is FALSE:** $g(x)=1$ for $x\neq2$, $g(2)=5$ gives $h'(2)=0$ although $g$ is
+> discontinuous at $2$.
 >
-> **(C) is FALSE:** $g(x) = \begin{cases} 1 & x \neq 2 \\ 5 & x = 2 \end{cases}$ gives $h'(2) = 0$ but $g$ is discontinuous.
->
-> **(D) is FALSE:** Same counterexample: $g(2) = 5 \neq 0$.
+> **(D) is FALSE:** the same example has $g(2)=5 \neq 0$.
 
 > [!warning] Common Mistake
-> Many students assume $h'(2) = 0$ implies $g(2) = 0$. This is wrong — the $O((x-2)^2)$ decay of $f$ forces $h'(2) = 0$ regardless of $g(2)$.
+> It is tempting to read the $|x-2|$ in $f$ as something that destroys differentiability.
+> It does not: it is multiplied by $(x-2)$, which makes the whole term behave like
+> $(x-2)^2$. And $h'(2)=0$ says nothing about $g(2)$ — only about $g$'s boundedness.
+
+---
 
 ---
 

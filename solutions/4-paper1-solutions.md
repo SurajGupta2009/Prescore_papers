@@ -112,60 +112,48 @@ Integer values of $c$ in $(-2, 2)$ excluding $\pm 1$: $c \in \{-1, 0, 1\}$... wa
 
 ---
 
-### Q3. $f(x) = x^x (1-x)^{1-x}$ on $(0,1)$. Product of local max and min values $M \cdot m$.
+### Q3. $f(x) = \dfrac{x^x}{(1-x)^{1-x}}$ on $(0,1)$. Product of the local max and min values $M \cdot m$.
 
 **Answer: (A) 1**
 
 ```desmos-graph
 left=0; right=1
-bottom=0; top=0.7
+bottom=-0.35; top=0.35
 height=340
 grid=true
 ---
-y=x^x(1-x)^{1-x}
-y=0.5|dashed|green|label:guess the minimum
+y=x\ln(x)-(1-x)\ln(1-x)|label:\ln f(x)
+(0.1615,-0.1467)|open|label:minimum
+(0.8385,0.1467)|open|label:maximum
+y=0|dashed|black
 ```
 
-$f(x)=x^x(1-x)^{1-x}$ on $(0,1)$: symmetric about $x=\tfrac12$, and the extreme values
-multiply to the $M\cdot m$ the question asks for.
+The two stationary points sit at the roots of $x(1-x) = e^{-2}$, i.e. at
+$x = \tfrac12 \mp \tfrac12\sqrt{1-4e^{-2}}$. They are symmetric about $x=\tfrac12$, which is
+what makes the product $M\cdot m$ collapse to a pure number.
+
+> [!example]- Solution
+> Take logs: $g(x) = \ln f(x) = x\ln x - (1-x)\ln(1-x)$.
+>
+> $g'(x) = \ln x + 1 + \ln(1-x) + 1 = \ln\big(x(1-x)\big) + 2$.
+>
+> Setting $g'(x)=0$: $x(1-x) = e^{-2}$ — two roots $\alpha,\beta \in (0,1)$,
+> one giving the local maximum and one the local minimum.
+>
+> $M\cdot m = f(\alpha)f(\beta) = \alpha^{\alpha}(1-\alpha)^{-(1-\alpha)}\,\beta^{\beta}(1-\beta)^{-(1-\beta)}$.
+>
+> Using $\alpha(1-\alpha) = \beta(1-\beta) = e^{-2}$ and $\alpha+\beta = 1$, this reduces to
+> $M\cdot m = e^{-2}\cdot e^{2} = 1$.
+>
+> The answer is **(A) 1**.
+
+> [!note] Reading the paper's own solution
+> The official solution starts from $g(x) = x\ln x - (1-x)\ln(1-x)$, i.e. from
+> $f(x) = x^x/(1-x)^{1-x}$. With the sign flipped — $f = x^x(1-x)^{1-x}$ — the only interior
+> stationary point is the minimum $f(1/2)=\tfrac12$, and the product in the question does not
+> come out to $1$. The form above is the one the answer key uses.
 
 ---
-
-#### Approach — Logarithmic Differentiation
-
-$g(x) = \ln f(x) = x\ln x + (1-x)\ln(1-x)$
-
-$g'(x) = \ln x + 1 - \ln(1-x) - 1 = \ln\frac{x}{1-x}$
-
-Wait: $g'(x) = \ln x + 1 + \ln(1-x) + 1 \cdot (-1) = \ln x + 1 - \ln(1-x) - 1 + \ln(1-x)(-1)$...
-
-Let me redo carefully:
-
-$g(x) = x\ln x + (1-x)\ln(1-x)$
-
-$g'(x) = \ln x + 1 + (-1)\ln(1-x) + (1-x) \cdot \frac{-1}{1-x} = \ln x + 1 - \ln(1-x) - 1 = \ln x - \ln(1-x) = \ln\frac{x}{1-x}$
-
-Hmm, but the paper's solution says $g'(x) = \ln(x(1-x)) + 2$. Let me recheck.
-
-$g(x) = x\ln x - (1-x)\ln(1-x)$... maybe the function is $f(x) = x^x / (1-x)^{1-x}$?
-
-Actually, from the problem statement, the function involves $x^x$ and $(1-x)^{1-x}$ in some combination. Let me use the paper's result.
-
-From the solution: $g'(x) = \ln(x(1-x)) + 2 = 0$ gives $x(1-x) = e^{-2}$.
-
-Let $\alpha, \beta$ be the two roots (one is local max, other is local min).
-
-$\alpha + \beta = 1$, $\alpha\beta = e^{-2}$.
-
-$M \cdot m = f(\alpha) \cdot f(\beta)$
-
-From the paper's calculation: $M \cdot m = \alpha^{\alpha} \cdot (1-\alpha)^{(1-\alpha)} \cdot \beta^{\beta} \cdot (1-\beta)^{(1-\beta)}$
-
-Using $\beta = 1 - \alpha$: $(1-\alpha)^{(1-\alpha)} = \beta^{\beta}$ and $\alpha^{\alpha} = (1-\beta)^{(1-\beta)}$... no, let me use the specific form.
-
-The paper shows $M \cdot m = e^{-2} \cdot e^{4-2} = e^{-2} \cdot e^2 = 1$. ✓
-
-**Concept:** For functions of the form $f(x) = u(x)^{v(x)}$, logarithmic differentiation converts products and powers into sums. The symmetry $x \leftrightarrow 1-x$ often simplifies the extrema analysis.
 
 ---
 
@@ -468,110 +456,136 @@ The grounding affects the outer conductor, not the charge distribution on the in
 
 ### Q21. Cube of charges — acceleration of particle at vertex O.
 
-**Answer: (A)**
+**Answer: (A)** — $\dfrac{\sqrt{3}\,kq^2}{m a^2}$, along the body diagonal from $O$ towards $(a,a,a)$.
 
 ```tikz
 \begin{document}
-\begin{tikzpicture}[line width=0.9pt, scale=1.05]
-% cube of side a with identical charges at every vertex; particle at vertex O
-\coordinate (O) at (0,0);
-\coordinate (A) at (2.4,0);
-\coordinate (B) at (3.5,1.05);
-\coordinate (C) at (1.1,1.05);
-\coordinate (D) at (0,2.4);
-\coordinate (E) at (2.4,2.4);
-\coordinate (F) at (3.5,3.45);
-\coordinate (G) at (1.1,3.45);
-\foreach \p/\q in {O/A, A/B, B/C, C/O, D/E, E/F, F/G, G/D, O/D, A/E, C/G, B/F} {
-  \draw[gray] (\p) -- (\q);
+\begin{tikzpicture}[line width=0.9pt, x={(1.5cm,0cm)}, y={(-0.78cm,0.47cm)}, z={(0cm,1.5cm)}]
+% cube: O = (0,0,0) holds the free particle, the other seven vertices hold fixed charges
+\coordinate (O) at (0,0,0);
+\coordinate (A) at (1,0,0);
+\coordinate (B) at (0,1,0);
+\coordinate (C) at (0,0,1);
+\coordinate (D) at (1,1,0);
+\coordinate (E) at (1,0,1);
+\coordinate (F) at (0,1,1);
+\coordinate (G) at (1,1,1);
+\foreach \i/\j in {O/A, O/B, O/C, A/D, A/E, B/D, B/F, C/E, C/F,
+                   D/G, E/G, F/G} {
+  \draw[gray] (\i) -- (\j);
 }
-\foreach \p in {O,A,B,C,D,E,F,G} {
-  \draw[fill, blue] (\p) circle (1.8pt);
-}
-% the three highlighted body diagonals through O and the particle to be accelerated
-\draw[very thick, red] (O) -- (F);
-\draw[fill, red] (O) circle (3.2pt);
-\node at (O) [below left]{$O$ (particle $q$, mass $m$)};
-\node at (2.5,-0.35) [below right]{$a$};
-\draw[<->, >=stealth] (0,-0.35) -- (2.4,-0.35);
-% the three vertices at distance a: A, C, D -- the near neighbours
-\node at (A) [above right]{$A$};
-\node at (C) [left]{$C$};
-\node at (D) [left]{$D$};
-\node at (F) [right]{$F$};
+% the three hidden edges, dashed
+\draw[gray, dashed] (O)--(A); 
+% charges: particles at every vertex
+\draw[fill, red] (O) circle (3.4pt);
+\foreach \i in {A,B,C,D,E,F,G} { \draw[fill, blue!70] (\i) circle (2.8pt); }
+% charge labels exactly as given in the question
+\node at (O) [below left, font=\small]{$+q,\ m$};
+\node at (A) [right=2pt, font=\small]{$+q$};
+\node at (B) [left=2pt, font=\small]{$+2q$};
+\node at (C) [above=3pt, font=\small]{$+3q$};
+\node at (D) [below right=-1pt, font=\small]{$-2\sqrt2q$};
+\node at (E) [right=2pt, font=\small]{$-4\sqrt2q$};
+\node at (F) [left=2pt, font=\small]{$-6\sqrt2q$};
+\node at (G) [above right=-1pt, font=\small]{$+3\sqrt3q$};
+% the resultant acts along the body diagonal O -> G
+\draw[->, very thick, red] (O) -- (0.72,0.72,0.72);
+\node at (0.5,0.5,0.5) [below right, red, font=\small]{$\frac{\sqrt3\,kq^2}{a^2}$};
+% side labels
+\node at (0.5,0,0) [below, font=\small]{$a$};
 \end{tikzpicture}
 \end{document}
 ```
 
 ```math
-# forces on the particle at O from the seven other vertices, grouped by distance
-# three vertices at distance a (A, C, D), three at a*sqrt(2), one at a*sqrt(3)
-n_a = 3
-n_diag = 3
-n_body = 1
-# each group's resultant points along the body diagonal O->F, so they add directly
-force_group_a = n_a / 1^2 =>
-force_group_diag = n_diag / 2 =>
-force_group_body = n_body / 3 =>
-total = force_group_a + force_group_diag + force_group_body =>
+# force on the particle +q at O, with the common factor kq^2/a^2 taken out
+# each fixed charge contributes a vector; components listed per axis
+# +q  at (a,0,0) repels  -> (-1, 0, 0)
+# +2q at (0,a,0) repels  -> ( 0,-2, 0)
+# +3q at (0,0,a) repels  -> ( 0, 0,-3)
+# -2sqrt2 q at (a,a,0) attracts -> ( 1, 1, 0)
+# -4sqrt2 q at (a,0,a) attracts -> ( 2, 0, 2)
+# -6sqrt2 q at (0,a,a) attracts -> ( 0, 3, 3)
+# +3sqrt3 q at (a,a,a) repels   -> (-1,-1,-1)
+FX = -1 + 1 + 2 - 1 =>
+FY = -2 + 1 + 3 - 1 =>
+FZ = -3 + 2 + 3 - 1 =>
+F = sqrt(FX^2 + FY^2 + FZ^2) =>
+# so the force is (sqrt3) kq^2/a^2 along (1,1,1): the body diagonal towards (a,a,a)
+accel = F*9e9*q^2/(m*a^2) =>
 ```
 
-Charges at vertices of a cube of side $a$. Particle $+q, m$ at $O = (0,0,0)$. Charges at the other 7 vertices are specified (from the problem). The net force on the particle determines its acceleration along the body diagonal toward $(a,a,a)$.
+The seven charges are *not* equal, but every contribution happens to point either along a
+face/edge direction or along the body diagonal, and the components add to
+$(1,1,1)\,kq^2/a^2$. Hence the nett force is $\sqrt3\,kq^2/a^2$ along the body diagonal
+towards $(a,a,a)$ — answer **(A)**. Because each term scales as $kq^2/a^2$ with a pure
+number in front, the acceleration is $\sqrt3\,kq^2/(ma^2)$: independent of the cube's size
+once $q$ and $m$ are fixed.
 
-By symmetry and Coulomb's law, the acceleration is along the body diagonal. The answer is **(A)** with magnitude $\frac{q^2}{4\pi\epsilon_0} \cdot \frac{(\text{numerical factor})}{ma^2}$.
+---
 
 ---
 
 ### Q22. Satellite orbit change — impulse at point P.
 
-**Answer: (B)**
+**Answer: (B)** — ellipse of eccentricity $\dfrac{\sqrt{13}}{4}$ that strikes the planet, the
+impact velocity making $\tan^{-1}\sqrt{\dfrac{17}{27}}$ with the local tangent.
 
 ```tikz
 \begin{document}
 \begin{tikzpicture}[line width=0.9pt, scale=1.0]
-% planet of radius R at the focus, circular orbit at 3R, ellipse after the impulse
-\draw[fill=gray!25] (0,0) circle (0.75);
-\node at (0,-1.05) [below]{planet, radius $R$};
-\draw[dashed, gray] (0,0) circle (2.25);
-\node at (1.35,1.6) {circular orbit $r=3R$};
-% the elliptical orbit after the impulse: perigee inside the planet
-\draw[thick, red] (2.25,0) ellipse [x radius=1.6, y radius=1.9];
-\node at (3.2,2.35) [right]{new orbit (ellipse)};
-% point of the impulse
-\draw[fill] (2.25,0) circle (2pt);
-\node at (2.4,-0.35) [below right]{$P$};
-% the two velocity components at P: tangential v and the 60-degree kick
-\draw[->, very thick, blue] (2.25,0) -- (3.55,0);
-\node at (3.55,0.25) [right]{$v\sqrt2\cos60°$};
-\draw[->, very thick, blue] (2.25,0) -- (2.25,0.95);
-\node at (2.45,0.95) [right]{$v\sqrt2\sin60°$};
-\draw[->, >=stealth, dashed] (2.25,0) -- (3.05,0.62);
-% perigee marker: inside the planet -> collision
-\draw[->, >=stealth] (1.1,-1.35) -- (0.75,-0.35);
-\node at (1.15,-1.55) [below]{perigee inside planet: it strikes};
+% planet and the original circular orbit
+\draw[fill=gray!30] (0,0) circle (0.62);
+\node at (0,0.62) [above, font=\small]{planet, radius $R$};
+\draw[dashed, gray] (0,0) circle (1.9);
+\node at (1.45,1.35) [right, font=\small]{circular orbit, $r=3R$};
+% point P on the circular orbit where the impulse is applied
+\draw[fill] (1.9,0) circle (2.2pt);
+\node at (1.9,-0.3) [below right, font=\small]{$P$};
+% before: velocity purely tangential; after: speed x sqrt(3/2) at 60 deg to the tangent
+\draw[->, thick, blue] (1.9,0) -- (2.95,0);
+\node at (2.9,0.22) [right, font=\small]{$v=\sqrt{GM/3R}$};
+\draw[->, very thick, red] (1.9,0) -- (2.35,-0.78);
+\node at (2.45,-0.85) [right, font=\small]{$v\sqrt{3/2}$ at $60°$ to the tangent, inward};
+% the new ellipse: semi-major axis 6R, perigee inside the planet
+\draw[thick, purple] (1.9,0) ellipse [x radius=2.05, y radius=0.92];
+\node at (3.35,1.35) [right, font=\small]{new ellipse $a'=6R$, $e=\sqrt{13}/4$};
+% the ray of the impulse, and the impact point
+\draw[dashed, red] (1.9,0) -- (2.9,-1.35);
+\node at (1.55,-1.05) [below left, font=\small]{perigee $=a'(1-e)\approx0.59R<R$: it hits the planet};
 \end{tikzpicture}
 \end{document}
 ```
 
 ```math
-# impulse at P: circular speed v, then speed scaled by sqrt(2) at 60 degrees to the tangent
+# circular speed at r = 3R; scale GM by 3R so that v = 1, R = 1
 v = 1
-vt = v*sqrt(2)*cos(60 deg) =>
-vr = v*sqrt(2)*sin(60 deg) =>
-# specific energy and angular momentum decide the orbit
-E = (vt^2 + vr^2)/2 - 1/(3) =>     # with GM/R = 1 and r = 3R
+v_after = v*sqrt(3/2) =>
+vt = v_after*cos(60 deg) =>
+vr = v_after*sin(60 deg) =>
+# specific energy (GM = 3R v^2) fixes the semi-major axis: E = -GM/(2a')
+E = (vt^2 + vr^2)/2 - v^2 =>
+a_new = 3/(2*(-E)) =>
+# angular momentum h = r*vt at P fixes the eccentricity: h^2 = GM a' (1-e^2)
 h = 3*vt =>
-# compare E with 0: E < 0 -> bound ellipse; perigee = h^2/(1+e)
-e = sqrt(1 + 2*E*h^2) =>
+e = sqrt(1 - h^2/(3*a_new)) =>
+perigee = a_new*(1 - e) =>
+# perigee < R = 1, so the satellite strikes the planet with transverse speed h/R
+vt_impact = h/1 =>
+speed_impact = sqrt(2*(E + 3)) =>
+vr_impact = sqrt(speed_impact^2 - vt_impact^2) =>
+tan_theta = vr_impact/vt_impact =>
+tan_theta^2 =>
 ```
 
-Satellite in circular orbit at $r = 3R$. Speed changed by factor $\sqrt{2}$ at angle $60°$ to tangent.
+The impulse leaves $E=-\tfrac14 v^2<0$, so the orbit is a bound ellipse with
+$a'=6R$ — but its perigee lands at $a'(1-e)\approx0.59R$, **inside** the planet.
+Option (A) is therefore wrong on the collision, option (C) is wrong on the orbit type
+(the speed factor is $\sqrt{3/2}$, not $\sqrt{2}$, and $E<0$ keeps it elliptical), and
+option (B) is the only statement that survives: $e=\sqrt{13}/4$ and the impact angle
+$\tan^{-1}\sqrt{17/27}$.
 
-Using the vis-viva equation and conservation of angular momentum, the new orbit is an ellipse. The perigee distance determines whether the satellite collides with the planet.
-
-**Answer: (B)** — the satellite follows an ellipse with eccentricity $1/\sqrt{3}$ and strikes the planet.
-
-**Concept:** Orbital mechanics after an impulse: decompose velocity into radial and transverse components, compute new specific energy and angular momentum, determine the orbit type and parameters.
+---
 
 ---
 

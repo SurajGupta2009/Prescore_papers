@@ -449,45 +449,48 @@ The dipole at $x = L$ with angle $60°$ to $\hat{x}$:
 ```tikz
 \begin{document}
 \begin{tikzpicture}[line width=0.9pt, scale=1.0]
-% ellipse with semi-major a and semi-minor b, foci marked
-\draw[thick] (0,0) ellipse [x radius=3.0, y radius=2.0];
-\draw[fill, gray] (-1.2,0) circle (0.28);
-\node at (-1.2,-0.55) [below]{$S$ (focus)};
-% semi-major axis
-\draw[dashed] (-3,0) -- (3,0);
-\draw[<->, >=stealth] (-3,-0.35) -- (3,-0.35);
-\node at (0,-0.6) [below]{$2a$};
-% the four points where r = a
-\coordinate (P) at (0,2.0);
-\coordinate (Q) at (0,-2.0);
-\coordinate (R1) at (3.0,0);
-\coordinate (R2) at (-3.0,0);
-\foreach \p in {P,Q,R1,R2} { \draw[fill, red] (\p) circle (2.4pt); }
-\node at (P) [above]{$P$};
-\node at (Q) [below]{$Q$};
-\node at (R1) [right]{$A$};
-\node at (R2) [left]{$B$};
-% the focal radii at P and A
-\draw[thick, blue] (-1.2,0) -- (0,2.0);
-\draw[thick, blue] (-1.2,0) -- (3.0,0);
-\node at (0.15,0.95) [right, blue]{$r_P = a$};
-\node at (1.0,0.22) [above, blue]{$r_A = a$};
-\node at (0,2.35) [above=2pt]{points where $r=a$};
+% ellipse, semi-major a, semi-minor b, eccentricity e = c/a
+\draw[thick] (0,0) ellipse [x radius=3.0, y radius=2.6];
+\draw[fill, gray] (-1.5,0) circle (0.26);
+\node at (-1.5,-0.5) [below, font=\small]{$S$ (focus)};
+\draw[dashed] (-3.0,0) -- (3.0,0);
+\draw[<->, >=stealth] (-3.0,-0.4) -- (3.0,-0.4);
+\node at (0,-0.65) [below, font=\small]{$2a$};
+% the co-vertices P, Q are exactly the points with r = a (b^2 + c^2 = a^2)
+\coordinate (P) at (0,2.6);
+\coordinate (Q) at (0,-2.6);
+\foreach \p in {P,Q} { \draw[fill, red] (\p) circle (2.6pt); }
+\node at (P) [above, font=\small]{$P$, $r_P = a$};
+\node at (Q) [below, font=\small]{$Q$, $r_Q = a$};
+% the two vertices on the major axis are NOT at r = a
+\draw[fill, blue] (3.0,0) circle (2.2pt);
+\node at (3.0,0.3) [above right, font=\small]{aphelion: $r = a(1+e)$};
+\draw[fill, blue] (-3.0,0) circle (2.2pt);
+\node at (-3.0,0.3) [above left, font=\small]{perihelion: $r = a(1-e)$};
+% focal radii to P and to the aphelion for comparison
+\draw[thick, blue] (-1.5,0) -- (0,2.6);
+\draw[thick, dashed, gray] (-1.5,0) -- (3.0,0);
+\node at (0.25,1.35) [right, blue, font=\small]{$r_P^2 = b^2 + c^2 = a^2$};
+\node at (0.8,0.2) [above, gray, font=\small]{$a(1+e)$};
 \end{tikzpicture}
 \end{document}
 ```
 
 ```math
-# ellipse, semi-major a, eccentricity e: at the points where r = a the speed splits
+# at the co-vertices r = a (because b^2 + c^2 = a^2 with c = ae)
 e = 0.5
-a = 1
-# vis-viva: v^2 = GM(2/r - 1/a); with r = a this is GM/a for every such point
-GMa = 1
-v2 = GMa*(2/1 - 1/1) =>
-v = sqrt(v2) =>
-# angular momentum differs, so the radial/transverse split differs
-h_max = a*(1+e) * 1 /(1+e) =>      # illustrative: h is conserved, r varies
+# vis-viva with r = a gives the same speed at both P and Q: v^2 = GM/a
+v2_over_GMa = (2 - 1) =>
+# but the velocity is NOT transverse there; its split follows from h = sqrt(GM a (1-e^2))
+vt_over_v = sqrt(1 - e^2) =>
+vr_over_v = e =>
+alpha = atan(vr_over_v/vt_over_v) to deg =>
 ```
+
+At $P$ and $Q$ (the ends of the minor axis) $r = a$ exactly, so vis-viva gives the *same
+speed* $\sqrt{GM/a}$ at both — and the option that quotes a $30°$ angle between the velocity
+and the local transverse direction is the case $e = 1/2$ shown above
+($\tan\alpha = e/\sqrt{1-e^2}$).
 
 At the points where $r = a$ (semi-major axis), the orbit equation gives specific velocity components. Time calculation and angular momentum analysis confirm statements (A), (B), (C).
 
@@ -500,27 +503,35 @@ At the points where $r = a$ (semi-major axis), the orbit equation gives specific
 ```tikz
 \begin{document}
 \begin{tikzpicture}[line width=0.9pt, scale=1.0]
-% four parallel plates A, B, C, D with the two pairs shorted together
-\foreach \x/\lab in {0/A, 1.2/B, 2.4/C, 3.6/D} {
+% plates at x = 0, d, 3d, 6d: gaps of d, 2d and 3d
+\foreach \x/\lab in {0/A, 1.0/B, 3.0/C, 6.0/D} {
   \draw[very thick] (\x,0) -- (\x,3);
-  \node at (\x,3.3) [above]{\lab};
+  \node at (\x,3.2) [above]{\lab};
 }
-% A and C connected, B and D connected
-\draw[thick, red] (0,3.25) -- (2.4,3.25);
-\node at (1.2,3.5) [above]{$A$ and $C$ shorted: total charge $+3\sigma$};
-\draw[thick, blue] (1.2,3.9) -- (3.6,3.9);
-\node at (2.4,4.15) [above]{$B$ and $D$ shorted: total charge $-3\sigma$};
-% surface charges (8 surfaces)
-\node at (-0.3,1.5) [left]{$\sigma_1$};
-\node at (0.3,1.5) [right]{$\sigma_2$};
-\node at (0.9,1.5) [left]{$\sigma_3$};
-\node at (1.5,1.5) [right]{$\sigma_4$};
-\node at (2.1,1.5) [left]{$\sigma_5$};
-\node at (2.7,1.5) [right]{$\sigma_6$};
-\node at (3.3,1.5) [left]{$\sigma_7$};
-\node at (3.9,1.5) [right]{$\sigma_8$};
-\node at (1.8,-0.45) [below]{field is zero outside the outermost pair (equal and opposite totals)};
-\draw[dashed, gray] (0,-0.15) -- (3.6,-0.15);
+\foreach \x in {0, 1.0, 3.0, 6.0} { \node at (\x,-0.35) [below]{$x=\x d$}; }
+\node at (0,-0.35) [below]{};
+% the two shorting wires: A-C (outer) and B-D (inner)
+\draw[thick, red] (0,3.35) -- (0,3.9) -- (3.0,3.9) -- (3.0,3.35);
+\node at (1.5,4.1) [above, red, font=\small]{$A$ and $C$ shorted: net $\sigma$ = $+3\sigma$};
+\draw[thick, blue] (1.0,3.35) -- (1.0,4.4) -- (6.0,4.4) -- (6.0,3.35);
+\node at (3.5,4.6) [above, blue, font=\small]{$B$ and $D$ shorted: net $\sigma$ = $-3\sigma$};
+% gap widths
+\draw[<->, >=stealth] (0,-0.9) -- (1.0,-0.9);
+\node at (0.5,-1.1) [below, font=\small]{$d$};
+\draw[<->, >=stealth] (1.0,-0.9) -- (3.0,-0.9);
+\node at (2.0,-1.1) [below, font=\small]{$2d$};
+\draw[<->, >=stealth] (3.0,-0.9) -- (6.0,-0.9);
+\node at (4.5,-1.1) [below, font=\small]{$3d$};
+% fields in the three gaps (directions as given by the field-free outside)
+\draw[->, >=stealth, thick] (0.3,1.5) -- (0.7,1.5);
+\node at (0.5,1.75) [above, font=\small]{$E_{AB}$};
+\draw[->, >=stealth, thick] (1.9,1.5) -- (1.5,1.5);
+\node at (2.2,1.5) [right, font=\small]{$E_{BC}$};
+\draw[->, >=stealth, thick] (4.5,1.5) -- (4.1,1.5);
+\node at (4.8,1.5) [right, font=\small]{$E_{CD}$};
+% the field must die outside the stack
+\node at (6.6,1.5) [right, font=\small]{$E=0$};
+\node at (-0.7,1.5) [left, font=\small]{$E=0$};
 \end{tikzpicture}
 \end{document}
 ```
@@ -705,73 +716,65 @@ $V(0) - V(R) = -\int_0^R E(r)\,dr$.
 
 ### Q36. Bead oscillating between two charges = **20 rad/s**
 
-Equilibrium position: where electrostatic force on bead is zero. For small displacement $x$:
-
-$k_{\text{eff}} = \frac{dF}{dx}\bigg|_{x_{\text{eq}}}$
-
-$\omega = \sqrt{k_{\text{eff}}/m}$
-
-With $Q = 3\,\mu$C, $q = 2\,\mu$C, $a = 0.30$ m, $m = 0.015$ kg:
-
-$\omega = 20$ rad/s. ✓
+**Answer: 20**
 
 ```tikz
-\usepackage{circuitikz}
 \begin{document}
-\begin{circuitikz}[line width=0.9pt, scale=1.0]
-% two fixed charges on the axis, a bead free to slide on a thread between them
-\draw[ultra thick, gray] (0,0) -- (6,0);
-\draw[fill, red] (0,0) circle (3pt);
-\node at (0,0.35) [above]{$Q$ (fixed)};
-\draw[fill, red] (6,0) circle (3pt);
-\node at (6,0.35) [above]{$Q$ (fixed)};
-\draw[fill, blue] (3.0,0) circle (3.2pt);
-\node at (3.0,0.4) [above]{bead $q$, mass $m$};
-% equilibrium: forces cancel
-\draw[->, >=stealth, thick] (3,0.9) -- (4.1,0.9);
-\node at (4.3,0.9) [right]{$F_{\text{right}}$};
-\draw[->, >=stealth, thick] (3,0.9) -- (1.9,0.9);
-\node at (1.7,0.9) [left]{$F_{\text{left}}$};
-\node at (3,-0.45) {equilibrium, then $k_{\text{eff}}=\left.\frac{dF}{dx}\right|_{x_{eq}}$};
-\end{circuitikz}
+\begin{tikzpicture}[line width=0.9pt, scale=1.0]
+% insulating line with 4Q at x = 0 and Q at x = 3a
+\draw[ultra thick] (-1.2,0) -- (5.2,0);
+\draw[fill, red] (0,0) circle (3.2pt);
+\node at (0,0.35) [above, font=\small]{$4Q$ (fixed)};
+\draw[fill, red] (4.5,0) circle (3.2pt);
+\node at (4.5,0.35) [above, font=\small]{$Q$ (fixed)};
+% the bead sits at the equilibrium point x = 2a, i.e. 2a from 4Q and a from Q
+\draw[fill, blue] (3.0,0) circle (3.4pt);
+\node at (3.0,-0.5) [below, font=\small]{bead $q$, mass $m$, at $x=2a$};
+\draw[<->, >=stealth] (0,-1.05) -- (3.0,-1.05);
+\node at (1.5,-1.28) [below, font=\small]{$2a$};
+\draw[<->, >=stealth] (3.0,-1.05) -- (4.5,-1.05);
+\node at (3.75,-1.28) [below, font=\small]{$a$};
+% forces at equilibrium cancel
+\draw[->, >=stealth, thick, red] (2.85,0.62) -- (1.95,0.62);
+\node at (1.9,0.62) [left, font=\small]{$4Qq$ force};
+\draw[->, >=stealth, thick, blue] (3.15,0.62) -- (4.05,0.62);
+\node at (4.1,0.62) [right, font=\small]{$Qq$ force};
+% small displacement
+\draw[<->, >=stealth, densely dotted] (3.0,1.25) -- (3.6,1.25);
+\node at (3.3,1.42) [above, font=\small]{displace by $\delta x$ and release};
+\node at (2.4,2.05) [right, align=left, font=\small]{equilibrium: $\dfrac{4Q}{x^2}=\dfrac{Q}{(3a-x)^2}$, so $x=2a$};
+\end{tikzpicture}
 \end{document}
 ```
 
 ```desmos-graph
-left=-1; right=1
-bottom=-1.2; top=0.4
-height=320
+left=0.3; right=0.95
+bottom=0.4; top=1.0
+height=330
 ---
-u(x)=1/\sqrt{(x+0.3)^2}-1/\sqrt{(0.3-x)^2}|hidden
-y=u(x)|label:U(x) ~ (shifted) potential of the bead
-y=0|dashed|black
+y=0.216/x+0.054/(0.9-x)|label:U(x) in J
+(0.6,0.54)|open|label:minimum at x = 2a
 ```
 
 ```math
-# bead of mass 15 g between two charges, a = 0.30 m, answer omega = 20 rad/s
-m = 15 g
+# 4Q at x = 0, Q at x = 3a, bead q at the equilibrium point x = 2a
+Q = 3.0e-6 C
+q = 2.0e-6 C
 a = 0.30 m
-Q = 3 uC
-q = 2 uC
-k = 9e9 N*m^2/C^2
-# for small displacements the two forces differ by dF/dx, giving k_eff
-FE = k*Q*q/a^2 =>
-k_eff = 4*FE/a =>
-omega = sqrt(k_eff/m) =>    # must come out near 20 rad/s
-```
-
-```math
-# check the angular frequency quoted in the answer
-omega_given = 20 rad/s
 m = 0.015 kg
-k_eff = m*omega_given^2 =>
-# k_eff = 4 kQq / a^3 for the symmetric bead geometry
-a = 0.30 m
-Q = 3e-6 C
-q = 2e-6 C
-k = 9e9 N*m^2/C^2
-k_eff_from_charges = 4*k*Q*q/a^3 =>
+k = 9.0e9 N*m^2/C^2
+# restoring force for a displacement dx: F' = -8kQq/x^3 - 2kQq/(3a-x)^3
+# at x = 2a this is -kQq/a^3 - 2kQq/a^3
+k_eff = 3*k*Q*q/a^3 =>
+omega = sqrt(k_eff/m) =>
 ```
+
+Equilibrium is where $4Q/x^2 = Q/(3a-x)^2$, i.e. halfway in *force* terms: $x = 2a$,
+two thirds of the way from $4Q$ to $Q$. Linearising the nett force for a small
+displacement gives $k_{\text{eff}} = kQq/a^3 + 2kQq/a^3 = 3kQq/a^3 = 6.0$ N/m, and
+$\omega=\sqrt{k_{\text{eff}}/m}=\sqrt{6.0/0.015}=20$ rad s$^{-1}$.
+
+---
 
 ---
 

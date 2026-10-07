@@ -225,13 +225,6 @@ $X = \text{MnO}_2$ (pyrolusite). Key reaction: $\text{MnO}_2 + 4\text{HCl} \righ
 - **Q39:** (D) — CoCl₃·6NH₃ (Q, all ionizable Cl⁻), CoCl₃·3NH₃ (P, no ionizable Cl⁻).
 - **Q40:** (D) — Complex compound identification.
 
-```smiles
-OC(=O)CN(CC(=O)O)CCN(CC(=O)O)CC(=O)O
-```
-*Figure: EDTA, the hexadentate ligand behind the chelate-effect questions —
-two amine nitrogens plus four carboxylate oxygens wrap a metal ion and close
-five-membered rings. Its preference for a 1:1 complex over 2:1 is the whole point
-of the chelate effect.*
 
 ---
 
@@ -265,6 +258,42 @@ $\text{Na}_2[\text{Fe(CN)}_5\text{NO}] + \text{Na}_2\text{S} \rightarrow \text{N
 - **Q44:** (A, B, C, D) — All correct about Fe³⁺, Cr³⁺, Al³⁺.
 - **Q45:** (B, C) — Theory-based coordination chemistry.
 - **Q46:** (A, B, C, D) — All correct. Octahedral paramagnetic, square planar paramagnetic, tetrahedral paramagnetic.
+
+```tikz
+\begin{document}
+\begin{tikzpicture}[line width=0.9pt, scale=1.0]
+% --- octahedral splitting ---
+\begin{scope}[shift={(-4.2,0)}]
+  \draw[thick] (-0.5,2.6) node[left, font=\small]{$e_g$} -- (0.6,2.6);
+  \draw[thick] (-0.5,2.4) -- (0.6,2.4);
+  \draw[thick] (-0.5,0.9) node[left, font=\small]{$t_{2g}$} -- (0.6,0.9);
+  \draw[thick] (-0.5,0.7) -- (0.6,0.7);
+  \draw[thick] (-0.5,0.5) -- (0.6,0.5);
+  \draw[<->, >=stealth] (1.0,0.6) -- (1.0,2.5);
+  \node at (1.2,1.55) [right, font=\small]{$\Delta_o$};
+  \node at (0.05,-0.35) [font=\small]{octahedral};
+  \node at (0.05,-0.75) [font=\small]{low spin if $\Delta_o > P$};
+\end{scope}
+% --- tetrahedral splitting ---
+\begin{scope}[shift={(1.6,0)}]
+  \draw[thick] (-0.5,0.55) node[left, font=\small]{$t_{2}$} -- (0.6,0.55);
+  \draw[thick] (-0.5,0.75) -- (0.6,0.75);
+  \draw[thick] (-0.5,0.95) -- (0.6,0.95);
+  \draw[thick] (-0.5,2.5) node[left, font=\small]{$e$} -- (0.6,2.5);
+  \draw[thick] (-0.5,2.3) -- (0.6,2.3);
+  \draw[<->, >=stealth] (1.0,0.85) -- (1.0,2.4);
+  \node at (1.2,1.6) [right, font=\small]{$\Delta_t \approx \frac49\Delta_o$};
+  \node at (0.05,-0.35) [font=\small]{tetrahedral};
+  \node at (0.05,-0.75) [font=\small]{always high spin};
+\end{scope}
+\end{tikzpicture}
+\end{document}
+```
+
+Crystal-field splitting is the one picture that decides most of this section: a large
+octahedral gap can force pairing (low spin, fewer unpaired electrons, smaller magnetic
+moment) while the tetrahedral gap is only about $\frac49$ of the octahedral one and
+practically always stays high spin.
 
 ---
 
