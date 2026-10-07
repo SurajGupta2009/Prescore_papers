@@ -47,7 +47,34 @@ $m_1 m_2 = 2x \cdot (-x/(2y)) = -x^2/y$. At intersection $y = x^2$: $= -x^2/x^2 
 
 **(D)** Both curves given; orthogonality verified similarly. ✓
 
+```tikz
+\usepackage{pgfplots}
+\begin{document}
+\begin{tikzpicture}[scale=0.85]
+  \begin{axis}[
+    axis lines = middle,
+    xlabel = $x$,
+    ylabel = $y$,
+    xmin = -3, xmax = 3,
+    ymin = -3, ymax = 3,
+    grid = major,
+    width=7.5cm, height=6cm
+  ]
+    \addplot[domain=-2.5:2.5, blue, thick] {x^2 - 3};
+    \addplot[domain=-2.5:2.5, red, thick] {3 - x^2};
+    \filldraw[teal] (axis cs:1.732,0) circle (2pt);
+    \filldraw[teal] (axis cs:-1.732,0) circle (2pt);
+  \end{axis}
+\end{tikzpicture}
+\end{document}
+```
+
 **Concept:** Orthogonality of curves is checked by computing the product of slopes at intersection points. The identity $m_1 m_2 = -1$ must hold at ALL intersection points.
+
+> [!tip] BSc/MSc Insight — Holomorphic Functions & Cauchy-Riemann Conjugates
+> Two families of plane curves $u(x, y) = c_1$ and $v(x, y) = c_2$ are orthogonal trajectories if and only if $f(z) = u + iv$ is an analytic (holomorphic) function of $z = x + iy$.
+> In (A), $f(z) = z^2 = (x^2 - y^2) + i(2xy)$. The level sets $\text{Re}(z^2) = c_1$ and $\text{Im}(z^2) = c_2$ are orthogonal everywhere directly by the Cauchy-Riemann equations:
+> $$\nabla u \cdot \nabla v = u_x v_x + u_y v_y = (v_y)(v_x) + (-v_x)(v_y) = 0$$
 
 ---
 

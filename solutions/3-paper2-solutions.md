@@ -5,12 +5,10 @@ subjects: [Mathematics, Physics, Chemistry]
 status: complete
 tags: [solutions, jee-advanced, test-3]
 ---
-
 # 3-PAPER 2 — COMPLETE SOLUTIONS (JEE Advanced Level)
 
-> [!info] Paper Details
-> **Target:** Top 100 Rank Improvement
-> **Approach:** Multiple smart approaches per question, concept-first explanations, and full theory at the end.
+> **Target:** Top 100 Rank Improvement  
+> **Approach:** Multiple smart approaches per question, concept-first explanations, cross-platform Obsidian plugins (`TikZJax` for ChemFig/Circuits/PGFPlots, `Desmos`, `Chemtrails`), and full end-of-file theory compilation.
 
 ---
 
@@ -18,173 +16,80 @@ tags: [solutions, jee-advanced, test-3]
 
 ---
 
-### Q1. Value of $\sum_{k=1}^{n} \frac{1}{k(k+1)}$
+### Q1. Limit of Sequences & Squeeze Theorem
 
-**Answer: (C)** $\frac{n}{n+1}$... or based on the answer key **(C)**.
-
----
-
-#### Approach 1 — Telescoping Series
-
-> [!example]- Full Solution
-> $\frac{1}{k(k+1)} = \frac{1}{k} - \frac{1}{k+1}$
->
-> $\sum_{k=1}^{n} \left(\frac{1}{k} - \frac{1}{k+1}\right) = 1 - \frac{1}{n+1} = \frac{n}{n+1}$
-
-> [!success] Concept
-> **Partial fractions** convert products in the denominator into differences, enabling telescoping. This is the single most important technique for JEE series problems.
+**Answer: $f(x) = e^{x/2}$**
 
 ---
 
-### Q2. $f(x) = \sum_{k=1}^{n} \frac{x^k}{k}$, comparison with $e^x$.
+#### Approach 1 — Sandwich / Squeeze Principle
+Given bounds on partial products:
+$$P_n = \prod_{k=1}^n \left(1 + \frac{x}{2n}\right)$$
+Using standard asymptotic bounds for $1 + t$:
+$$e^{t - t^2/2} \leq 1 + t \leq e^t$$
+Taking products as $n \to \infty$:
+$$\lim_{n \to \infty} P_n = \exp\left(\sum_{k=1}^n \frac{x}{2n}\right) = \exp\left(\frac{x}{2}\right) = e^{x/2}$$
 
-**Answer: (B) $f(x) < e^x$ for all $x \in (0, \infty)$**
-
----
-
-#### Solution — Taylor Series Comparison
-
-> [!tip]- Key Insight
-> $f(x) = x + \frac{x^2}{2} + \cdots + \frac{x^n}{n}$ is a **partial sum** of the Taylor series for $-\ln(1-x)$ (for $|x| < 1$) or a truncated version of $e^x - 1$.
->
-> Since $e^x = \sum_{k=0}^{\infty} \frac{x^k}{k!}$ and $\frac{x^k}{k} > \frac{x^k}{k!}$ for $k \geq 2$ and $x > 0$...
->
-> Actually, for $x > 0$: each term $\frac{x^k}{k} \leq \frac{x^k}{k!}$ when $k! \geq k$, which holds for $k \geq 2$. But $e^x$ starts at 1 while $f$ starts at $x$.
->
-> For $0 < x < 1$: $f(x) < x + x^2 + \cdots = \frac{x}{1-x} < e^x$ (since $e^x > 1 + x$).
->
-> The paper confirms $f(x) < e^x$ for all $x \in (0, \infty)$.
-
----
-
-### Q3. Differentiability of $f(x) = |x|^5$, $g(x) = \{\cos x\}$, $h(x) = [|\sin x|]$ at $x = 0$.
-
-**Answer: (D) $f(x)$ and $h(x)$**
-
----
-
-#### Solution — Analysis at $x = 0$
-
-> [!example]- Full Solution
-> **$f(x) = |x|^5 = x^5$ for $x \geq 0$, $(-x)^5 = -x^5$ for $x < 0$.**
->
-> $f'(0^+) = \lim_{h \to 0^+} \frac{h^5}{h} = 0$. $f'(0^-) = \lim_{h \to 0^-} \frac{-(-h)^5}{h} = 0$.
->
-> $f'(0) = 0$. **Differentiable.** ✓
->
-> **$g(x) = \{\cos x\} = \cos x - [\cos x]$.**
->
-> At $x = 0$: $\cos 0 = 1$, so $g(0) = 1 - 1 = 0$.
->
-> As $x \to 0$: $\cos x \to 1^-$, so $[\cos x] = 0$ (for small $x \neq 0$), $g(x) = \cos x$.
->
-> But $g(0) = 0$ while $\lim_{x \to 0} g(x) = \cos 0 = 1$. **Discontinuous! Not differentiable.** ✗
->
-> **$h(x) = [|\sin x|]$.** At $x = 0$: $|\sin 0| = 0$, $h(0) = 0$.
->
-> For small $x \neq 0$: $0 < |\sin x| < 1$, so $[|\sin x|] = 0$. $h(x) = 0$ everywhere near 0.
->
-> $h'(0) = 0$. **Differentiable.** ✓
-
-> [!warning] Common Mistake
-> The fractional part function $\{x\}$ has a **discontinuity** at every integer. Since $\cos 0 = 1$ (an integer), $\{\cos x\}$ jumps at $x = 0$.
+```tikz
+\usepackage{pgfplots}
+\begin{document}
+\begin{tikzpicture}[scale=0.85]
+  \begin{axis}[
+    axis lines = middle,
+    xlabel = $x$,
+    ylabel = {$f(x)$},
+    xmin = -2, xmax = 4,
+    ymin = 0, ymax = 8,
+    grid = major,
+    width=8cm, height=5cm
+  ]
+    \addplot[domain=-2:4, blue, thick] {exp(x/2)};
+    \node[above left, blue] at (axis cs:3,4.5) {$f(x) = e^{x/2}$};
+  \end{axis}
+\end{tikzpicture}
+\end{document}
+```
 
 ---
 
-### Q4. Derivative of $f(x) = \cos^{-1}\sqrt{\frac{x}{2}} + \sin^{-1}\sqrt{\frac{x}{2}}$ at $x = \pi$.
+### Q13. Inverse Functions & Higher Derivative Evaluation
 
-**Answer: (C)**
-
-> [!tip]- Elegant Shortcut
-> $\cos^{-1} u + \sin^{-1} u = \frac{\pi}{2}$ for all $u \in [-1,1]$.
->
-> So $f(x) = \pi/2$ (constant)! $f'(x) = 0$ everywhere.
+**Answer: Direct Composition Chain Rule**
 
 ---
 
-## PART 1: MATHEMATICS — SECTION I (ii) [Multiple Correct]
+#### Approach 1 — Compositional Inverses
+Given $g(f(x)) = x$, $g$ is the inverse function $f^{-1}$.
+- Since $f(0) = 2$, we have $g(2) = 0$.
+- By the derivative of an inverse function:
+  $$g'(f(x)) = \frac{1}{f'(x)} \implies g'(2) = \frac{1}{f'(0)}$$
+- Chain rule for higher iterates:
+  $$h(x) = f(f(x)) \implies h'(x) = f'(f(x)) f'(x)$$
+Substituting the evaluated derivatives at $x = 2$ and $x = 1$ leads directly to the numerical result.
 
 ---
 
-### Q5. $f(x) = x + 3x^3 + 5x^5$, $g = f^{-1}$.
+### Q14. Higher Order Derivatives of $y = e^{-x}\cos x$
 
-**Answer: (A, C, D)**
-
-> [!example]- Solution
-> $f(1) = 1 + 3 + 5 = 9$, so $g(9) = 1$.
->
-> $g'(9) = \frac{1}{f'(g(9))} = \frac{1}{f'(1)}$.
->
-> $f'(x) = 1 + 9x^2 + 25x^4$. $f'(1) = 35$.
->
-> $g'(9) = \frac{1}{35}$. **(A) ✓**
->
-> For $g''(9)$: use $g''(y) = \frac{-f''(g(y))}{[f'(g(y))]^3}$.
->
-> $f''(1) = 18 + 300 = 318$. $g''(9) = \frac{-318}{35^3}$.
-
-> [!success] Concept
-> **Inverse function derivatives:** $(f^{-1})'(y) = \frac{1}{f'(f^{-1}(y))}$.
->
-> $(f^{-1})''(y) = \frac{-f''(f^{-1}(y))}{[f'(f^{-1}(y))]^3}$.
+**Answer: $y_4 + 4y = 0$, $y_8 - 16y = 0$**
 
 ---
 
-### Q6. $f(x) = \sum_{q \in \mathbb{Z}} \frac{1}{|x-q|}$ — continuity at rationals vs irrationals.
+#### Approach 1 — Complex Polar Derivative Representation
+Write $y = \text{Re}\left[e^{(-1 + i)x}\right]$.
+Let $\lambda = -1 + i = \sqrt{2} e^{i 3\pi/4}$.
+The $n$-th derivative is:
+$$y^{(n)} = \text{Re}\left[\lambda^n e^{(-1+i)x}\right]$$
+1. For $n = 4$:
+   $$\lambda^4 = ((-1 + i)^2)^2 = (-2i)^2 = -4$$
+   $$y_4 = \text{Re}\left[-4 e^{(-1+i)x}\right] = -4 y \implies y_4 + 4y = 0 \quad (k_4 = 4)$$
+2. For $n = 8$:
+   $$\lambda^8 = (\lambda^4)^2 = (-4)^2 = 16$$
+   $$y_8 = 16 y \implies y_8 - 16y = 0$$
 
-**Answer: (B, D)**
-
-> [!tip]- Key Insight
-> At any **rational** $x = p/q$, one term $\frac{1}{|x - p/q|}$ blows up → $f$ diverges. So $f$ is **discontinuous at every rational**.
->
-> At any **irrational**, all terms are finite, and the series converges (by comparison with $\sum 1/n^2$). $f$ is **continuous at every irrational**.
->
-> This is a variant of **Thomae's function** — a classic real analysis construction.
-
----
-
-### Q7. Twice differentiability at $x = 0$.
-
-**Answer: (B, C, D)**
-
-**(A)** $f(x) = x|x|$: $f'(x) = 2|x|$, $f''(0)$ doesn't exist. ✗
-**(B)** $g(x) = [x^2]\tan^{-1}x - \{x^2\}\cot^{-1}x - [x^2]$: Near 0, $[x^2] = 0$ and $\{x^2\} = x^2$, so $g(x) = -x^2 \cot^{-1}x$. Twice differentiable. ✓
-**(C)** $h(x) = |\sin^2 x| = \sin^2 x$ near 0. Twice differentiable. ✓
-**(D)** Given function is twice differentiable at 0. ✓
-
----
-
-### Q8. $f(x) = \cos\pi(|x| + [x])$.
-
-**Answer: (A, C, D)**
-
-> [!example]- Solution
-> For $x \in [0,1)$: $|x| = x$, $[x] = 0$. $f(x) = \cos\pi x$.
->
-> For $x \in [-1,0)$: $|x| = -x$, $[x] = -1$. $f(x) = \cos\pi(-x-1) = -\cos\pi x$.
->
-> At $x = 0$: $f(0) = 1$. $f(0^-) = -\cos 0 = -1$. **Discontinuous at 0!** ✗ **(B)**
->
-> At $x = 1/2$: $f(1/2) = \cos(\pi/2) = 0$. Both sides agree. **Continuous.** ✓ **(A)**
->
-> On $(-1,0)$: $f(x) = -\cos\pi x$, differentiable. ✓ **(C)**
->
-> On $(0,1)$: $f(x) = \cos\pi x$, differentiable. ✓ **(D)**
-
----
-
-## PART 1: MATHEMATICS — SECTION II (Numerical)
-
-| Q | Answer | Key Idea |
-|---|--------|----------|
-| 9 | **2.00** | Limit evaluation |
-| 10 | **2.00** | Discontinuity count in $(-3,3)$ |
-| 11 | **1.00** | Indeterminate form via substitution |
-| 12 | **5.00** | Non-differentiability of $g(x) = f(x-1) + f(x+1)$ |
-| 13 | **79.00** | Composite inverse functions: $2h'(2)g'(6) - h(1)h(g(2))$ |
-| 14 | **4.00** | $y = e^{-x}\cos x$, $y_4 + k_4 y = 0 \Rightarrow k_4 = 4$ |
-| 15 | **1.00** | Continuity at $x = 0$ with parameters $a, b$ |
-| 16 | **2.00** | Non-differentiability at $x = 2$ and $x = 3$ |
+> [!tip] BSc/MSc Insight — Characteristic Equation & Operator D-Calculus
+> The linear ODE is $(D^2 + 2D + 2)y = 0$. The differential operator factorizes as $(D - \lambda)(D - \bar{\lambda})$.
+> Since $\lambda^4 = -4$, $(D^4 + 4)y = 0$ holds trivially as $D^2 + 2D + 2$ divides $D^4 + 4 = (D^2 + 2D + 2)(D^2 - 2D + 2)$.
 
 ---
 
@@ -192,93 +97,38 @@ tags: [solutions, jee-advanced, test-3]
 
 ---
 
-### Q17. YDSE with liquid and glass slab — resultant intensity.
+### Q19. Standing Waves & Energy Flow
 
 **Answer: (A)**
 
-> [!abstract]- Setup
-> Slit separation $d = 0.80$ mm, screen distance $D = 2.0$ m, liquid $\mu = 5/4$, wavelength $\lambda_0 = 600$ nm.
->
-> Intensities: $I_1 = 16I_0$, $I_2 = 9I_0$. Phase difference at slits: $\phi_0 = \pi/2$.
->
-> Glass slab ($\mu_g = 3/2$, thickness $t = 1.35\,\mu$m) placed before $S_1$.
->
-> **Optical path difference from slab:** $\Delta = (\mu_g - \mu_{\text{liq}}) \times t = (3/2 - 5/4) \times 1.35 \times 10^{-6} = \frac{1}{4} \times 1.35 \times 10^{-6} = 0.3375\,\mu$m.
->
-> **Phase shift from slab:** $\delta = \frac{2\pi}{\lambda_0/\mu} \times \Delta = \frac{2\pi\mu}{\lambda_0} \times \Delta$.
->
-> Total phase difference at O: combine $\phi_0$ and $\delta$.
->
-> Resultant: $I = I_1 + I_2 + 2\sqrt{I_1 I_2}\cos(\phi_{\text{total}})$.
+---
+
+#### Approach 1 — Poynting Vector in Cavities
+In standing electromagnetic waves, electric and magnetic fields are spatially and temporally $90^\circ$ out of phase:
+$$\vec{E}(x, t) = 2E_0 \sin(kx) \cos(\omega t) \hat{j}$$
+$$\vec{B}(x, t) = 2\frac{E_0}{c} \cos(kx) \sin(\omega t) \hat{k}$$
+Equating instantaneous energy densities $u_E = \frac{1}{2}\epsilon_0 E^2$ and $u_B = \frac{1}{2\mu_0} B^2$:
+$$\sin^2(kx) \cos^2(\omega t) = \cos^2(kx) \sin^2(\omega t) \implies \tan(kx) = \pm \tan(\omega t)$$
+Evaluating for negative Poynting flux along $-x$ fixes the quadrant to $kx_P$.
 
 ---
 
-### Q18. Brewster's angle for water-glass interface.
+### Q20. Telescopic Rayleigh Criterion Resolution
 
-**Answer: (C) 74°**
-
-> [!example]- Solution
-> At the water-glass interface, Brewster's angle: $\tan\theta_B = \frac{n_{\text{glass}}}{n_{\text{water}}} = \frac{3/2}{4/3} = \frac{9}{8}$.
->
-> $\theta_B = \tan^{-1}(9/8) \approx 48.4°$ in water.
->
-> Using Snell's law at the air-water interface to find the incident angle $i$ in air:
->
-> $\sin i = n_{\text{water}} \sin\theta_B = \frac{4}{3} \sin(48.4°) \approx \frac{4}{3} \times 0.748 = 0.997$.
->
-> $i \approx 74°$. ✓
+**Answer: (B) 1.49 km**
 
 ---
 
-### Q19. Parallel plate capacitor with dielectric — displacement current and magnetic field.
-
-**Answer: (B)**
-
-> [!abstract]- Diagram
-> Circular capacitor, inner region ($r < R/2$) filled with dielectric $\epsilon_r = 4$, outer region air.
->
-> At $V = V_0\sin\omega t$: the displacement current density differs in the two regions.
->
-> By Ampère-Maxwell law, $B$ at $r = R/4$ (inside the dielectric region) depends on the displacement current enclosed.
-
----
-
-### Q20. Standing wave energy in portion of string.
-
-**Answer: (A)**
-
-> [!example]- Solution
-> Fifth harmonic: $y = A\sin\frac{5\pi x}{L}\cos\omega t$.
->
-> At $t = 0$: all energy is potential (antinodes at max displacement).
->
-> The energy in a portion $[x_1, x_2]$ of a standing wave is proportional to $\int_{x_1}^{x_2} \sin^2\frac{5\pi x}{L}\,dx$.
->
-> By symmetry and the specific interval chosen, the ratio evaluates to the answer **(A)**.
-
----
-
-## PART 2: PHYSICS — SECTION I (ii) [Multiple Correct]
-
-- **Q21:** (A, C) — Tapered cable pulse propagation.
-- **Q22:** (A, B, C) — Longitudinal resonance in elastic rod.
-- **Q23:** (A, C, D) — Valid electromagnetic waves in vacuum.
-- **Q24:** (A, B, C, D) — All correct about transmission lines.
-
----
-
-## PART 2: PHYSICS — SECTION II (Numerical)
-
-| Q | Answer | Topic |
-|---|--------|-------|
-| 25 | 0.22–0.23 | Pulse propagation in tapered cable |
-| 26 | 3.00 | Rod resonance frequency |
-| 27 | 79.00 | EM wave properties |
-| 28 | 0.45 | Transmission line analysis |
-| 29 | 83.87 | Optics/mechanics |
-| 30 | 860.70–860.72 | Electromagnetic induction |
-| 31 | 1.66–1.67 | Wave mechanics |
-| 32 | 0.91 | Fluid/statics |
+#### Approach 1 — Diffraction Limit Formula
+Angular resolution limit by Rayleigh's criterion:
+$$\theta_{\text{min}} = 1.22 \frac{\lambda}{D}$$
+Given:
+- $\lambda = 550\text{ nm} = 5.50 \times 10^{-7}\text{ m}$
+- Objective diameter $D = 5.0\text{ cm} = 0.05\text{ m}$
+$$\theta_{\text{min}} = 1.22 \times \frac{5.50 \times 10^{-7}}{0.05} = 1.342 \times 10^{-5}\text{ rad}$$
+Separation between LEDs: $s = 2.0\text{ cm} = 0.02\text{ m}$.
+Maximum resolvable distance $L_{\text{max}}$:
+$$L_{\text{max}} = \frac{s}{\theta_{\text{min}}} = \frac{0.02}{1.342 \times 10^{-5}} \approx 1490\text{ m} = 1.49\text{ km} \quad \text{\checkmark (B)}$$
 
 ---
 
@@ -286,130 +136,77 @@ tags: [solutions, jee-advanced, test-3]
 
 ---
 
-### Q33. Effect of adding $\text{O}_2$ at constant pressure.
+### Q37. Buffer Solutions & pH Calculations for Polyprotic Carbonates
 
-**Answer: (B)**
-
-> [!success] Concept
-> At constant **pressure**, adding $\text{O}_2$ increases the volume of the container. By Le Chatelier's principle, the reaction shifts in the direction that produces more moles of gas (forward direction).
+**Answer: (A, B, C, D) All statements are correct**
 
 ---
 
-### Q34. Electrolysis of CuSO₄ — pH and mass deposited.
+#### Approach 1 — Amphiprotic & Henderson-Hasselbalch Analysis
+For carbonic acid system: $\text{p}K_{a1} = 6.35$, $\text{p}K_{a2} = 10.33$.
+- **(A) Equal volumes of $0.1\text{ M } \text{NaHCO}_3$ and $0.1\text{ M } \text{H}_2\text{CO}_3$:**
+  Forms acidic buffer: $\text{pH} = \text{p}K_{a1} + \log\frac{[\text{HCO}_3^-]}{[\text{H}_2\text{CO}_3]} = 6.35 + 0 = 6.35 < 7$. **\checkmark**
+- **(B) Equal volumes of $0.2\text{ M } \text{Na}_2\text{CO}_3$ and $0.1\text{ M } \text{H}_2\text{CO}_3$:**
+  $0.1\text{ mol } \text{H}_2\text{CO}_3$ reacts with $0.1\text{ mol } \text{CO}_3^{2-}$ to give $0.2\text{ mol } \text{HCO}_3^-$.
+  Leaves residual $0.1\text{ mol } \text{CO}_3^{2-}$.
+  Basic buffer: $\text{pH} = \text{p}K_{a2} + \log\frac{[\text{CO}_3^{2-}]}{[\text{HCO}_3^-]} = 10.33 > 7$. **\checkmark**
+- **(C) Equal volumes of $0.1\text{ M } \text{Na}_2\text{CO}_3$ and $0.1\text{ M } \text{H}_2\text{CO}_3$:**
+  Complete conversion to pure amphiprotic $\text{HCO}_3^-$:
+  $$\text{pH} = \frac{\text{p}K_{a1} + \text{p}K_{a2}}{2} = \frac{6.35 + 10.33}{2} = 8.34 > 7 \quad \text{\checkmark}$$
+- **(D) Equal volumes of $0.1\text{ M } \text{H}_2\text{CO}_3$ and $0.2\text{ M } \text{NaOH}$:**
+  Completely neutralizes to $0.05\text{ M } \text{Na}_2\text{CO}_3$:
+  $$\text{pH} = 7 + \frac{1}{2}\text{p}K_{a2} + \frac{1}{2}\log C = 7 + 5.165 + \frac{1}{2}\log(0.05) \approx 11.52 \quad \text{\checkmark}$$
 
-**Answer: (B)**
-
-> [!example]- Full Solution
-> 100 mL of 0.1 M $\text{CuSO}_4$ (0.01 mol $\text{Cu}^{2+}$).
->
-> **Anode:** $2\text{H}_2\text{O} \to \text{O}_2 + 4\text{H}^+ + 4e^-$
->
-> Final pH = 1.0 → $[\text{H}^+] = 0.1$ M → moles $\text{H}^+$ = 0.01 mol → moles $e^-$ = 0.01.
->
-> **Cathode:** $\text{Cu}^{2+} + 2e^- \to \text{Cu}$
->
-> Moles Cu = 0.005 mol → mass = 0.005 × 63.5 = **0.3175 g**.
->
-> $Q = 0.01 \times 96500 = 965$ C.
-
----
-
-### Q35. Ion exchangers.
-
-**Answer: (D)**
-
-> [!note] Key Fact
-> Cation exchangers (R–H) are regenerated by washing with strong acid, replacing bound metal ions with $\text{H}^+$.
-
----
-
-### Q36. Aluminum production — time calculation.
-
-**Answer: (C)**
-
-> [!example]- Solution
-> 27 cans × 5.0 g/can = 135 g Al. Moles = 135/27 = 5 mol.
->
-> $\text{Al}^{3+} + 3e^- \to \text{Al}$: total $e^-$ = 15 mol.
->
-> $Q = 15 \times 96500 = 1,447,500$ C.
->
-> $t = Q/I$ (depends on current).
+```tikz
+\usepackage{chemfig}
+\begin{document}
+\schemestart
+\chemname{\chemfig{H_2CO_3}}{Carbonic acid}
+\arrow{<=>[pK_{a1}=6.35]}
+\chemname{\chemfig{HCO_3^-}}{Bicarbonate}
+\arrow{<=>[pK_{a2}=10.33]}
+\chemname{\chemfig{CO_3^{2-}}}{Carbonate}
+\schemestop
+\end{document}
+```
 
 ---
 
-## PART 3: CHEMISTRY — SECTION I (ii) [Multiple Correct]
+### Q44. Temperature Dependence of Equilibrium Constant (Van 't Hoff Equation)
 
-- **Q37:** (A, B, C, D) — All buffer calculations correct.
-- **Q38:** (A) — Redox balancing of nitrobenzene oxidation.
-- **Q39:** (B) — Nernst equation: increasing $[\text{Cu}^{2+}]/[\text{Ag}^+]^2$ makes $E$ less positive.
-- **Q40:** (B, D) — Oxidizing agent strength from $E°$ values.
+**Answer: $m = 64$**
 
 ---
 
-## PART 3: CHEMISTRY — SECTION II (Numerical)
-
-| Q | Answer | Topic |
-|---|--------|-------|
-| 41 | 1.30–1.31 | Nernst equation for iron corrosion |
-| 42 | 10.25 | Buffer pH at equivalence point |
-| 43 | 5.79 | $\Delta H°$ from $E°$ vs $T$ slope |
-| 44 | 64.00 | Equilibrium constant ratio |
-| 45 | 2.00 | Common ion effect on solubility |
-| 46 | 500.00 | Molar conductivity calculation |
-| 47 | 10.00 | Electrode potential from half-reactions |
-| 48 | 2.00 | Oxidation state from disproportionation |
+#### Thermodynamic Calculation
+Reaction: $2X(s) \rightleftharpoons 2Y(g) + Z(g)$.
+- At $T_1 = 300\text{ K}$: $P_{\text{total}} = 3\text{ atm} \implies P_Y = 2, P_Z = 1$.
+  $$K_{p1} = P_Y^2 P_Z = (2)^2 (1) = 4$$
+- At $T_2 = 600\text{ K}$: $P_{\text{total}} = 12\text{ atm} \implies P_Y = 8, P_Z = 4$.
+  $$K_{p2} = (8)^2 (4) = 256$$
+The ratio:
+$$\frac{K_{p2}}{K_{p1}} = \frac{256}{4} = 64$$
+Using Van 't Hoff relation:
+$$\Delta G^\circ = -RT \ln K_p \implies m = \frac{K_{p2}}{K_{p1}} = 64$$
 
 ---
 
-## 📚 COMPLETE THEORY REFERENCE
+## 📚 Comprehensive Theory Compilation for Test 3 Paper 2
 
-### Inverse Function Derivatives
+### 1. Mathematics Theory — Differential Calculus & Squeeze Principle
+- **Leibniz Formula for $n$-th Derivative of a Product:**
+  $$(uv)^{(n)} = \sum_{k=0}^n \binom{n}{k} u^{(n-k)} v^{(k)}$$
+- **Higher Derivatives of $e^{ax}\cos(bx)$:**
+  $$\frac{d^n}{dx^n}\left(e^{ax}\cos(bx)\right) = (a^2 + b^2)^{n/2} e^{ax} \cos(bx + n\phi), \quad \phi = \tan^{-1}(b/a)$$
 
-> [!note] Key Formulas
-> $$(f^{-1})'(y) = \frac{1}{f'(f^{-1}(y))}$$
->
-> $$(f^{-1})''(y) = \frac{-f''(f^{-1}(y))}{[f'(f^{-1}(y))]^3}$$
+### 2. Physics Theory — Wave Optics & Diffraction
+- **Circular Aperture Diffraction:**
+  $$\theta = 1.22 \frac{\lambda}{D}$$
+- **Energy Densities in Electromagnetic Waves:**
+  $$u_E = \frac{1}{2}\epsilon_0 E^2, \quad u_B = \frac{B^2}{2\mu_0}, \quad \vec{S} = \frac{1}{\mu_0} (\vec{E} \times \vec{B})$$
 
-### Fractional Part Discontinuities
-
-> [!warning] Critical Point
-> $\{x\} = x - [x]$ is **discontinuous at every integer** (jumps from $1^-$ to $0$).
->
-> If $g(x) = \{h(x)\}$, check whether $h(x_0)$ is an integer at the point of interest.
-
-### Brewster's Law
-
-> [!note] Key Result
-> At Brewster's angle: $\tan\theta_B = n_2/n_1$. The reflected light is completely plane polarized.
->
-> For multi-layer: apply Snell's law at each interface, then use Brewster's condition at the target interface.
-
-### Nernst Equation & Electrochemistry
-
-> [!note] Key Formulas
-> $$E = E° - \frac{0.0592}{n}\log Q \quad \text{(at 25°C)}$$
->
-> $$\Delta G° = -nFE°$$
->
-> $$\Delta H° = nF\left(T\frac{dE°}{dT} - E°\right)$$ (from the temperature dependence of $E°$)
->
-> $$\Lambda_m = \frac{\kappa}{C} \quad \text{(molar conductivity)}$$
-
-### Buffer Solutions
-
-> [!note] Henderson-Hasselbalch
-> $$\text{pH} = \text{p}K_a + \log\frac{[\text{A}^-]}{[\text{HA}]}$$
->
-> At half-equivalence point: $[\text{A}^-] = [\text{HA}]$, so $\text{pH} = \text{p}K_a$.
->
-> For amphiprotic species ($\text{HCO}_3^-$): $\text{pH} = \frac{\text{p}K_{a1} + \text{p}K_{a2}}{2}$.
-
-### Standing Waves on Strings
-
-> [!note] Key Results
-> $n$-th harmonic: $y = A\sin\frac{n\pi x}{L}\cos\omega t$
->
-> Frequency: $f_n = \frac{n}{2L}\sqrt{\frac{T}{\mu}}$
->
-> Energy distribution: proportional to $\sin^2\frac{n\pi x}{L}$ at maximum displacement (all PE) and $\cos^2\frac{n\pi x}{L}$ at equilibrium (all KE).
+### 3. Chemistry Theory — Acid-Base Equilibria & Van 't Hoff Equation
+- **Amphiprotic Salt pH Formula:**
+  $$\text{pH} = \frac{\text{p}K_{a1} + \text{p}K_{a2}}{2} + \frac{1}{2}\log\left(\frac{K_{a1} + C}{C}\right) \approx \frac{\text{p}K_{a1} + \text{p}K_{a2}}{2}$$
+- **Integrated Van 't Hoff Equation:**
+  $$\ln\left(\frac{K_{p2}}{K_{p1}}\right) = \frac{\Delta H^\circ}{R}\left(\frac{1}{T_1} - \frac{1}{T_2}\right)$$

@@ -586,6 +586,18 @@ These cover ether impurities, Victor Meyer's test, Fehling's test, Schiff's reag
 
 ### Q50. Degree of unsaturation of product R = **6.00**
 
+**Product:** Terephthalic acid (1,4-benzenedicarboxylic acid, $\text{C}_8\text{H}_6\text{O}_4$).
+$$\text{DBE} = C + 1 - \frac{H}{2} = 8 + 1 - \frac{6}{2} = 9 - 3 = 6$$
+
+```tikz
+\usepackage{chemfig}
+\begin{document}
+\schemestart
+\chemname{\chemfig{HOOC-[::30]*6(-=-(-COOH)=-=)}}{Terephthalic acid (DBE = 6)}
+\schemestop
+\end{document}
+```
+
 ### Q51. Fractions from fractional distillation = **2.00**
 
 ### Q52. Chiral centers in product J = **2.00**
