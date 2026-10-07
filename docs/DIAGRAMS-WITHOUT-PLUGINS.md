@@ -94,7 +94,7 @@ time.
 
 | Fence | Rendered by | Replaces |
 |---|---|---|
-| ```` ```smiles ```` | RDKit (or Indigo fallback) | Molren, Ketcher, chemfig |
+| ```` ```smiles ```` | Indigo (RDKit fallback) | Molren, Ketcher, chemfig |
 | ```` ```plot ```` | matplotlib | Plot Vectors & Graphs, Desmos (static), pgfplots |
 | ```` ```circuit ```` | schemdraw | Circuit Sketcher, circuitikz |
 

@@ -1,5 +1,12 @@
 # Figure pipeline dependencies (see tools/render_figures.py)
 # Install with:  pip install -r tools/requirements.txt
-rdkit>=2023.3.1        # chemistry:  ```smiles -> SVG   (replaces Molren / Ketcher)
-matplotlib>=3.7        # maths:      ```plot   -> SVG   (replaces Plot Vectors & Graphs / Desmos)
-schemdraw>=0.17        # physics:    ```circuit -> SVG  (replaces Circuit Sketcher / circuitikz)
+#
+#   ```smiles  -> SVG   chemistry  (replaces Molren / Ketcher / chemfig)
+epam.indigo>=1.31       # default engine: Ketcher's Indigo, plain wheel, no system libs
+rdkit>=2023.3.1         # fallback engine (Molren's engine); needs libXrender on Linux
+#
+#   ```plot    -> SVG   maths      (replaces Plot Vectors & Graphs / Desmos / pgfplots)
+matplotlib>=3.7
+#
+#   ```circuit -> SVG   physics    (replaces Circuit Sketcher / circuitikz)
+schemdraw>=0.17

@@ -1,4 +1,5 @@
 {
+  "chemistry_backend": "indigo",
   "figures": {
     "circuit-5e163617dd": {
       "file": "assets/diagrams/circuit-5e163617dd.svg",

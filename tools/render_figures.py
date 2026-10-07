@@ -220,9 +220,61 @@ def _compose_rows(rows, out: Path, cell_w: int = 340, cell_h: int = 300,
 # Chemistry:  ```smiles  ->  one molecule per line, optional label
 # --------------------------------------------------------------------------- #
 
+_CHEM_CACHE = {}
+
+
 def _chemistry_backend():
-    """Prefer RDKit (same engine family as Molren); fall back to Indigo."""
-    try:
+    """Pick the chemistry engine, deterministically.
+
+    **Indigo first** (the engine behind Ketcher): it installs as a plain wheel with no
+    system libraries, so a laptop, a CI runner and a container all produce
+    *byte-identical* molecules - which is what `--check` depends on. RDKit is the
+    fallback, preferred only when Indigo is absent, because on Linux RDKit's SVG
+    renderer needs libXrender.
+
+    Force one with PRESCORE_CHEM=rdkit (or =indigo), e.g. when migrating the vault.
+    """
+    if _CHEM_CACHE:
+        return _CHEM_CACHE["name"], _CHEM_CACHE["draw"]
+
+    import os
+    forced = os.environ.get("PRESCORE_CHEM", "").strip().lower()
+
+    def try_indigo():
+        from indigo import Indigo
+        from indigo.renderer import IndigoRenderer
+
+        indigo = Indigo()
+        renderer = IndigoRenderer(indigo)
+        indigo.setOption("render-background-color", "255,255,255")
+        indigo.setOption("render-atom-ids-visible", "false")
+        indigo.setOption("render-implicit-hydrogens-visible", "true")
+        # wedges already convey stereochemistry; without this Indigo stamps a
+        # "Chiral" flag over every stereocentre
+        for opt in ("render-stereo-style", "render-stereo-style-old"):
+            try:
+                indigo.setOption(opt, "none")
+            except Exception:  # noqa: BLE001 - option name varies by Indigo version
+                pass
+
+        def draw(smiles: str, w: int, h: int) -> str:
+            import tempfile as _tf
+
+            indigo.setOption("render-image-width", str(w))
+            indigo.setOption("render-image-height", str(h))
+            mol = indigo.loadMolecule(smiles)
+            with _tf.NamedTemporaryFile(suffix=".svg", delete=False) as fh:
+                tmp = fh.name
+            try:
+                renderer.renderToFile(mol, tmp)
+                return Path(tmp).read_text(encoding="utf-8")
+            finally:
+                Path(tmp).unlink(missing_ok=True)
+
+        draw("C", 60, 60)                      # prove it really works
+        return draw
+
+    def try_rdkit():
         from rdkit import Chem
         from rdkit.Chem import AllChem
         from rdkit.Chem.Draw import rdMolDraw2D
@@ -243,43 +295,28 @@ def _chemistry_backend():
             drawer.FinishDrawing()
             return drawer.GetDrawingText()
 
-        # force a real render now: on machines without libXrender this raises
-        draw("C", 100, 100)
-        return "rdkit", draw
-    except Exception:  # noqa: BLE001 - any failure means "use the fallback"
-        pass
+        draw("C", 60, 60)
+        return draw
 
-    from indigo import Indigo
-    from indigo.renderer import IndigoRenderer
-
-    indigo = Indigo()
-    renderer = IndigoRenderer(indigo)
-    indigo.setOption("render-background-color", "255,255,255")
-    indigo.setOption("render-atom-ids-visible", "false")
-    indigo.setOption("render-implicit-hydrogens-visible", "true")
-    # wedges already convey stereochemistry; without this Indigo stamps a "Chiral"
-    # flag over every stereocentre
-    for opt in ("render-stereo-style", "render-stereo-style-old"):
+    candidates = {"indigo": try_indigo, "rdkit": try_rdkit}
+    order = [forced] if forced in candidates else ["indigo", "rdkit"]
+    for name in order:
         try:
-            indigo.setOption(opt, "none")
-        except Exception:  # noqa: BLE001 - option name varies by Indigo version
-            pass
+            draw = candidates[name]()
+        except Exception:  # noqa: BLE001 - move on to the next engine
+            continue
+        _CHEM_CACHE.update(name=name, draw=draw)
+        return name, draw
+    raise RuntimeError("no chemistry engine available: "
+                       "pip install epam.indigo (preferred) or rdkit")
 
-    def draw(smiles: str, w: int, h: int) -> str:
-        import tempfile as _tf
 
-        indigo.setOption("render-image-width", str(w))
-        indigo.setOption("render-image-height", str(h))
-        mol = indigo.loadMolecule(smiles)
-        with _tf.NamedTemporaryFile(suffix=".svg", delete=False) as fh:
-            tmp = fh.name
-        try:
-            renderer.renderToFile(mol, tmp)
-            return Path(tmp).read_text(encoding="utf-8")
-        finally:
-            Path(tmp).unlink(missing_ok=True)
-
-    return "indigo", draw
+def chemistry_backend_name():
+    """Name of the engine that will draw molecules, or None if none is installed."""
+    try:
+        return _chemistry_backend()[0]
+    except Exception:  # noqa: BLE001
+        return None
 
 
 def render_smiles(source: str, out: Path, width: int, height: int) -> None:
@@ -641,6 +678,19 @@ def cmd_build(root: Path, args) -> int:
     by_file = {Path(r["file"]).name: fid for fid, r in figures.items()}
     referenced = set()
 
+    # The molecules are drawn by Indigo or RDKit, and the two never agree pixel for
+    # pixel. Record which engine produced the committed files; when it changes, the
+    # molecules are re-rendered so the vault stays self-consistent.
+    backend = chemistry_backend_name()
+    recorded = reg.get("chemistry_backend")
+    rerender_smiles = False
+    if backend and recorded and recorded != backend:
+        print("  note    chemistry engine changed: %s -> %s; re-rendering molecules"
+              % (recorded, backend))
+        rerender_smiles = True
+    if backend:
+        reg["chemistry_backend"] = backend
+
     # ---- phase 1: discover fences, register figures ----------------------- #
     plan = []          # (note_path, blocks, [figure ids in order])
     for note in iter_notes(root):
@@ -695,7 +745,7 @@ def cmd_build(root: Path, args) -> int:
         target = root / record["file"]
         if args.check:
             ok[fid] = render_one(root, record, tmp_root / record["file"], quiet=True)
-        elif args.force or not target.exists():
+        elif args.force or not target.exists() or (rerender_smiles and record["kind"] == "smiles"):
             ok[fid] = render_one(root, record, target)
         else:
             ok[fid] = True
@@ -727,8 +777,16 @@ def cmd_build(root: Path, args) -> int:
     # ---- phase 4: staleness report (CI) ------------------------------------ #
     stale = []
     if args.check and tmp_root is not None:
+        engine_ok = (backend is None or recorded is None or backend == recorded)
+        if not engine_ok:
+            print("\nWARNING: the committed molecules were drawn with %r but this machine\n"
+                  "         has %r; skipping the molecule comparison (cosmetic difference).\n"
+                  "         Install the recorded engine or run without --check to migrate."
+                  % (recorded, backend))
         for fid, record in sorted(figures.items()):
             committed = root / record["file"]
+            if record["kind"] == "smiles" and not engine_ok:
+                continue
             if not ok.get(fid) or not committed.exists():
                 stale.append(record["file"])
             elif committed.read_bytes() != (tmp_root / record["file"]).read_bytes():
@@ -819,7 +877,9 @@ def main(argv=None) -> int:
     args = p.parse_args(argv)
 
     root = Path(args.root).resolve() if args.root else Path(__file__).resolve().parent.parent
-    print("vault: %s\n" % root)
+    print("vault: %s" % root)
+    engine = chemistry_backend_name()
+    print("chemistry engine: %s\n" % (engine or "none installed (smiles figures will fail)"))
 
     if args.restore:
         return cmd_restore(root, args)

@@ -31,10 +31,12 @@ A reaction can be written as one SMILES with `>>`, exactly like RDKit reactions:
 ![[assets/diagrams/smiles-a7b0556015.svg]]
 
 > [!info] Which chemistry engine draws this?
-> **RDKit** if it is installed (the same engine family Molren uses in the browser via
-> WASM); otherwise the pipeline falls back to **Indigo**, the engine behind Ketcher. Both
-> are offline and produce self-contained SVG. Check which one ran:
-> `python3 -c "import tools.render_figures as r; print(r._chemistry_backend()[0])"`.
+> **Indigo** by default — the engine behind Ketcher; it installs as a plain wheel with no
+> system libraries, so every machine renders byte-identical molecules. **RDKit** (what
+> Molren uses in-browser via WASM) is the fallback, and is preferred only when Indigo is
+> missing. Both are offline and produce self-contained SVG.
+> Force one with `PRESCORE_CHEM=rdkit`; the engine used for the committed files is stored
+> in `assets/diagrams/figures.json` as `chemistry_backend`.
 
 > [!tip] Why this beats Molren/Ketcher here
 > Molren and Ketcher both ship `"isDesktopOnly": true` — Obsidian refuses to enable them on
