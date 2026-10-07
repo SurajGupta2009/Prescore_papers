@@ -26,3 +26,5 @@ Thumbs.db
 *.tmp
 *.bak
 ~*
+# PDF extraction working artifacts
+extracted/
