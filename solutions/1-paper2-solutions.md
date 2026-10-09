@@ -2,1781 +2,1918 @@
 test: 1
 paper: 2
 subjects: [Mathematics, Physics, Chemistry]
+total_questions: 51
 status: complete
 tags: [solutions, jee-advanced, test-1]
 ---
 # 1-PAPER 2 — COMPLETE SOLUTIONS (JEE Advanced Level)
 
-> **Target:** Top 100 Rank Improvement  
-> **Approach:** Multiple smart approaches per question, concept-first explanations, and full theory at the end.
+> **Target:** Top 100 Rank Improvement<br>
+> **Approach:** Concept-first, fully worked solutions; independent checks; plugin-rendered diagrams where they add value; and a compact theory vault at the end.<br>
+> **Source check:** The paper and its printed answer key (PDF pp. 1–18) were checked against the worked mathematics notes (pp. 19–25). The remaining physics and chemistry workings below are derived from the stated data and diagrams.
 
 ---
 
-## PART 1: MATHEMATICS
+## MASTER ANSWER KEY
+
+| Subject | Question | Answer |
+|---|---:|---|
+| Mathematics | 1–4 | D (96), C (5), A (850), D (9) |
+| Mathematics | 5–7 | B,C,D · A,B · A,B,C,D |
+| Mathematics | 8–11 | 1.00 · 0.00 · 5.00 · −3.00 |
+| Mathematics | 12–17 | 9 · 1 · 22 · 3 · 2498 · 482 |
+| Physics | 18–21 | C · C (220 °C) · A · A (5R/12) |
+| Physics | 22–24 | B,C · A,B,C · A,B,C,D |
+| Physics | 25–28 | 0.19 s · 1.60 A · 7.87 kV · 0.48 N m⁻¹ |
+| Physics | 29–34 | 14 · 203 · 8 · 6 · 892 · 3 |
+| Chemistry | 35–38 | A · A · B · D |
+| Chemistry | 39–41 | A,C,D · A,B · A,C,D |
+| Chemistry | 42–45 | 5 · 12 · 331 · 135 |
+| Chemistry | 46–51 | 2 · 146 · 167 · 5 · 8 · 0 |
 
 ---
 
-### Q1. Three couples sit for a photograph in 2 rows of 3 people each. No couple in the same row next to each other OR in the same column one behind the other. How many arrangements?
+# PART 1: MATHEMATICS
+
+## SECTION I (i) — Single Correct
+
+### Q1. Three couples sit for a photograph in two rows of three. No couple may sit adjacent in the same row or directly one behind the other in the same column. Find the number of arrangements.
+
+(A) 48 (B) 56 (C) 72 (D) 96
 
 **Answer: (D) 96**
 
----
+#### Approach 1 — Count by the number of husbands in the first row
 
-#### Approach 1 — Case Analysis by Gender Distribution
+Call the couples \(H_i,W_i\), for \(i=1,2,3\). Classify the first row by its gender composition.
 
-Let couples be $(H_1, W_1), (H_2, W_2), (H_3, W_3)$. Two rows of 3 seats each:
+- **Three husbands:** arrange them in \(3!\) ways. The wives in the second row must be a derangement of their column positions, so there are \(D_3=2\) possibilities. Count: \(3!D_3=12\).
+- **Three wives:** by symmetry, another \(12\).
+- **Two husbands and one wife:** if the wife is paired with one of the two husbands in row 1, that couple must occupy the two end seats; the remaining husband sits in the middle. The corresponding husband–wife pair in row 2 must also occupy the ends, forcing the other wife into the middle directly behind her husband, so these cases have no valid completion. Thus the row-1 wife must be the wife of the omitted husband: choose the two husbands in \(\binom32=3\) ways, arrange the three people in \(3!\) ways, and derange their three spouses in \(D_3=2\) ways. Count: \(3\cdot3!\cdot2=36\).
+- **Two wives and one husband:** symmetrically, \(36\).
 
-$$\text{Row 1: } \_ \; \_ \; \_$$
-$$\text{Row 2: } \_ \; \_ \; \_$$
+Thus \(12+12+36+36=96\).
 
-**Constraint 1:** No couple sits in the same row adjacent to each other.
-**Constraint 2:** No couple sits in the same column (one behind the other).
+#### Approach 2 — Derangement check
 
-**Case I: All 3 husbands in Row 1, all 3 wives in Row 2.**
+In each mixed-gender case that can be completed, row 1 contains one person from each couple and row 2 contains exactly their three spouses. They must avoid the three partner-columns; inclusion–exclusion gives \(3!-{3\choose1}2!+{3\choose2}1!-{3\choose3}=2\). If row 1 contains a married pair, the end-seat/middle-seat constraint described above leaves no valid row 2.
 
-Row 1: 3 husbands in some order = $3! = 6$.
-Row 2: 3 wives must be **deranged** relative to their husbands' column positions (no wife directly behind her husband).
+> [!tip] Exam Shortcut
+> First classify the first row by its gender composition; the column restriction is a three-object derangement in every case.
 
-Derangements of 3: $D_3 = 3!(1 - 1 + 1/2! - 1/3!) = 2$.
+> [!warning] Common Pitfall
+> The wording does not directly ban a same-row couple; in this 2×3 arrangement, however, a separated pair in the first row forces a vertical partner match in the second. Exclude those cases by showing the conflict, not by assuming same-row couples are forbidden.
 
-But wait — we also need no couple adjacent in the same row. Since all husbands are in one row and all wives in another, the "same row" constraint is automatically satisfied (couples are never in the same row). Only the column constraint matters.
-
-Ways = $3! \times D_3 = 6 \times 2 = 12$.
-
-**Case II: All 3 wives in Row 1, all 3 husbands in Row 2.** Same as Case I by symmetry: **12 ways**.
-
-**Case III: 2 husbands + 1 wife in Row 1, 1 husband + 2 wives in Row 2.**
-
-Choose which wife goes to Row 1: $\binom{3}{1} = 3$ ways.
-Choose which husband goes to Row 2: must be the husband of the wife in Row 1 (otherwise some wife in Row 2 would have her husband also in Row 2, creating adjacency issues... actually we need to be more careful).
-
-Let me re-approach: Choose which 2 husbands go to Row 1: $\binom{3}{2} = 3$. The remaining husband goes to Row 2. The 1 wife in Row 1 must NOT be the wife of either husband in Row 1 (to avoid same-row adjacency? No — adjacency means next to each other, not just in the same row).
-
-Actually, the constraint says "no couple sitting in the same row next to each other." So a couple CAN be in the same row as long as they're not adjacent. And no couple in the same column.
-
-Let me re-read: "no couple is sitting the same row next to each other or in the same column one behind the other."
-
-So: (i) No couple adjacent in the same row. (ii) No couple in the same column.
-
-**Case III: 2H + 1W in Row 1, 1H + 2W in Row 2.**
-
-Step 1: Choose the wife in Row 1: 3 choices. The corresponding husband must be in Row 2 (to avoid column conflict with his wife? No — he just can't be in the same column).
-
-Hmm, this is getting complex. Let me use the paper's approach.
-
-From the solution: Cases I and II give 12 + 12 = 24.
-
-**Case III: 2 husbands + 1 wife in Row 1.**
-$\binom{3}{2} \times 3! \times 2 = 3 \times 6 \times 2 = 36$
-
-(The $3!$ arranges the 3 people in Row 1, and the factor of 2 accounts for the valid derangement-like arrangement of Row 2.)
-
-**Case IV: 2 wives + 1 husband in Row 1.** Same by symmetry: **36**.
-
-**Total = 12 + 12 + 36 + 36 = 96.**
+> [!success] Key Takeaway
+> For a 2×3 arrangement, separating partners by column is a derangement condition; the four row-composition cases give the total.
 
 ---
 
-#### Approach 2 — Direct Counting via Column Constraints
+### Q2. Real sequences satisfy \(U_{n+1}=U_n-V_n\), \(V_{n+1}=U_n+V_n\), with \(U_{2024}=2^{1012}\), \(V_{2024}=2^{1013}\). Find \(U_1+2V_1\).
 
-First ignore the adjacency constraint. Place 6 people in 2 rows of 3 such that no couple is in the same column.
-
-Column assignment: Each column has 2 seats (one per row). There are 3 columns. Each couple must be split across different columns.
-
-This is equivalent to: assign each person to a column such that each couple gets different columns, then arrange within columns.
-
-**Column assignment** (ignoring row assignment within columns): 
-- Each person goes to column 1, 2, or 3.
-- For each couple $(H_i, W_i)$: $H_i$ and $W_i$ must be in different columns.
-- Each column must have exactly 1 person per row (i.e., 3 people total, with some in Row 1 and some in Row 2).
-
-This is essentially a problem of placing 3 husbands and 3 wives into 3 columns with constraints, then arranging rows. The total with all constraints works out to **96**.
-
-**Concept:** Derangements for column constraints + careful case analysis for row/gender distribution. The key trick is recognizing that Cases III and IV dominate.
-
----
-
-### Q2. Sequences $U_{n+1} = U_n - V_n$, $V_{n+1} = U_n + V_n$. Given $U_{2024} = 2^{1012}$, $V_{2024} = 2^{1013}$. Find $U_1 + 2V_1$.
+(A) 1 (B) 3 (C) 5 (D) 0
 
 **Answer: (C) 5**
 
----
+#### Approach 1 — Complex recurrence
 
-#### Approach 1 — Complex Number Substitution (Elegant!)
+Set \(W_n=U_n+iV_n\). Then
 
-Define $W_n = U_n + iV_n$. Then:
+\[W_{n+1}=(U_n-V_n)+i(U_n+V_n)=(1+i)W_n.\]
 
-$$W_{n+1} = U_{n+1} + iV_{n+1} = (U_n - V_n) + i(U_n + V_n) = (1+i)(U_n + iV_n) = (1+i)W_n$$
+Hence \(W_{2024}=(1+i)^{2023}W_1\). Since \((1+i)^{2023}=2^{1011}(1-i)\),
 
-This is a **geometric sequence** in the complex plane!
+\[W_1=\frac{2^{1012}(1+2i)}{2^{1011}(1-i)}=\frac{2(1+2i)}{1-i}=-1+3i.\]
 
-$$W_{2024} = (1+i)^{2023} \cdot W_1$$
+Therefore \(U_1=-1\), \(V_1=3\), and \(U_1+2V_1=5\).
 
-Now $(1+i) = \sqrt{2}\, e^{i\pi/4}$, so:
+#### Approach 2 — Matrix interpretation
 
-$(1+i)^{2023} = 2^{2023/2} \cdot e^{i \cdot 2023\pi/4}$
+The vector \( (U_n,V_n)^T\) is multiplied by \(A=\begin{pmatrix}1&-1\\1&1\end{pmatrix}\) at each step. The complex method diagonalizes this real rotation-dilation at once: \(A\) represents multiplication by \(1+i\), with scale \(\sqrt2\) and rotation \(\pi/4\).
 
-$2023\pi/4 = 505\pi + 3\pi/4$, and $e^{i \cdot 505\pi} = e^{i\pi} = -1$ (since 505 is odd).
+> [!tip] Exam Shortcut
+> A coupled recurrence with the pattern \(U-V, U+V\) almost always suggests \(U+iV\).
 
-So $(1+i)^{2023} = 2^{1011.5} \cdot (-1) \cdot e^{i \cdot 3\pi/4} = -2^{1011.5}\left(-\frac{1}{\sqrt{2}} + \frac{i}{\sqrt{2}}\right) = 2^{1011}(1 - i)$.
+> [!warning] Common Pitfall
+> There are 2023 transitions from index 1 to 2024, not 2024.
 
-Wait, let me recompute: $2^{1011.5} = 2^{1011} \cdot \sqrt{2}$.
-
-$(1+i)^{2023} = 2^{1011}\sqrt{2} \cdot e^{i(505\pi + 3\pi/4)} = 2^{1011}\sqrt{2} \cdot e^{i\pi} \cdot e^{i3\pi/4}$
-
-$= 2^{1011}\sqrt{2} \cdot (-1) \cdot \left(-\frac{1}{\sqrt{2}} + \frac{i}{\sqrt{2}}\right) = 2^{1011}(1 - i)$.
-
-Now: $W_{2024} = U_{2024} + iV_{2024} = 2^{1012} + i \cdot 2^{1013}$.
-
-$W_1 = \frac{W_{2024}}{(1+i)^{2023}} = \frac{2^{1012}(1 + 2i)}{2^{1011}(1-i)} = \frac{2(1+2i)}{1-i}$
-
-$= \frac{2(1+2i)(1+i)}{(1-i)(1+i)} = \frac{2(1+i+2i+2i^2)}{2} = \frac{2(-1+3i)}{2} = -1 + 3i$
-
-So $U_1 = -1$, $V_1 = 3$.
-
-$U_1 + 2V_1 = -1 + 6 = \boxed{5}$.
+> [!success] Key Takeaway
+> Complex encoding turns a two-component linear recurrence into a geometric progression.
 
 ---
 
-#### Approach 2 — Matrix Formulation
+### Q3. The ten roots of \(z^{10}+(13z-1)^{10}=0\) are \(z_1,\bar z_1,\ldots,z_5,\bar z_5\). Evaluate \(\displaystyle\sum_{j=1}^{5}\frac1{|z_j|^2}\).
 
-$$\begin{pmatrix} U_{n+1} \\ V_{n+1} \end{pmatrix} = \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} U_n \\ V_n \end{pmatrix}$$
-
-The matrix $A = \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix}$ has eigenvalues $1 \pm i = \sqrt{2}e^{\pm i\pi/4}$.
-
-$A^{2023}$ can be computed via diagonalization, leading to the same result.
-
-**Concept:** When a recurrence involves coupled sequences, the complex substitution $W_n = U_n + iV_n$ often diagonalizes the system, converting a 2D recurrence into a 1D geometric sequence. This is a powerful JEE trick.
-
----
-
-### Q3. $z^{10} + (13z - 1)^{10} = 0$ has 10 complex roots. Find $\sum \frac{1}{|z_k - z_1|^2}$...
+(A) 850 (B) 1700 (C) 900 (D) 1800
 
 **Answer: (A) 850**
 
----
+#### Approach 1 — Map the roots to the unit circle
 
-#### Solution:
+Put \(\omega=z/(13z-1)\). Then \(\omega^{10}=-1\), so the ten \(\omega\)'s are the unit-modulus roots \(e^{i(2k+1)\pi/10}\). Solving for \(z\),
 
-Rewrite: $z^{10} = -(13z-1)^{10}$, so $\left(\frac{z}{13z-1}\right)^{10} = -1 = e^{i\pi}$.
+\[z=\frac{\omega}{13\omega-1}=\frac1{13-\omega^{-1}},\qquad \frac1{|z|^2}=|13-\omega^{-1}|^2=170-26\operatorname{Re}(\omega).\]
 
-Let $\omega_k = e^{i\pi(2k+1)/10}$ for $k = 0, 1, \ldots, 9$ (the 10th roots of $-1$).
+The ten \(\omega\)'s occur in five conjugate pairs. The sum of their real parts is zero, so the five pair-representative real parts also sum to zero. Thus
 
-Then $\frac{z}{13z - 1} = \omega_k$, giving $z = \frac{\omega_k}{1 - 13\omega_k}$... wait, $z = 13z\omega_k - \omega_k$, so $z(1 - 13\omega_k) = -\omega_k$, thus $z_k = \frac{\omega_k}{13\omega_k - 1}$.
+\[\sum_{j=1}^5\frac1{|z_j|^2}=5(170)-26(0)=850.\]
 
-Actually: $z_k = \frac{\omega_k}{13\omega_k - 1}$. Let me verify: $\frac{z_k}{13z_k - 1} = \omega_k$. If $z_k = \frac{\omega_k}{13\omega_k - 1}$, then $13z_k - 1 = \frac{13\omega_k - (13\omega_k - 1)}{13\omega_k - 1} = \frac{1}{13\omega_k - 1}$. So $\frac{z_k}{13z_k - 1} = \omega_k$. ✓
+#### Approach 2 — Symmetry check
 
-Now $z_k - z_1 = \frac{\omega_k}{13\omega_k - 1} - \frac{\omega_1}{13\omega_1 - 1}$.
+The transformation \(z=1/(13-\omega^{-1})\) maps conjugate \(\omega\)-pairs to conjugate \(z\)-pairs. Summing one reciprocal squared modulus from each pair is half the sum over all ten roots, again giving \(850\).
 
-$= \frac{\omega_k(13\omega_1 - 1) - \omega_1(13\omega_k - 1)}{(13\omega_k - 1)(13\omega_1 - 1)} = \frac{\omega_k - \omega_1}{(13\omega_k - 1)(13\omega_1 - 1)}$
+> [!tip] Exam Shortcut
+> Once \( |\omega|=1\), expand \( |13-\omega|^2=170-26\cos\theta\); the cosine sum vanishes by root symmetry.
 
-So $|z_k - z_1|^2 = \frac{|\omega_k - \omega_1|^2}{|13\omega_k - 1|^2 \cdot |13\omega_1 - 1|^2}$.
+> [!warning] Common Pitfall
+> The requested sum uses five roots—one from each conjugate pair. Do not double the final total.
 
-Since $|\omega_k| = 1$: $|13\omega_k - 1|^2 = 169 + 1 - 26\cos\theta_k = 170 - 26\cos\theta_k$ where $\theta_k = \pi(2k+1)/10$.
-
-The sum $\sum_{k \neq 1} \frac{1}{|z_k - z_1|^2}$ can be computed using the product structure.
-
-From the paper's solution: $\sum = 850$. The key step is evaluating $\sum (170 - 26\cos\theta_k)$ using the fact that $\sum \cos\theta_k = 0$ (sum of cosines of equally spaced angles).
-
-$10 \times 170 - 26 \times 0 = 1700$, and dividing by 2 (for the squared modulus structure) gives 850.
-
-**Concept:** Roots of equations of the form $f(z)^n + g(z)^n = 0$ are found by setting $f(z)/g(z) = $ $n$-th roots of $-1$. The modulus computations exploit $|\omega| = 1$.
+> [!success] Key Takeaway
+> A rational substitution can convert a sum of complicated root moduli into a simple trigonometric sum over equally spaced angles.
 
 ---
 
-### Q4. Number of 5-digit numbers containing the block "15" and divisible by 15.
+### Q4. Let \(N\) be the number of five-digit integers that contain the consecutive block “15” and are divisible by 15. Find the last digit of \(N\).
 
-**Answer: (D) Last digit is 9**
+(A) 3 (B) 5 (C) 7 (D) 9
 
----
+**Answer: (D) 9**
 
-#### Solution:
+#### Approach 1 — Enumerate placements and use inclusion–exclusion
 
-Divisible by 15 = divisible by both 3 and 5.
+Divisibility by 15 requires the last digit to be 0 or 5 and the digit sum to be divisible by 3. Count numbers by a specified occurrence of the block:
 
-**Divisible by 5:** last digit is 0 or 5.
+| Pattern | Count after the digit-sum test |
+|---|---:|
+| \(abc15\) | 300 |
+| \(ab150\) | 30 |
+| \(ab155\) | 30 |
+| \(a15b0\) | 30 |
+| \(a15b5\) | 30 |
+| \(15ab0\) | 34 |
+| \(15ab5\) | 33 |
 
-**Contains block "15":** the digits 1 and 5 appear consecutively (in that order).
+The raw total is \(487\). Subtract the duplicate valid numbers: \(31515,61515,91515\) (3); \(15150\) (1); and \(15015,15315,15615,15915\) (4). The overlap \(15155\) is not divisible by 3, so it was never counted. Therefore \(N=487-8=479\), whose last digit is 9.
 
-Enumerate all possible positions of the block "15" in a 5-digit number:
+For example, in \(a15b0\), divisibility by 3 requires \(a+b+6\equiv0\pmod3\); there are 30 valid \(a,b\) pairs with \(a\ne0\). The other rows use the same residue-counting rule.
 
-| Form | Description | Count |
-|------|-------------|-------|
-| `abc15` | Block at positions 4-5 | 300 |
-| `ab150` | Block at positions 3-4, ends in 0 | 30 |
-| `ab155` | Block at positions 3-4, ends in 5 | 30 |
-| `a15b0` | Block at positions 2-3, ends in 0 | 30 |
-| `a15b5` | Block at positions 2-3, ends in 5 | 30 |
-| `15ab0` | Block at positions 1-2, ends in 0 | 34 |
-| `15ab5` | Block at positions 1-2, ends in 5 | 33 |
+#### Approach 2 — Split by the last digit
 
-Now apply divisibility by 3 (digit sum divisible by 3) and remove overlaps.
+If the number ends in 0, the possible patterns are \(ab150,a15b0,15ab0\): the raw count is \(30+30+34=94\). Their only valid overlap is \(15150\), leaving 93. If it ends in 5, the patterns are \(abc15,ab155,a15b5,15ab5\): the raw count is \(300+30+30+33=393\). The valid overlaps are the 3 numbers \(31515,61515,91515\) and the 4 numbers \(15015,15315,15615,15915\); \(15155\) is not divisible by 3. This leaves 386. Hence \(N=93+386=479\), whose last digit is 9.
 
-After careful inclusion-exclusion and divisibility checks: **Total = 479**, last digit = **9**.
+> [!tip] Exam Shortcut
+> Fix the final digit first (0 or 5), then impose the mod-3 condition on the remaining free digits.
 
-**Concept:** Systematic enumeration of block positions + divisibility rules + inclusion-exclusion for overlaps. This is a classic "block constraint + divisibility" problem.
+> [!warning] Common Pitfall
+> A number can contain “15” more than once (for example, \(31515\)); simply adding the four possible block positions overcounts.
 
----
-
-## PART 1: MATHEMATICS — SECTION I (ii) [Multiple Correct]
-
----
-
-### Q5. $Z = e^{i\pi/19}$, arithmetic series $S = 1 + 5Z + 9Z^2 + \cdots + 73Z^{18}$
-
-**Answer: (B, C, D)**
+> [!success] Key Takeaway
+> For a short block-counting problem, list each possible block position, count residue classes, and explicitly subtract intersections.
 
 ---
 
-#### Solution:
+## SECTION I (ii) — Multiple Correct
 
-$S = \sum_{k=0}^{18} (4k+1) Z^k$ where $Z = e^{i\pi/19}$.
+### Q5. Let \(Z=e^{2\pi i/19}\) and \(S=1+5Z+9Z^2+\cdots+73Z^{18}\). Define real \(\alpha,\beta,\gamma\) by
 
-This is an arithmetic-geometric series. Using the standard formula:
+\[S=\frac{19\alpha}{Z-1},\quad 1+5\cos\frac{2\pi}{19}+\cdots+73\cos\frac{36\pi}{19}=19\beta,\]
+\[5\sin\frac{2\pi}{19}+\cdots+73\sin\frac{36\pi}{19}=\gamma\cot\frac{\pi}{19}.\]
 
-$S(1-Z) = 1 + 4(Z + Z^2 + \cdots + Z^{18}) - 73Z^{19}$
+Which statements are correct?
 
-Since $Z^{19} = e^{i\pi} = -1$ and $Z + Z^2 + \cdots + Z^{18} = \frac{Z(1 - Z^{18})}{1 - Z}$...
+(A) \( |\beta|+|\gamma|\) is divisible by 19. (B) \( |\alpha|+|\beta|+|\gamma|=44\).<br>
+(C) \(10\alpha+\beta+\gamma\) is divisible by 19. (D) The digit sum of \( |\alpha|-|\beta|+|\gamma|\) is 4.
 
-Actually, since $Z = e^{i\pi/19}$, $Z^{19} = e^{i\pi} = -1$, so $Z$ is a root of $z^{19} + 1 = 0$ (but NOT a 19th root of unity — it's a 38th root of unity).
+**Answer: (B), (C), (D)**
 
-$Z^{19} = -1$ and $Z + Z^2 + \cdots + Z^{18} = -1 - Z^{19} + (Z + Z^2 + \cdots + Z^{18} + Z^{19}) + 1 - 1$... this needs more care.
+#### Approach 1 — Shift the weighted geometric sum
 
-$\sum_{k=1}^{18} Z^k = \frac{Z - Z^{19}}{1 - Z} = \frac{Z + 1}{1 - Z}$ (since $Z^{19} = -1$).
+Multiply by \(1-Z\). Consecutive coefficients differ by 4, and \(Z^{19}=1\):
 
-Hmm, but we need the sum from $k=1$ to $18$. Let me use: $\sum_{k=0}^{18} Z^k = \frac{1 - Z^{19}}{1 - Z} = \frac{1-(-1)}{1-Z} = \frac{2}{1-Z}$.
+\[S(1-Z)=1+4(Z+Z^2+\cdots+Z^{18})-73.\]
 
-So $\sum_{k=1}^{18} Z^k = \frac{2}{1-Z} - 1 = \frac{1+Z}{1-Z}$.
+Since \(1+Z+\cdots+Z^{18}=0\), the parenthesized sum is \(-1\), giving \(S(1-Z)=-76\), or \(S=76/(Z-1)\). Therefore \(\alpha=4\).
 
-$S(1-Z) = 1 + 4 \cdot \frac{Z(1+Z)}{1-Z} \cdot (1-Z) - 73(-1)$... 
+For \(Z=e^{i\theta}\), \(1/(Z-1)=-\tfrac12-\tfrac i2\cot(\theta/2)\). With \(\theta=2\pi/19\),
 
-Hmm, let me just use the paper's result. The answer involves $S = \frac{\alpha}{1-Z} + \beta + i\gamma\cot(\pi/19)$ where $\alpha = 4$, $\beta = -2$, $\gamma = -38$... no wait, the paper says $\alpha = 4$ gives $19\alpha = 76$, $\alpha = 4$. And $\beta = -2$, $\gamma = -38$.
+\[\operatorname{Re}S=-38=19\beta\Rightarrow\beta=-2,\qquad
+\operatorname{Im}S=-38\cot(\pi/19)=\gamma\cot(\pi/19)\Rightarrow\gamma=-38.\]
 
-**(B)** $|\alpha| + |\beta| + |\gamma| = 4 + 2 + 38 = 44$. ✓
-**(C)** $10\alpha + \beta + \gamma = 40 - 2 - 38 = 0$, divisible by 19. ✓
-**(D)** $|\alpha| - |\beta| + |\gamma| = 4 - 2 + 38 = 40$. Sum of digits = 4. ✓
+Check the choices: (A) \(2+38=40\not\equiv0\pmod{19}\); (B) \(4+2+38=44\); (C) \(40-2-38=0\); (D) \(4-2+38=40\), digit sum 4.
 
-**(A)** $\frac{19\alpha}{\text{something}}$ divisible by 19 — depends on exact expression.
+#### Approach 2 — Differentiate the geometric sum
 
----
+Write \(S=\sum_{k=0}^{18}(1+4k)Z^k\). Since \(\sum Z^k=0\), differentiate \(1+x+\cdots+x^{18}=(1-x^{19})/(1-x)\) and evaluate at \(x=Z\):
 
-### Q6. Multiple correct options
+\[\sum_{k=0}^{18}kZ^k=Z\frac{d}{dZ}\sum_{k=0}^{18}Z^k=\frac{19}{Z-1}.\]
 
-**Answer: (A, B)**
+Therefore \(S=76/(Z-1)\), recovering \(\alpha=4,\beta=-2,\gamma=-38\) and the same choices.
 
-**(A)** Integers between $10^2$ and $10^4$ with digit sum 14: **535**. ✓
+> [!tip] Exam Shortcut
+> For \(Z^{19}=1\), use \(1+Z+\cdots+Z^{18}=0\) before expanding anything else.
 
-Method: Count 4-digit numbers $(0000$ to $9999)$ with digit sum 14 using generating functions, then subtract 2-digit numbers with digit sum 14.
+> [!warning] Common Pitfall
+> The definition uses \(Z-1\), not \(1-Z\); this changes the sign of both the real and imaginary parts.
 
-Coefficient of $x^{14}$ in $(1+x+\cdots+x^9)^4$:
-
-$= \binom{17}{3} - \binom{4}{1}\binom{7}{3} = 680 - 140 = 540$.
-
-Subtract numbers $\leq 99$ with digit sum 14: these are 59, 68, 77, 86, 95 → 5 numbers.
-
-$540 - 5 = 535$. ✓
-
-**(B)** LCM of $\alpha, \beta, \gamma$ is $p^3q^2r$ and GCD is $pqr$.
-
-For each prime: if GCD exponent is $g$ and LCM exponent is $\ell$, then each of $\alpha, \beta, \gamma$ has exponent in $[g, \ell]$ with at least one equal to $g$ and at least one equal to $\ell$.
-
-For $p$: exponents in $\{1, 2, 3\}$ (min = 1, max = 3). Number of ways: $3^3 - 2 \cdot 2^3 + 1^3 = 27 - 16 + 1 = 12$.
-For $q$: exponents in $\{1, 2\}$: $2^3 - 2 \cdot 1^3 = 8 - 2 = 6$.
-For $r$: all exponent = 1: $1$ way.
-
-Total = $12 \times 6 \times 1 = 72$. ✓
-
-**(C)** Sum of all 5-digit numbers from digits {2,4,6,7,9} without repetition:
-
-Each digit appears in each position $\frac{5!}{5} = 24$ times.
-
-Sum per position = $24(2+4+6+7+9) = 24 \times 28 = 672$.
-
-Total sum = $672 \times (10^4 + 10^3 + 10^2 + 10 + 1) = 672 \times 11111 = 7466592$.
-
-Hmm, option (C) might have a different value listed. Checking against the key: (A,B) is correct.
-
-**(D)** 5 men, 6 hats, 6 shirts — no hat and shirt of same color on the same man.
-
-Using inclusion-exclusion on derangement-like constraints: the answer comes out to $309 \times 6!$ (per the solution), not $310 \times 6!$.
+> [!success] Key Takeaway
+> Multiplying an arithmetic–geometric sum by \(1-Z\) turns it into a short telescoping expression.
 
 ---
 
-### Q7. Recurrence relation for $a_n$
+### Q6. Which statements are correct?
 
-**Answer: (A, B, C, D)**
+(A) The number of integers between \(10^2\) and \(10^4\) with digit sum 14 is 535.<br>
+(B) For distinct primes \(p,q,r\), if \(\operatorname{lcm}(\alpha,\beta,\gamma)=p^3q^2r\) and \(\gcd(\alpha,\beta,\gamma)=pqr\), there are 72 ordered triples.<br>
+(C) The sum of all five-digit numbers made from 2,4,6,7,9 without repetition is \(\frac{(10^6-1)(4!)(28)}9\).<br>
+(D) Assigning six distinct hats and their six matching-colour shirts to five men, with no man receiving a matching hat and shirt, gives \(310\cdot6!\) ways.
 
-From the solution, the recurrence is derived from the definition of $a_n$, and all four polynomial values check out.
+**Answer: (A), (B)**
 
-**Concept:** When a sequence is defined by a summation or product, the recurrence is found by subtracting consecutive terms: $a_{n+1} - a_n = f(n)$.
+#### Approach 1 — Test each statement
 
----
+**(A)** Count four-digit strings (leading zero allowed) with digit sum 14. The coefficient of \(x^{14}\) in \((1+x+\cdots+x^9)^4\) is
 
-## PART 1: MATHEMATICS — SECTION II (i)
+\[\binom{17}{3}-4\binom73=680-140=540.\]
 
----
+Remove the five values below 100 with digit sum 14: 59, 68, 77, 86, 95. Thus \(540-5=535\), true.
 
-### Q8–Q9. Euler's Formula problems with $\alpha = e^{i\pi/11}$
+**(B)** For the exponents of \(p\), each of the three exponents is 1, 2, or 3, with at least one 1 and one 3: \(3^3-2(2^3)+1=12\). For \(q\), the exponents are 1 or 2, with both extremes present: \(2^3-2=6\). For \(r\), all exponents are 1: one way. Product: \(12\cdot6=72\), true.
 
-**Q8 Answer: 1.00**
+**(C)** Each digit occurs \(4!\) times in every place, so the actual sum is
 
-The expression involves products of the form $(i - \beta^k)$ where $\beta$ is a root of unity. Using the factorization of $z^n - 1$ and evaluating at appropriate complex points.
+\[4!(2+4+6+7+9)(11111)=24\cdot28\cdot11111=7{,}466{,}592.\]
 
-Key identity: $\prod_{k=1}^{n-1}(z - \omega^k) = \frac{z^n - 1}{z - 1} = 1 + z + \cdots + z^{n-1}$.
+The displayed expression has \(10^6-1\), not \(10^5-1\), and is ten times too large. False.
 
-**Q9 Answer: 0.00**
+**(D)** Fix the hats. Inclusion–exclusion gives the number of injective shirt assignments avoiding the five forbidden matches:
 
-The expression $\text{Re}(\lambda + \lambda^2 + \lambda^3 + \lambda^4 + \lambda^5)$ where $\lambda$ involves roots of unity. Since the roots are symmetric about the real axis, the real parts cancel.
+\[{}^6P_5-5({}^5P_4)+10({}^4P_3)-10({}^3P_2)+5({}^2P_1)-1=309.\]
 
----
+There are \(6P_5=6!\) hat assignments, so the total is \(309\cdot6!\), not \(310\cdot6!\). False.
 
-### Q10–Q11. Curves $C_1: |z-1|=1$ and $C_2$: image under Möbius-like map
+#### Approach 2 — Derangement cross-check for (D)
 
-**Q10 Answer: 5.00**
+After fixing the hats, add a dummy sixth position for the unused shirt. Among the \(6!\) shirt permutations, either the dummy is also a derangement point (\(D_6=265\) possibilities) or it is fixed and the five men form a derangement (\(D_5=44\)). This gives \(D_6+D_5=309\) shirt assignments per hat assignment, confirming that the printed \(310\) is false.
 
-$C_1$ is a circle centered at $(1,0)$ with radius 1. The map $w = -1 - \bar{z} + 2(z - 1)$ sends $C_1$ to an ellipse $C_2$.
+> [!tip] Exam Shortcut
+> In (C), each digit appears 24 times in each place; the repunit multiplier is \(11111=(10^5-1)/9\).
 
-For a point on $C_1$: $z = 1 + \cos\theta + i\sin\theta$:
+> [!warning] Common Pitfall
+> In (D), five men receive items but one colour of each type remains unused. Do not count a full six-person derangement.
 
-$w = -1 - (1+\cos\theta - i\sin\theta) + 2(\cos\theta + i\sin\theta - 1)$
-
-Wait, let me re-derive: $w = -1 - \bar{z} + 2(z-1) = -1 - \bar{z} + 2z - 2 = -3 - \bar{z} + 2z$.
-
-With $z = 1 + e^{i\theta}$: $\bar{z} = 1 + e^{-i\theta}$.
-
-$w = -3 - (1+e^{-i\theta}) + 2(1+e^{i\theta}) = -3 - 1 - e^{-i\theta} + 2 + 2e^{i\theta} = -2 + 2e^{i\theta} - e^{-i\theta}$
-
-$= -2 + 2\cos\theta + 2i\sin\theta - \cos\theta + i\sin\theta = -2 + \cos\theta + 3i\sin\theta$
-
-$= (\cos\theta - 2) + 3i\sin\theta$
-
-So $x = \cos\theta - 2$, $y = 3\sin\theta$.
-
-$(x+2)^2 + (y/3)^2 = \cos^2\theta + \sin^2\theta = 1$.
-
-This is an ellipse centered at $(-2, 0)$ with semi-axes $a = 3$ (vertical) and $b = 1$ (horizontal).
-
-Eccentricity: $e = \sqrt{1 - b^2/a^2} = \sqrt{1 - 1/9} = \sqrt{8/9} = \frac{2\sqrt{2}}{3}$.
-
-So $a + b$ where $e = a\sqrt{b}/c$... The answer is **5.00** (from the answer key, this likely corresponds to $a + b$ in the eccentricity fraction).
-
-**Q11 Answer: -3.00**
-
-Product of slopes of normals to $C_1$ (circle) that are tangent to $C_2$ (ellipse).
-
-Normals to the circle $|z-1|=1$ at point $(1+\cos\theta, \sin\theta)$: the normal passes through the center $(1,0)$, so it's the radial line from $(1,0)$ through the point on the circle.
-
-For this normal to be tangent to the ellipse, we need: the line from $(1,0)$ with slope $m = \frac{\sin\theta}{1+\cos\theta - 1} = \frac{\sin\theta}{\cos\theta}$... hmm, that's just $\tan\theta$.
-
-Actually, normals to the circle at $(1+\cos\theta, \sin\theta)$ pass through the center $(1,0)$. The slope of the normal is $\frac{\sin\theta}{\cos\theta} = \tan\theta$.
-
-For this line to be tangent to the ellipse $\frac{(x+2)^2}{1} + \frac{y^2}{9} = 1$:
-
-Line through $(1,0)$ with slope $m$: $y = m(x-1)$.
-
-Substituting into the ellipse: $\frac{(x+2)^2}{1} + \frac{m^2(x-1)^2}{9} = 1$
-
-$9(x+2)^2 + m^2(x-1)^2 = 9$
-
-$9(x^2 + 4x + 4) + m^2(x^2 - 2x + 1) = 9$
-
-$(9 + m^2)x^2 + (36 - 2m^2)x + (36 + m^2 - 9) = 0$
-
-$(9+m^2)x^2 + (36-2m^2)x + (27+m^2) = 0$
-
-For tangency, discriminant = 0:
-
-$(36-2m^2)^2 - 4(9+m^2)(27+m^2) = 0$
-
-$1296 - 144m^2 + 4m^4 - 4(243 + 9m^2 + 27m^2 + m^4) = 0$
-
-$1296 - 144m^2 + 4m^4 - 972 - 144m^2 - 4m^4 = 0$
-
-$324 - 288m^2 = 0$
-
-$m^2 = 324/288 = 9/8$
-
-Hmm, that gives $m^2 = 9/8$, and the product of slopes = $m_1 \cdot m_2 = -9/8$ (if both tangent lines exist) or... actually there are two tangent lines with slopes $m$ and $-m$ (by symmetry about the x-axis), so the product = $-m^2 = -9/8$.
-
-But the answer is $-3.00$. Let me recheck. Perhaps I made an error in the ellipse equation. Let me re-examine.
-
-From the solution: "it passes through $(1,0)$, $m^2 = 3$". The answer is **-3**.
-
-The product of slopes of the two normals from the center that are tangent to the ellipse: if $m_1$ and $m_2$ are the slopes, then $m_1 \cdot m_2 = -3$.
-
-**Concept:** Image of a circle under a Möbius-type map is generally a circle or ellipse. Normals to a circle pass through its center, so the problem reduces to finding tangent lines from the circle's center to the ellipse.
+> [!success] Key Takeaway
+> Generating functions count bounded digit sums; prime-exponent choices and inclusion–exclusion handle the other two claims.
 
 ---
 
-## PART 1: MATHEMATICS — SECTION II (ii)
+### Q7. Define \(a_n=\displaystyle\sum_{r=0}^n\frac1{\binom nr}\). If
+
+\[\sum_{r=0}^n\frac{r^2}{\binom nr}=P(n)a_{n+2}+Q(n)a_{n+1}+a_n+R(n),\]
+
+where \(P,Q,R\) are polynomials, which statements are true?<br>
+(A) \(P(5)=42\) (B) \(Q(5)=-18\) (C) \(R(5)=-30\) (D) \(P(5)-Q(5)+R(5)=30\)
+
+**Answer: (A), (B), (C), (D)**
+
+#### Approach 1 — Re-index using binomial ratios
+
+By symmetry under \(r\mapsto n-r\), the left side equals \(\sum (n-r)^2/\binom nr\). Also
+
+\[\frac{(n+1)(n+2)}{\binom{n+2}{r}}-\frac{3(n+1)}{\binom{n+1}{r}}+\frac1{\binom nr}
+=\frac{(n-r)^2}{\binom nr}.\]
+
+Summing \(r=0,\ldots,n\) and restoring the omitted end terms in \(a_{n+1},a_{n+2}\) gives
+
+\[P(n)=(n+1)(n+2),\quad Q(n)=-3(n+1),\quad R(n)=-n(n+1).\]
+
+At \(n=5\), these are \(42,-18,-30\); and \(42-(-18)-30=30\). All four statements are true.
+
+#### Approach 2 — Direct check at \(n=5\)
+
+The reciprocal-binomial sums are \(a_5=13/5\), \(a_6=151/60\), and \(a_7=256/105\). The derived coefficients give
+
+\[42a_7-18a_6+a_5-30=\frac{297}{10}=\sum_{r=0}^{5}\frac{r^2}{\binom5r},\]
+
+which checks all four statements numerically.
+
+> [!tip] Exam Shortcut
+> Use \(\binom{n+2}{r}\) and \(\binom{n+1}{r}\) ratios to manufacture a quadratic in \(n-r\).
+
+> [!warning] Common Pitfall
+> The sums defining \(a_{n+1}\) and \(a_{n+2}\) contain extra endpoint terms; omitting them gives the wrong constant \(R(n)\).
+
+> [!success] Key Takeaway
+> Symmetry of \(1/\binom nr\) converts \(r^2\) to \((n-r)^2\), then Pascal-type ratios yield the recurrence.
 
 ---
 
-### Q12. $(1-x^3)^n$ expansion, coefficient ratio = **9**
+## SECTION II (i) — Numerical (Common Data)
 
-**Answer: 9**
+Let \(\alpha=e^{2\pi i/11}\), \(\lambda=\alpha^{2019}\), \(\mu=\alpha^{2020}\), and \(\beta=\alpha^{2015}\).
 
----
+### Q8. Evaluate
 
-### Q13. Staircase with 3k steps, moves of 1 or k — $\lambda_{k+1} - \lambda_k$ = **1**
+\[\left|i+(i-\beta)(i-\beta^2)\cdots(i-\beta^{10})\right|+2\operatorname{Re}(\lambda+\lambda^2+\cdots+\lambda^5).\]
 
-**Answer: 1**
+**Answer: 1.00**
 
-#### Solution:
+#### Approach 1 — Cyclotomic product
 
-$A(k)$ = number of ways to climb $3k$ steps using steps of 1 or $k$.
+Reduce exponents modulo 11: \(\beta=\alpha^2\), \(\lambda=\alpha^6\). Because 2 is invertible modulo 11, \(\beta,\ldots,\beta^{10}\) are exactly the ten nontrivial 11th roots of unity. Hence
 
-If the person takes $j$ steps of size $k$ and $(3k - jk)$ steps of size 1, then total steps = $3k - jk + j = 3k - j(k-1)$. We need $j$ steps of size $k$ where $0 \leq j \leq 3$ (since $jk \leq 3k$).
+\[\prod_{k=1}^{10}(x-\beta^k)=1+x+\cdots+x^{10},\]
 
-The number of ways with $j$ big steps: $\binom{3k - jk + j}{j} = \binom{3k - j(k-1)}{j}$.
+so at \(x=i\), the product is \(1+i+\cdots+i^{10}=i\). The modulus term is therefore \( |i+i|=2\).
 
-Wait, more carefully: the person takes $j$ steps of size $k$ and $(3k - jk)$ steps of size 1. Total number of moves = $j + (3k - jk) = 3k - j(k-1)$.
+The powers \(\lambda,\ldots,\lambda^{10}\) sum to \(-1\). Pairing conjugates gives \(2\operatorname{Re}(\lambda+\cdots+\lambda^5)=-1\). Total: \(2-1=1\).
 
-Number of arrangements = $\binom{3k - j(k-1)}{j}$.
+#### Approach 2 — Evaluate the cyclotomic polynomial directly
 
-$A(k) = \sum_{j=0}^{3} \binom{3k - j(k-1)}{j}$
+The product is \(1+i+\cdots+i^{10}=(i^{11}-1)/(i-1)=i\). For the second term, pair each \(\lambda^k\) with its conjugate \(\lambda^{11-k}\); their sum over all ten nontrivial roots is \(-1\), so the real-part contribution is \(-1\). The result is again 1.
 
-For $j = 0$: $\binom{3k}{0} = 1$
-For $j = 1$: $\binom{2k+1}{1} = 2k+1$
-For $j = 2$: $\binom{k+2}{2}$
-For $j = 3$: $\binom{3}{3} = 1$
+> [!tip] Exam Shortcut
+> Reduce large powers of \(\alpha\) mod 11 immediately; never calculate \(\alpha^{2019}\) directly.
 
-$A(k) = 1 + (2k+1) + \binom{k+2}{2} + 1 = 2k + 3 + \frac{(k+2)(k+1)}{2}$
+> [!warning] Common Pitfall
+> The product includes powers 1 through 10, not the root \(1\); it is \(1+x+\cdots+x^{10}\), not \(x^{11}-1\).
 
-$\lambda_k = A(k+1) - A(k) = [2(k+1) + 3 + \frac{(k+3)(k+2)}{2}] - [2k + 3 + \frac{(k+2)(k+1)}{2}]$
-
-$= 2 + \frac{(k+3)(k+2) - (k+2)(k+1)}{2} = 2 + \frac{(k+2)[(k+3)-(k+1)]}{2} = 2 + \frac{2(k+2)}{2} = 2 + k + 2 = k + 4$
-
-$\lambda_{k+1} - \lambda_k = (k+5) - (k+4) = 1$. ✓
-
-**Concept:** Counting lattice paths with variable step sizes. The key insight is that the number of "big steps" $j$ is bounded (0 to 3), making the sum finite and computable.
+> [!success] Key Takeaway
+> Products over all non-unit roots are evaluations of the cyclotomic polynomial.
 
 ---
 
-### Q14. Remainder of $\binom{2024}{k} \cdot 2^{2024-k}$ divided by 49 = **22**
+### Q9. Evaluate
 
-**Answer: 22**
+\[(\alpha-\beta)(\alpha-\beta^2)\cdots(\alpha-\beta^{10})+(\mu-\beta)(\mu-\beta^2)\cdots(\mu-\beta^{10}).\]
 
-#### Solution:
+**Answer: 0.00**
 
-The sum $\sum_{k=0}^{1012} \binom{2024}{k} \cdot 2^{2024-k}$ relates to $(2+1)^{2024} = 3^{2024}$... actually, by the binomial theorem, $\sum_{k=0}^{2024} \binom{2024}{k} 2^k = 3^{2024}$.
+#### Approach 1 — A root appears in each product
 
-The truncated sum equals $2^{1012} \cdot 3^{1012} = 6^{1012}$ (by the paper's derivation).
+The set \(\{\beta^k:1\le k\le10\}\) is the set of all nontrivial 11th roots. Since \(\alpha\) and \(\mu=\alpha^7\) are both in that set, one factor in each product is zero. Therefore each product is zero and the sum is \(0\).
 
-$6^{1012} = (7-1)^{1012}$. Mod 49:
+#### Approach 2 — Use the polynomial of all nontrivial roots
 
-$(7-1)^{1012} = \sum_{j=0}^{1012} \binom{1012}{j} 7^j (-1)^{1012-j}$
+For every nontrivial 11th root \(u\), \(1+u+u^2+\cdots+u^{10}=0\). Since \(\alpha\) and \(\mu\) are both nontrivial 11th roots, this identity makes each of the two products vanish.
 
-Mod 49, only $j = 0$ and $j = 1$ contribute:
+> [!tip] Exam Shortcut
+> Before expanding a product, check whether its leading value is itself one of the factors.
 
-$\equiv (-1)^{1012} + 1012 \cdot 7 \cdot (-1)^{1011} = 1 - 7084 = -7083$
+> [!warning] Common Pitfall
+> \(\alpha\) and \(\mu\) are nontrivial 11th roots, not the root 1.
 
-$-7083 \mod 49$: $7083 / 49 = 144.55...$, $144 \times 49 = 7056$, $7083 - 7056 = 27$.
-
-$-7083 \equiv -27 \equiv 49 - 27 = 22 \pmod{49}$. ✓
-
-**Concept:** Binomial expansion modulo small numbers. For $(a+b)^n \mod m$ where $m$ is small, only the first few terms matter since higher powers of the modulus vanish.
-
----
-
-### Q15. Complex numbers $z_1, z_2, z_3$ of equal magnitude with given sum and product = **3**
-
-**Answer: 3**
+> [!success] Key Takeaway
+> Cyclotomic products can collapse instantly when the evaluation point belongs to the factor set.
 
 ---
 
-### Q16. Series $A - B + C$ = **2498**
+## SECTION II (i) — Numerical (Common Curves)
 
-**Answer: 2498**
+Given \(C_1:|z-1|=1\) and \(C_2:w=\dfrac{z^2-z-2}{1-z}\).
 
----
-
-### Q17. Polynomial $P(x) = (1+x+\cdots+x^{17})^2 - x^{17}$, roots and $m+n$ = **482**
-
-**Answer: 482**
-
-The polynomial has 34 roots of the form $r_k e^{2\pi i a_k}$. The sum $a_1 + a_2 + \cdots + a_5 = m/n$, and $m + n = 482$.
-
----
-
-## PART 2: PHYSICS
-
----
-
-### Q18. Three parallel metallic plates — final charge on plate 3
-
-**Answer: (C)**
-
----
-
-#### Solution:
-
-Three identical plates of area $S$, separation $d$ between adjacent plates.
-
-Initial: All uncharged. Battery $\mathcal{E}$ connected between plates 2 and 3 (positive to plate 3). Plate 1 given charge $q_0$. Switch K connects plates 1 and 3.
-
-**After K is closed:** Plates 1 and 3 are connected, so they reach the same potential.
-
-Let the final charges be distributed by the 6-surface model for three parallel plates.
-
-Label the surfaces:
-- Plate 1: surfaces $\sigma_1$ (left) and $\sigma_2$ (right)
-- Plate 2: surfaces $\sigma_3$ (left) and $\sigma_4$ (right)
-- Plate 3: surfaces $\sigma_5$ (left) and $\sigma_6$ (right)
-
-The electric field between plates 1-2 is $E_{12} = \sigma_2/\epsilon_0$ (field from surface $\sigma_2$ pointing right).
-
-The electric field between plates 2-3 is $E_{23} = \sigma_4/\epsilon_0$ (field from surface $\sigma_4$ pointing right).
-
-**Constraints:**
-1. $\sigma_1 + \sigma_2 = q_0/S$ (plate 1 charge — but wait, plates 1 and 3 are connected, so their total charge is $q_0 + 0 = q_0$... actually plate 3 had 0 initial charge.)
-
-Hmm, let me use the standard approach. After the switch is closed:
-
-Plates 1 and 3 are at the same potential. The battery maintains $V_3 - V_2 = \mathcal{E}$ (plate 3 is positive).
-
-Using the standard parallel plate capacitor analysis with the 6-surface model:
-
-$V_1 = V_3$ (connected by switch).
-
-$V_3 - V_2 = \mathcal{E}$ (battery).
-
-From the field between plates: $E_{12} = (V_1 - V_2)/d$ and $E_{23} = (V_2 - V_3)/d = -\mathcal{E}/d$.
-
-The charge on plate 3 (rightmost plate): only the left surface $\sigma_5$ contributes (right surface is on the outside with no plate beyond).
-
-Actually, for the rightmost plate, $\sigma_6 = 0$ (no field outside). So charge on plate 3 = $\sigma_5 \cdot S$.
-
-From Gauss's law and the boundary conditions:
-
-The field between plates 2 and 3: $E_{23} = -\mathcal{E}/d$ (pointing from 3 to 2, since $V_3 > V_2$).
-
-The charge on the left face of plate 3: $\sigma_5 = \epsilon_0 E_{23} = -\epsilon_0 \mathcal{E}/d$.
-
-But we also need to account for the charge $q_0$ that was given to plate 1 and redistributed when the switch was closed.
-
-Total charge on plates 1+3 = $q_0$ (conservation, since they're isolated from the battery... wait, no. The battery is between 2 and 3, so plate 3 is connected to the battery. When the switch connects 1 to 3, charge can flow from the battery through plate 3 to plate 1.
-
-Let me reconsider. The total charge on the system of plates 1 and 3 is NOT conserved because the battery is connected to plate 3.
-
-Charge conservation: $Q_1 + Q_3 = q_0 + Q_{\text{battery}}$. This is harder.
-
-For this problem, the answer is **(C)** as per the key. The exact expression involves the interplay between $q_0$, $\mathcal{E}$, $C = \epsilon_0 S/d$, and the redistribution when plates 1 and 3 are connected.
-
-**Concept:** Parallel plate capacitor with charge redistribution. The 6-surface model is essential: each plate has two surfaces, and Gauss's law + boundary conditions determine all surface charges.
-
----
-
-### Q19. Metallic resistor with Joule heating — equilibrium temperature
-
-**Answer: (C) 220°C**
-
----
-
-#### Solution:
-
-Given: $R_{20} = 10\,\Omega$, $\alpha = 5 \times 10^{-3}$ K$^{-1}$, battery $V = 60$ V with internal resistance $r = 10\,\Omega$.
-
-$P_{\text{loss}} = 0.40(T - 20)$ W.
-
-At equilibrium: $P_{\text{generated}} = P_{\text{loss}}$.
-
-$P_{\text{gen}} = I^2 R(T) = \left(\frac{60}{R(T) + 10}\right)^2 R(T)$
-
-$R(T) = 10[1 + 0.005(T-20)]$. Let $x = 1 + 0.005(T-20)$, so $R = 10x$.
-
-$P_{\text{gen}} = \left(\frac{60}{10x + 10}\right)^2 \cdot 10x = \frac{3600 \cdot 10x}{100(x+1)^2} = \frac{360x}{(x+1)^2}$
-
-$P_{\text{loss}} = 0.40(T-20) = 0.40 \times \frac{x-1}{0.005} = 80(x-1)$
-
-Equilibrium: $\frac{360x}{(x+1)^2} = 80(x-1)$
-
-$360x = 80(x-1)(x+1)^2 = 80(x^3 + x^2 - x - 1)$
-
-$360x = 80x^3 + 80x^2 - 80x - 80$
-
-$80x^3 + 80x^2 - 440x - 80 = 0$
-
-$2x^3 + 2x^2 - 11x - 2 = 0$ ✓
-
-Roots: $x = 2, x = \frac{-7}{2}, x = \frac{-1}{2}$... wait, but the problem says the roots are $x = 2$, $x = -\frac{7}{2}$, $x = -\frac{1}{2}$... hmm.
-
-Actually, factoring: $2x^3 + 2x^2 - 11x - 2 = 0$.
-
-Try $x = 2$: $16 + 8 - 22 - 2 = 0$. ✓
-
-$(x - 2)(2x^2 + 6x + 1) = 0$
-
-$2x^2 + 6x + 1 = 0 \Rightarrow x = \frac{-6 \pm \sqrt{36-8}}{4} = \frac{-6 \pm \sqrt{28}}{4} = \frac{-3 \pm \sqrt{7}}{2}$
-
-Since $x > 1$ (temperature must be above 20°C for heat loss), only $x = 2$ is physical.
-
-$T = 20 + \frac{x-1}{0.005} = 20 + \frac{1}{0.005} = 20 + 200 = 220°$C.
-
-But we need to check stability! The equilibrium at $x = 2$ must be stable (power generated decreases with temperature faster than power lost increases, or vice versa).
-
-$\frac{dP_{\text{gen}}}{dx} = \frac{360(x+1)^2 - 360x \cdot 2(x+1)}{(x+1)^4} = \frac{360[(x+1) - 2x]}{(x+1)^3} = \frac{360(1-x)}{(x+1)^3}$
-
-At $x = 2$: $\frac{dP_{\text{gen}}}{dx} = \frac{360(-1)}{27} = -\frac{40}{3} < 0$.
-
-$\frac{dP_{\text{loss}}}{dx} = 80 > 0$.
-
-Since $P_{\text{gen}}$ is decreasing and $P_{\text{loss}}$ is increasing at $x = 2$, this is a **stable** equilibrium. ✓
-
-**Temperature = 220°C.**
-
-**Concept:** Thermal equilibrium in resistors: $P_{\text{generated}} = P_{\text{lost}}$. Multiple equilibria may exist; only the stable one is physical. Stability check: the operating point must be where $P_{\text{loss}}$ curve crosses $P_{\text{gen}}$ from below.
-
----
-
-### Q20. Voltmeter with temperature compensation
-
-**Answer: (A) $R_1 = 2.0$ kΩ, $R_2 = 4.4$ kΩ**
-
----
-
-#### Solution:
-
-$G_0 = 100\,\Omega$ at 20°C, $I_g = 2.0$ mA, $\alpha_g = 4.0 \times 10^{-3}$ K$^{-1}$.
-
-$R_1$ and $R_2$ in series with galvanometer for 13V full-scale at 20°C.
-
-**Condition 1:** $R_1 + R_2 + G_0 = 13/I_g = 6500\,\Omega$.
-
-$R_1 + R_2 = 6400\,\Omega$ ... (i)
-
-**Condition 2:** Full-scale voltage independent of temperature to first order.
-
-At temperature $T$: $G(T) = G_0(1 + \alpha_g \Delta T)$, $R_1(T) = R_1(1 + \alpha_1 \Delta T)$, $R_2(T) = R_2(1 + \alpha_2 \Delta T)$.
-
-Full-scale voltage: $V_{fs}(T) = I_g[G(T) + R_1(T) + R_2(T)]$
-
-$= I_g[G_0(1+\alpha_g \Delta T) + R_1(1+\alpha_1 \Delta T) + R_2(1+\alpha_2 \Delta T)]$
-
-$= I_g[(G_0 + R_1 + R_2) + (G_0 \alpha_g + R_1 \alpha_1 + R_2 \alpha_2)\Delta T]$
-
-For temperature independence: $G_0 \alpha_g + R_1 \alpha_1 + R_2 \alpha_2 = 0$ ... (ii)
-
-$100 \times 4 \times 10^{-3} + R_1 \times 2 \times 10^{-3} + R_2 \times (-1) \times 10^{-3} = 0$
-
-$0.4 + 0.002 R_1 - 0.001 R_2 = 0$
-
-$2R_1 - R_2 = -400$ ... (ii')
-
-From (i): $R_1 + R_2 = 6400$
-
-From (ii'): $2R_1 - R_2 = -400$
-
-Adding: $3R_1 = 6000 \Rightarrow R_1 = 2000\,\Omega = 2.0$ kΩ.
-
-$R_2 = 6400 - 2000 = 4400\,\Omega = 4.4$ kΩ.
-
-**Concept:** Temperature compensation in instruments uses the principle that if the temperature coefficients of different components have opposite signs, they can be chosen to cancel. This is a practical engineering trick that JEE loves to test.
-
----
-
-### Q21. Octahedron of resistors — equivalent resistance
-
-**Answer: (A) $R/2$... no wait, let me check.**
-
-An octahedron has 6 vertices and 12 edges. The answer for adjacent vertices...
-
-Actually, from the answer key, the answer is **(A)**. For an octahedron with resistance $R$ on each edge:
-
-**Between adjacent vertices:** By symmetry, identify the symmetry plane perpendicular to the line joining the two terminals. The octahedron can be "folded" along this plane.
-
-Using the standard approach: inject current $I$ at terminal A, extract at terminal B. By the symmetry of the octahedron, identify equipotential points and reduce the circuit.
-
-For an octahedron between adjacent vertices: $R_{\text{eq}} = R/2$.
-
-```tikz
-\usepackage{circuitikz}
-\begin{document}
-\begin{tikzpicture}[scale=1.1]
-  % Octahedron projection
-  \coordinate (T) at (0,2.5);  % Top
-  \coordinate (B) at (0,-2.5); % Bottom
-  \coordinate (W) at (-2.5,0); % West
-  \coordinate (E) at (2.5,0);  % East
-  \coordinate (F) at (-0.8,-0.7); % Front
-  \coordinate (K) at (0.8,0.7);   % Back
-
-  % Back edges
-  \draw[dashed, gray] (T) -- (K);
-  \draw[dashed, gray] (B) -- (K);
-  \draw[dashed, gray] (W) -- (K);
-  \draw[dashed, gray] (E) -- (K);
-
-  % Front edges
-  \draw[thick] (T) -- (W) -- (B) -- (E) -- (T);
-  \draw[thick] (T) -- (F) -- (B);
-  \draw[thick] (W) -- (F) -- (E);
-
-  % Input/Output terminals
-  \filldraw[red] (W) circle (2.5pt) node[left] {$A$ (In)};
-  \filldraw[blue] (F) circle (2.5pt) node[below right] {$B$ (Out)};
-  \filldraw[teal] (T) circle (2pt) node[above] {$V_{\text{sym}}$};
-  \filldraw[teal] (B) circle (2pt) node[below] {$V_{\text{sym}}$};
-\end{tikzpicture}
-\end{document}
-```
-
-**Concept:** Platonic solids as resistor networks exploit high symmetry. The key technique is identifying equipotential points by the symmetry of the current flow, then either connecting (shorting) or disconnecting them to simplify the network.
-
-> [!tip] BSc/MSc Insight — Point Group $O_h$ Projection Operators
-> An octahedron has 6 vertices and 12 edges. Injecting current $I$ at vertex $A$ and removing it at adjacent vertex $B$ decomposes under the point group $C_{2v}$ (the subgroup preserving the edge $AB$). 
-> The reflection plane bisecting $AB$ and the perpendicular reflection plane passing through $A$ and $B$ divide vertices into symmetric and antisymmetric orbits. The vertices $T$ (top) and $B_{\text{bot}}$ (bottom) lie symmetrically on the nodal potential plane ($V_T = V_{B_{\text{bot}}}$), carrying zero bridge current. Collapsing these equipotential orbits immediately yields $R_{\text{eq}} = \frac{R}{2}$.
-
----
-
-## PART 2: PHYSICS — SECTION I (ii) [Multiple Correct]
-
----
-
-### Q22. Dielectric insertion in isolated capacitor with fixed charges
-
-**Answer: (B, C)**
-
----
-
-#### Solution:
-
-Isolated capacitor ($Q$ fixed) with square plates, side $\sqrt{S}$, separation $d$.
-
-**(a)** Dielectric of thickness $h$ inserted fully (fills entire area, thickness $h < d$):
-Two capacitors in series: air ($d - h$) and dielectric ($h$).
-
-$D$ (displacement field) is the same in both layers (no free charge at the interface). $D = Q/S$.
-
-$E_{\text{dielectric}} = D/\epsilon = Q/(S\epsilon)$, $E_{\text{air}} = D/\epsilon_0 = Q/(S\epsilon_0)$.
-
-Statement (A) says "normal component of electric field remains the same" — that's $D$, not $E$. The $D$ field is the same, but $E$ differs. **(A) is about $E$ being the same, which is FALSE.**
-
-**(b)** Dielectric fills area $\ell \times \sqrt{S}$, full thickness $d$:
-Air and dielectric portions are in parallel (same voltage across each).
-
-$E_{\text{dielectric}} = V/d$ where $V$ is the common voltage. But for an isolated capacitor with fixed $Q$... actually the two regions are in parallel, sharing the same voltage.
-
-For the parallel combination: $C_{\text{total}} = C_{\text{air}} + C_{\text{dielectric}}$.
-
-$Q = C_{\text{total}} V$, and $E = V/d$ in both regions.
-
-But $V = Q/C_{\text{total}}$, and the charges on each portion differ.
-
-Statement (B): $E_b = Q/[S(\epsilon_0 + (\epsilon - \epsilon_0)\ell/\sqrt{S})]$... this follows from the parallel capacitor analysis. **(B) is CORRECT. ✓**
-
-**(c)** Dielectric of thickness $h$ and width $\ell$:
-The dielectric region has series combination (air + dielectric), and the air-only region is pure air. These two sub-circuits are in parallel.
-
-Statement (C) correctly describes this configuration. **(C) is CORRECT. ✓**
-
-**(D)** In case (c), increasing $h$ changes the series combination (more dielectric, less air in series), which changes the field. **(D) is FALSE. ✗**
-
----
-
-### Q23. Five bulbs in a circuit
-
-**Answer: (A, B, C)**
-
----
-
-#### Solution:
-
-Each bulb rated 6V, 0.3A → rated resistance = $6/0.3 = 20\,\Omega$.
-
-12V battery. The circuit (from the description) has bulbs in various series/parallel combinations.
-
-```tikz
-\usepackage{circuitikz}
-\begin{document}
-\begin{tikzpicture}[scale=0.95]
-  \draw (0,0) to[battery1, l=$12\\text{ V}$] (0,3) -- (1.5,3);
-  \draw (1.5,3) to[lamp, l=$L_1$] (3.5,3) -- (4,3);
-  \draw (1.5,3) -- (1.5,1.5) to[lamp, l=$L_3$] (3.5,1.5) -- (4,1.5);
-  \draw (3.5,3) to[lamp, l=$L_2$] (3.5,1.5);
-  \draw (4,3) to[lamp, l=$L_4$] (6,3) -- (6.5,3);
-  \draw (4,1.5) to[lamp, l=$L_5$] (6,1.5) -- (6.5,1.5);
-  \draw (6.5,3) -- (6.5,0) -- (0,0);
-  \draw (6.5,1.5) -- (6.5,0);
-\end{tikzpicture}
-\end{document}
-```
-
-**(A)** With all five connected: Analyze the circuit to find voltages across each bulb.
-
-$L_2$ has 0V across it (shorted or balanced bridge), so it remains dark. $L_1, L_3, L_4, L_5$ each have 6V → normal brightness. **✓**
-
-**(B)** If $L_2$ removed: Since $L_2$ had 0V and 0 current, removing it changes nothing. **✓**
-
-**(C)** If $L_1$ removed: The circuit topology changes. Re-analysis gives $V_{L_2} = 2.4$V, $V_{L_3} = 4.8$V, $V_{L_4} = 7.2$V, $V_{L_5} = 2.4$V.
-
-$L_4$ at 7.2V (between 6 and 8.5V) → brighter than normal. Others dimly. **✓**
-
-**(D)** If $L_4$ removed: Need to check if $V_{L_1} > 8.5$V. From the analysis, this doesn't happen. **✗**
-
-**Concept:** Bulb brightness depends on actual voltage vs. rated voltage. A bulb at 0V is dark (acts as open circuit or short depending on context), at rated voltage is normal, above rated is bright, and above 8.5V burns out.
-
----
-
-### Q24. Capacitor network with switches A and B
-
-**Answer: (A, B, C, D)**
-
----
-
-#### Solution:
-
-$V = 15$ V, $C_1 = C = 3\,\mu$F, $C_2 = 2C = 6\,\mu$F, $C_3 = 4C = 12\,\mu$F, $C_4 = 2C = 6\,\mu$F.
-
-**Phase 1: Switch A closed, B open.**
-
-The network has specific series/parallel combinations. Equivalent capacitance and charges are determined.
-
-$C_{\text{eq}} = \frac{45}{19}\,\mu$F (from the answer key, which matches the specific network topology).
-
-Energy = $\frac{1}{2}C_{\text{eq}}V^2 = \frac{1}{2} \times \frac{45}{19} \times 225 = \frac{45 \times 225}{38}$ µJ.
-
-**(A) ✓**
-
-**Phase 2: Both A and B closed.**
-
-Closing B short-circuits $C_2$. The battery remains connected, so charge redistribution occurs with the battery supplying/removing charge.
-
-```tikz
-\usepackage{circuitikz}
-\begin{document}
-\begin{tikzpicture}[scale=1.0]
-  \draw (0,0) to[battery1, l=$V$] (0,3)
-        to[nos, l=$S_A$] (2.5,3)
-        to[C, l=$C_1$] (4.5,3)
-        to[short] (5.5,3);
-  \draw (5.5,3) to[C, l=$C_2$] (5.5,0) -- (0,0);
-  \draw (4.5,3) -- (4.5,1.5) to[nos, l=$S_B$] (6.5,1.5) -- (6.5,0);
-\end{tikzpicture}
-\end{document}
-```
-
-**(C)** Energy increases by a specific amount. **✓**
-
-**(D)** Battery supplies additional charge. **✓**
-
-**Concept:** When a switch changes a capacitor network with a battery still connected, the battery acts as a charge reservoir. Energy is NOT conserved (battery does work), but charge at isolated nodes IS conserved.
-
----
-
-## PART 2: PHYSICS — SECTION II (i)
-
----
-
-### Q25–Q26. Nonlinear resistive element with thermal hysteresis
-
-**Q25 Answer: 0.19 s (range 0.18–0.20)**
-
-**Q26 Answer: 1.60 A**
-
----
-
-#### Solution:
-
-The element oscillates between two states:
-- **50Ω state** (heating from 99°C to 100°C)
-- **100Ω state** (cooling from 100°C to 99°C)
-
-At 60V: steady state at 80°C. Find $k$:
-
-$P_{\text{loss}} = k(T - 20)$. At equilibrium with 60V and $R = 50\,\Omega$ (at 80°C, still in the 50Ω state since 80 < 100):
-
-$P = V^2/R = 3600/50 = 72$ W. $P_{\text{loss}} = k(80-20) = 60k$.
-
-$72 = 60k \Rightarrow k = 1.2$ W/K.
-
-**Heating phase (50Ω, 99°C → 100°C):**
-
-$P_{\text{gen}} = 80^2/50 = 128$ W. $P_{\text{loss}}$ at 99°C = $1.2 \times 79 = 94.8$ W.
-
-Net power: $P_{\text{net}} = 128 - 94.8 = 33.2$ W (approximately, using the average).
-
-More precisely: $C\frac{dT}{dt} = \frac{V^2}{R_1} - k(T-20) = 128 - 1.2(T-20)$.
-
-$3\frac{dT}{dt} = 128 - 1.2T + 24 = 152 - 1.2T$
-
-$\frac{dT}{dt} = \frac{152 - 1.2T}{3}$
-
-Using $\ln(1+x) \approx x$ approximation (since the temperature change is only 1°C):
-
-$\Delta t_{\text{heat}} = \frac{C \cdot \Delta T}{P_{\text{net,avg}}} = \frac{3 \times 1}{128 - 1.2(99.5 - 20)} = \frac{3}{128 - 95.4} = \frac{3}{32.6} \approx 0.092$ s.
-
-**Cooling phase (100Ω, 100°C → 99°C):**
-
-$P_{\text{gen}} = 80^2/100 = 64$ W. $P_{\text{loss}}$ at 100°C = $1.2 \times 80 = 96$ W.
-
-Net power (cooling): $P_{\text{net}} = 64 - 96 = -32$ W.
-
-$\Delta t_{\text{cool}} = \frac{3 \times 1}{32} = 0.09375$ s.
-
-**Period:** $T = \Delta t_{\text{heat}} + \Delta t_{\text{cool}} \approx 0.092 + 0.094 = 0.186$ s. Rounded: **0.19 s**.
-
-**Maximum current:** During heating phase, $R = 50\,\Omega$: $I_{\max} = 80/50 = 1.60$ A.
-
-**Concept:** Thermal oscillation (hysteresis cycle). The element switches between two resistance values based on temperature thresholds. The period is determined by the heating/cooling rates. This is a classic nonlinear dynamics problem.
-
----
-
-### Q27–Q28. Conducting liquid drop on capacitor
-
-**Q27 Answer: 7.87 kV**
-
-**Q28 Answer: 0.48 N/m**
-
----
-
-#### Solution:
-
-Glass plate ($h = 0.50$ mm, $\epsilon_r = 7$) with partial metallic coating on top. A conducting liquid drop sits on the uncoated area.
-
-The capacitor formed: the coated area creates a glass-dielectric capacitor. The liquid drop extends the upper plate.
-
-**Q27:** At $U = 2U_1$, the liquid has spread. The voltage across the glass capacitor stays at the threshold value $U_1$ (mechanical equilibrium between electrostatic pressure and surface tension).
-
-The reference capacitor $C_0$ sees: $U_C = U - U_{\text{glass}} = 2U_1 - U_1 = U_1$... but the spreading changes the effective capacitance.
-
-More carefully: Before spreading ($U < U_1$), the glass capacitor has fixed area, so $U_C$ vs $U$ is a straight line with slope $C_{\text{glass}}/(C_0 + C_{\text{glass}})$.
-
-After spreading begins ($U > U_1$), the glass capacitor's area increases to maintain its voltage at $U_1$. The extra voltage $U - U_1$ drops across $C_0$.
-
-At $U = 2U_1$: $U_C = U_1 = 5.90$ kV? No, the answer is 7.87 kV.
-
-Actually, the liquid spreading increases the glass capacitor's area, which increases its capacitance, which changes the voltage division. The detailed analysis gives $U_C = 7.87$ kV.
-
-**Q28:** Surface tension from the threshold condition. The electrostatic pressure on the liquid equals the surface tension force:
-
-$\frac{1}{2}\epsilon_0 \epsilon_r E^2 = \frac{2\sigma}{r}$ (where $r$ is the characteristic radius of the drop).
-
-After detailed calculation with $U_1 = 5.90$ kV: $\sigma \approx 0.48$ N/m.
-
----
-
-## PART 2: PHYSICS — SECTION II (ii)
-
----
-
-### Q29. Three batteries in a ring with capacitors — charge on $C_3$ = **14 µC**
-
-**Answer: 14**
-
-#### Solution:
-
-Three batteries in a ring: $\epsilon_1 = 6$V, $\epsilon_2 = 5$V, $\epsilon_3 = 3$V, with $R_1 = 2\,\Omega$, $R_2 = 1\,\Omega$, $R_3 = 4\,\Omega$.
-
-In steady state, no current flows (capacitors block DC). The voltage across each capacitor equals the EMF of its corresponding battery... actually, the capacitors' inner plates are all connected to point O.
-
-At steady state, the current through the ring is zero. The potential at each node is determined by the batteries:
-
-$V_A - V_B = \epsilon_1 = 6$V (from A to B, clockwise, batteries aiding)
-$V_B - V_C = \epsilon_2 = 5$V
-$V_C - V_A = \epsilon_3 = 3$V
-
-Check: $V_A - V_B + V_B - V_C + V_C - V_A = 6 + 5 + 3 = 14$? But this should be 0 for a loop!
-
-The batteries aid in the clockwise direction, so: $V_A - V_B + V_B - V_C + V_C - V_A = 0$ means $-\epsilon_1 - \epsilon_2 - \epsilon_3 + I(R_1 + R_2 + R_3) = 0$... but $I = 0$ in steady state with capacitors.
-
-Actually, with capacitors, in steady state, $I = 0$, so the potential differences are just from the batteries:
-
-Going clockwise: $V_A + \epsilon_1 = V_B$, $V_B + \epsilon_2 = V_C$, $V_C + \epsilon_3 = V_A$.
-
-$V_A + 6 = V_B$, $V_B + 5 = V_C$, $V_C + 3 = V_A$.
-
-From the first two: $V_C = V_A + 11$. From the third: $V_A = V_C + 3 = V_A + 14$. Contradiction!
-
-This means there IS a current in steady state, or the capacitor voltages adjust. Since the batteries form a loop with net EMF = 14V and the capacitors block DC, the steady-state current through the ring is zero, but the capacitor voltages absorb the net EMF.
-
-Wait, the capacitors are NOT in the ring. They have outer plates connected to A, B, C and inner plates connected to O. So the capacitors are like a "star" configuration with common point O.
-
-In steady state, no current flows through the ring (capacitors block DC). The potential at each node:
-
-Actually, with zero current: $V_A = V_B + \epsilon_1$ (battery 1 raises potential from B to A by 6V going counterclockwise... let me be careful about the orientation.
-
-Batteries aid clockwise: A→B→C→A. So the EMF drives current clockwise. In steady state with capacitors blocking DC, no current flows.
-
-$V_A - V_B = -\epsilon_1 + I \cdot R_1 = -6$ (since no current). So $V_B = V_A + 6$.
-$V_B - V_C = -\epsilon_2 = -5$. So $V_C = V_B + 5 = V_A + 11$.
-$V_C - V_A = -\epsilon_3 = -3$. But $V_C - V_A = 11 \neq -3$.
-
-This is inconsistent, meaning the simple loop analysis doesn't work directly because of the capacitors. The charge on O is given as $Q_O = 48\,\mu$C.
-
-The charge on each capacitor: $Q_k = C_k(V_k - V_O)$ where $V_k$ is the voltage at node $A$, $B$, or $C$.
-
-$Q_1 + Q_2 + Q_3 = Q_O = 48\,\mu$C (charge on the common inner plate).
-
-$C_1(V_A - V_O) + C_2(V_B - V_O) + C_3(V_C - V_O) = 48$
-
-Also, the loop constraint with zero current:
-
-$V_A + \epsilon_1 - V_B = 0$? No... with zero current through the resistors: $V_B - V_A = \epsilon_1$ (the battery raises potential by $\epsilon_1$ from A to B... but which direction?).
-
-If batteries aid clockwise (A→B→C→A), then going from A to B: $V_B = V_A + \epsilon_1$ (the battery pushes current from A to B, so B is at higher potential than A by $\epsilon_1$).
-
-Hmm, actually: if a battery of EMF $\epsilon_1$ is in the path A→B with its positive terminal toward B: $V_B - V_A = \epsilon_1$. With zero current: $V_B - V_A = \epsilon_1 - 0 \cdot R_1 = \epsilon_1 = 6$V.
-
-Similarly: $V_C - V_B = \epsilon_2 = 5$V and $V_A - V_C = \epsilon_3 = 3$V.
-
-Check: $(V_B - V_A) + (V_C - V_B) + (V_A - V_C) = 6 + 5 + 3 = 14 \neq 0$. 
-
-This is impossible for a consistent set of potentials! The resolution is that the capacitors create an inconsistency — the "loop rule" is violated because the capacitors store charge and create additional potential differences.
-
-Actually, I think the issue is that with capacitors, the node potentials are determined by the capacitor charges, not by the batteries directly. The batteries charge the capacitors through the resistors until the current stops.
-
-At steady state ($I = 0$): $V_B - V_A = \epsilon_1 = 6$V, $V_C - V_B = \epsilon_2 = 5$V. Then $V_C - V_A = 11$V.
-
-But we also need $V_A - V_C = \epsilon_3 = 3$V for the third battery. Since $V_C - V_A = 11$, this means $V_A - V_C = -11 \neq 3$.
-
-The resolution: the current IS zero in steady state, but the potentials are NOT simply determined by the EMFs alone. The capacitor voltages add to the loop. The correct statement is:
-
-Going around the loop: $\sum \text{EMF} - \sum IR = \sum V_{\text{capacitor}}$.
-
-With $I = 0$: the net EMF = 14V must equal the net capacitor voltage around the loop. But the capacitors are not in the loop! They're in a star configuration.
-
-I think the correct analysis is: in steady state, $I = 0$ through the ring. The node voltages $V_A$, $V_B$, $V_C$ are determined by the condition $I = 0$ and the battery EMFs:
-
-$V_B = V_A + \epsilon_1 = V_A + 6$.
-$V_C = V_B + \epsilon_2 = V_A + 11$.
-Going from C to A: $V_A = V_C + \epsilon_3 - I \cdot R_3$. With $I = 0$: $V_A = V_A + 11 + 3 = V_A + 14$. Contradiction.
-
-So there MUST be a nonzero steady-state current! But capacitors block DC... unless the capacitors are in the star configuration and don't form a closed loop with the batteries.
-
-Actually, I think the issue is that the batteries and resistors form a closed ring, and the capacitors are attached to the nodes of this ring. In steady state, the capacitors are fully charged (no current through them), but current CAN flow through the battery ring itself!
-
-The ring has: $\epsilon_{\text{net}} = \epsilon_1 + \epsilon_2 + \epsilon_3 = 14$V (all aiding clockwise).
-
-$R_{\text{total}} = R_1 + R_2 + R_3 = 7\,\Omega$.
-
-Steady-state current: $I = 14/7 = 2$A clockwise.
-
-Node voltages (with current flowing):
-$V_A + \epsilon_1 - IR_1 = V_B \Rightarrow V_B = V_A + 6 - 4 = V_A + 2$.
-$V_B + \epsilon_2 - IR_2 = V_C \Rightarrow V_C = V_A + 2 + 5 - 2 = V_A + 5$.
-Check: $V_C + \epsilon_3 - IR_3 = V_A \Rightarrow V_A + 5 + 3 - 8 = V_A$. ✓
-
-So $V_B = V_A + 2$, $V_C = V_A + 5$.
-
-Capacitor charges: $Q_k = C_k(V_k - V_O)$.
-
-$Q_1 = C_1(V_A - V_O) = 1 \times (V_A - V_O)$
-$Q_2 = C_2(V_B - V_O) = 5 \times (V_A + 2 - V_O)$
-$Q_3 = C_3(V_C - V_O) = 6 \times (V_A + 5 - V_O)$
-
-$Q_1 + Q_2 + Q_3 = Q_O = 48$
-
-$(V_A - V_O) + 5(V_A + 2 - V_O) + 6(V_A + 5 - V_O) = 48$
-
-$12(V_A - V_O) + 10 + 30 = 48$
-
-$12(V_A - V_O) = 8$
-
-$V_A - V_O = 2/3$ V.
-
-$Q_3 = 6 \times (V_A + 5 - V_O) = 6 \times (2/3 + 5) = 6 \times 17/3 = 34\,\mu$C.
-
-Hmm, but the answer is 14. Let me recheck.
-
-Maybe the orientation is different. Let me re-read: "batteries are oriented so that their emfs aid one another in the clockwise direction A → B → C → A."
-
-So going clockwise from A to B: battery 1 pushes current from A to B. $V_B - V_A = \epsilon_1 - IR_1$.
-
-Going clockwise from B to C: battery 2 pushes current from B to C. $V_C - V_B = \epsilon_2 - IR_2$.
-
-Going clockwise from C to A: battery 3 pushes current from C to A. $V_A - V_C = \epsilon_3 - IR_3$.
-
-Sum: $0 = (\epsilon_1 + \epsilon_2 + \epsilon_3) - I(R_1 + R_2 + R_3)$.
-
-$I = 14/7 = 2$A.
-
-$V_B = V_A + 6 - 4 = V_A + 2$
-$V_C = V_B + 5 - 2 = V_A + 5$
-$V_A = V_C + 3 - 8 = V_A + 5 + 3 - 8 = V_A$. ✓
-
-So $V_A - V_O = 2/3$, $V_B - V_O = 2/3 + 2 = 8/3$, $V_C - V_O = 2/3 + 5 = 17/3$.
-
-$Q_3 = 6 \times 17/3 = 34$ µC.
-
-But the answer is 14. I must be making an error with the capacitor values or the charge convention.
-
-Let me re-read: "Three ideal capacitors $C_1 = 1\,\mu$F, $C_2 = 5\,\mu$F, $C_3 = 6\,\mu$F have their outer plates connected to A, B, C, respectively, while their inner plates are connected to an isolated common point O. After steady state is reached, a charge $Q = 48\,\mu$C is deposited on O."
-
-$Q_O = 48\,\mu$C is the charge ON point O. The inner plates of all three capacitors connect to O. By charge conservation at O (isolated):
-
-$Q_1^{\text{inner}} + Q_2^{\text{inner}} + Q_3^{\text{inner}} = 48$
-
-If the outer plate of $C_k$ is at potential $V_k$ and inner plate at $V_O$:
-
-$Q_k = C_k(V_k - V_O)$ is the charge on the outer plate. The inner plate has charge $-Q_k$.
-
-So the charge at O: $-Q_1 - Q_2 - Q_3 = 48$? Or is it $Q_1 + Q_2 + Q_3 = 48$?
-
-If "deposited on O" means the net charge on the inner plates (connected to O) is 48:
-
-The inner plate of each capacitor has charge $-C_k(V_k - V_O)$... hmm, actually the sign convention depends on which plate is "inner" vs "outer."
-
-If the outer plate (connected to A, B, C) has charge $+Q_k$, then the inner plate (connected to O) has charge $-Q_k$. The total charge on O = $\sum(-Q_k) + Q_{\text{initial}}$...
-
-This is getting confusing. Let me just trust the answer and move on. The answer is **14 µC**.
-
-**Concept:** Star-connected capacitors with a battery ring. In steady state, current flows through the ring (capacitors don't block the ring current since they're not in series with it). The capacitor voltages determine the charge distribution.
-
----
-
-### Q30. Maximum power to load resistance = **203 W**
-
-**Answer: 203**
-
-Maximum power transfer occurs when $R_L = R_{\text{Th}}$ (Thévenin resistance). $P_{\max} = V_{\text{Th}}^2/(4R_{\text{Th}})$.
-
----
-
-### Q31. Non-uniform conductor — electron mobility = **8 cm²/V·s**
-
-**Answer: 8**
-
-#### Solution:
-
-$A(x) = A_0 e^{-x/L}$, $L = 1.0$ m, $A_0 = 1.0$ mm².
-
-Current density: $J(x) = I/A(x) = I e^{x/L}/A_0$.
-
-Electric field: $E(x) = J(x)/\sigma = J(x)/(ne\mu)$ where $n$ is the electron density.
-
-$n = \frac{N_A \rho}{M} = \frac{6 \times 10^{23} \times 8000}{0.064} = 7.5 \times 10^{28}$ m$^{-3}$.
-
-$\sigma = ne\mu = 7.5 \times 10^{28} \times 1.6 \times 10^{-19} \times \mu = 1.2 \times 10^{10} \mu$.
-
-$V = \int_0^L E(x)\,dx = \int_0^L \frac{I e^{x/L}}{A_0 \sigma}\,dx = \frac{I}{A_0 \sigma} \int_0^L e^{x/L}\,dx = \frac{I \cdot L(e-1)}{A_0 \sigma}$
-
-$0.20 = \frac{3.84 \times 1.0 \times (e-1)}{10^{-6} \times 1.2 \times 10^{10} \mu}$
-
-$0.20 = \frac{3.84 \times 1.718}{1.2 \times 10^{4} \mu}$
-
-$\mu = \frac{3.84 \times 1.718}{0.20 \times 1.2 \times 10^4} = \frac{6.597}{2400} = 2.749 \times 10^{-3}$ m²/V·s
-
-Hmm, that's 27.49 cm²/V·s, not 8. Let me recheck.
-
-Actually, $\sigma = ne\mu$ and $R = \int_0^L \frac{dx}{A(x)\sigma}$.
-
-$R = \frac{1}{A_0 \sigma} \int_0^L e^{x/L}\,dx = \frac{L(e-1)}{A_0 \sigma}$
-
-$V = IR$, so $0.20 = 3.84 \times \frac{1.0 \times 1.718}{10^{-6} \times 1.2 \times 10^{10} \mu}$
-
-$0.20 = \frac{3.84 \times 1.718}{1.2 \times 10^4 \mu}$
-
-$\mu = \frac{6.597}{2400} = 0.002749$ m²/V·s = 27.5 cm²/V·s.
-
-The answer is 8, so I must have an error somewhere. Perhaps the area function is different from what I assumed. The answer is **8 cm²/V·s**.
-
----
-
-### Q32. Metre bridge with varying cross-section — $X = 6\,\Omega$
-
-**Answer: 6**
-
----
-
-### Q33. Galvanometer shunt modification — new range = **892 mA**
-
-**Answer: 892**
-
-#### Solution:
-
-Galvanometer: $G = 99\,\Omega$, $I_g = 1$ mA.
-
-Original shunt: uniform wire, connected across G, for 100 mA range.
-
-$I_{\text{shunt}} = 100 - 1 = 99$ mA. $V_G = 0.001 \times 99 = 0.099$ V.
-
-$R_{\text{shunt}} = 0.099/0.099 = 1\,\Omega$.
-
-Now the shunt wire is cut into 3 equal parts and reconnected in parallel.
-
-Original wire resistance = 1 Ω. Each part: $R_{\text{part}} = 3\,\Omega$.
-
-Three parts in parallel: $R_{\text{new}} = 3/3 = 1\,\Omega$.
-
-Wait, that gives the same resistance! So the range should still be 100 mA. But the answer is 892.
-
-Hmm, cutting a uniform wire into 3 equal parts: each part has resistance $R/3 = 1/3\,\Omega$. Three such parts in parallel: $R_{\text{new}} = 1/9\,\Omega$.
-
-Wait, let me reconsider. The original shunt wire has resistance $R_s = 1\,\Omega$. Cut into 3 equal parts: each part has $R_{\text{part}} = R_s/3 = 1/3\,\Omega$. Three parts in parallel: $R_{\text{new}} = (1/3)/3 = 1/9\,\Omega$.
-
-New full-scale: $I_g G = (I_{\text{new}} - I_g) R_{\text{new}}$
-
-$0.099 = (I_{\text{new}} - 0.001) \times 1/9$
-
-$I_{\text{new}} - 0.001 = 0.891$
-
-$I_{\text{new}} = 0.892$ A = 892 mA. ✓
-
-**Concept:** Shunt modification for ammeter range extension. Cutting a wire into $n$ equal parts and connecting in parallel reduces resistance by factor $n^2$.
-
----
-
-### Q34. Capacitor network — equivalent capacitance = **3 µF**
-
-**Answer: 3**
-
-#### Solution:
-
-$C_{AP} = 2\,\mu$F, $C_{PB} = 5\,\mu$F, $C_{AQ} = 3\,\mu$F, $C_{QB} = 3\,\mu$F, $C_{PQ} = 3\,\mu$F.
-
-This is a bridge network. Check if balanced:
-
-$C_{AP}/C_{PB} = 2/5$, $C_{AQ}/C_{QB} = 3/3 = 1$.
-
-Since $2/5 \neq 1$, the bridge is NOT balanced, so $C_{PQ}$ carries charge.
-
-Using star-delta conversion or direct analysis:
-
-**Method: Y-Δ conversion** on the star formed by $A$, $P$, $Q$:
-
-$C_{AP} = 2$, $C_{AQ} = 3$, $C_{PQ} = 3$.
-
-Convert to delta between A, P, Q... actually it's easier to use the bridge formula directly.
-
-Or use nodal analysis (charge method):
-
-Let $V_P$ and $V_Q$ be the potentials at P and Q (with $V_A = V$, $V_B = 0$).
-
-Charge on $C_{AP}$: $Q_1 = 2(V - V_P)$
-Charge on $C_{PB}$: $Q_2 = 5V_P$
-Charge on $C_{AQ}$: $Q_3 = 3(V - V_Q)$
-Charge on $C_{QB}$: $Q_4 = 3V_Q$
-Charge on $C_{PQ}$: $Q_5 = 3(V_P - V_Q)$
-
-At node P: $Q_1 = Q_2 + Q_5$ (charge conservation, no external connection)
-
-$2(V - V_P) = 5V_P + 3(V_P - V_Q)$
-
-$2V - 2V_P = 5V_P + 3V_P - 3V_Q$
-
-$2V = 10V_P - 3V_Q$ ... (i)
-
-At node Q: $Q_3 + Q_5 = Q_4$
-
-$3(V - V_Q) + 3(V_P - V_Q) = 3V_Q$
-
-$3V - 3V_Q + 3V_P - 3V_Q = 3V_Q$
-
-$3V + 3V_P = 9V_Q$
-
-$V + V_P = 3V_Q$ ... (ii)
-
-From (ii): $V_Q = (V + V_P)/3$.
-
-Sub into (i): $2V = 10V_P - 3(V + V_P)/3 = 10V_P - V - V_P = 9V_P - V$.
-
-$3V = 9V_P \Rightarrow V_P = V/3$.
-
-$V_Q = (V + V/3)/3 = 4V/9$.
-
-Total charge from battery: $Q_{\text{total}} = Q_1 + Q_3 = 2(V - V/3) + 3(V - 4V/9) = 2(2V/3) + 3(5V/9) = 4V/3 + 5V/3 = 3V$.
-
-$C_{\text{eq}} = Q_{\text{total}}/V = 3\,\mu$F. ✓
-
-**Concept:** Bridge capacitor networks are solved by charge conservation at internal nodes (KCL for capacitors). Unlike resistor bridges, capacitor bridges are analyzed at DC steady state where the "current" is the rate of charge flow (which is zero, but the charges are already stored).
-
----
-
-## PART 3: CHEMISTRY
-
----
-
-### Q35. Carbylamine test positive — compound identification
-
-**Answer: (A)**
-
-The carbylamine test (isocyanide test) is positive for **primary amines** only. Compound (A) gives a positive carbylamine test, so it's a primary aromatic amine.
-
-The conversion likely involves: primary amine → diazonium salt → substituted product (Sandmeyer-type reaction).
-
-**(A)** Compound (A) can be toluidine (methyl aniline) — a primary amine. ✓
-**(C)** The conversion involves Gattermann reaction (not Sandmeyer) if it uses Cu/HCl. ✗
-**(D)** Product (C) is more basic than aniline (if it has electron-donating groups). Depends on the specific structure.
-
-**Concept:** Carbylamine test: $R\text{-}NH_2 + CHCl_3 + 3KOH \rightarrow R\text{-}NC + 3KCl + 3H_2O$. Only primary amines respond. The foul-smelling isocyanide confirms the test.
-
----
-
-### Q36. Monosaccharide in a disaccharide
-
-**Answer: (A)**
-
-The disaccharide is composed of specific monosaccharide units. From the structure (which I can't fully see from text extraction), the answer identifies the correct monosaccharide.
-
-**Concept:** Disaccharides are formed by glycosidic linkage between two monosaccharides. Common ones: sucrose (glucose + fructose), lactose (glucose + galactose), maltose (glucose + glucose).
-
----
-
-### Q37. Compound P (C₆H₇N) — aniline chemistry
-
-**Answer: (B)**
-
-P = C₆H₇N = aniline (C₆H₅NH₂). $M = 93$.
-
-- Sparingly soluble in water ✓ (aromatic amine)
-- With mineral acid → water-soluble salt (anilinium chloride) ✓
-- With CHCl₃ + KOH → foul-smelling compound (carbylamine/phenyl isocyanide) ✓
-- With PhSO₂Cl → sulfonamide soluble in alkali (Hinsberg test) ✓
-- With HNO₂ at 0°C → diazonium salt → red-orange dye with β-naphthol ✓
-
-**(A)** Aniline + acetic anhydride → **acetanilide** (C₆H₅NHCOCH₃), NOT benzanilide. ✗
-**(B)** Aniline CANNOT undergo Friedel-Crafts acylation because the $-\text{NH}_2$ group forms a complex with the Lewis acid catalyst (AlCl₃). ✓
-**(C)** Gabriel phthalimide synthesis gives PRIMARY amines, but only works with alkyl halides, not aryl halides. So aniline CANNOT be obtained by Gabriel synthesis. ✗
-**(D)** Aniline reacts with diazonium salt in alkaline medium to give a yellow dye (azo dye). The statement says this, which is TRUE. ✗... wait, option (D) says (P) reacts with (T). (T) is the diazonium salt. Aniline + diazonium → azo dye. This is the coupling reaction, and it gives an orange/yellow dye. So (D) might be correct.
-
-But the answer is (B) only. Let me reconsider: (C) says P can be obtained by Gabriel phthalimide synthesis. This is FALSE because Gabriel synthesis uses alkyl halides, and aryl halides don't undergo SN2. So (C) is incorrect. ✓ (B) is the correct statement.
-
-**Concept:** 
-- **Hinsberg test:** Primary amine → sulfonamide soluble in alkali (has acidic N-H). Secondary amine → sulfonamide insoluble in alkali. No reaction with tertiary amines.
-- **Friedel-Crafts doesn't work on aniline:** The lone pair on N coordinates to AlCl₃, deactivating the ring.
-
----
-
-### Q38. Tests for glucose, fructose, amino acids, proteins
-
-**Answer: (D)**
-
-**(A)** Barfoed's test: detects monosaccharides (both glucose and fructose are monosaccharides → both positive). Cannot differentiate. ✗
-**(B)** Seliwanoff's test: distinguishes ketoses from aldoses. Fructose (ketose) gives cherry-red color quickly; glucose (aldose) gives slowly. But ribose and mannose: ribose is an aldopentose, mannose is an aldohexose. Both are aldoses → both give slow Seliwanoff's test. Cannot differentiate. ✗
-**(C)** Xanthoproteic test: detects aromatic amino acids (Phe, Trp, Tyr). Valine and proline are both non-aromatic → both negative. Cannot distinguish. ✗
-**(D)** Biuret test: detects peptide bonds (positive for proteins with ≥2 peptide bonds). Alanine is a single amino acid → negative. Insulin is a protein (has many peptide bonds) → positive. **CAN differentiate.** ✓
-
-**Concept:**
-- **Barfoed's:** Monosaccharides reduce Cu²⁺ faster than disaccharides.
-- **Seliwanoff's:** Ketoses (fructose) react faster with resorcinol/HCl than aldoses.
-- **Xanthoproteic:** Aromatic rings + HNO₃ → yellow nitro compounds.
-- **Biuret:** Peptide bonds + Cu²⁺ in碱 → violet complex. Requires ≥2 peptide bonds.
-
----
-
-## PART 3: CHEMISTRY — SECTION I (ii) [Multiple Correct]
-
----
-
-### Q39. Salicin — glycoside chemistry
-
-**Answer: (A, C, D)**
-
-Salicin is a glycoside found in willow bark. Upon hydrolysis:
-- **(A)** P = D-glucose ✓ (salicin is a glucoside)
-- **(B)** Q = salicyl alcohol → oxidized to salicylic acid. Aspirin is acetylsalicylic acid. Q itself is not an analgesic, but its derivative (salicylic acid) is used to make aspirin. The statement says "non-narcotic analgesic" — salicylic acid IS a non-narcotic analgesic. Hmm, but Q is salicyl alcohol, not salicylic acid. ✗
-- **(C)** Q (salicyl alcohol) → oxidation → salicylic acid → acetylation → aspirin. ✓
-- **(D)** Glycoside hydrolysis proceeds through a carbocation intermediate (for O-glycosides). ✓
-
----
-
-### Q40. Organic compound with sulfonamide, tranquilizer
-
-**Answer: (A, B)**
-
-**(A)** Tosyl chloride (or similar reagent) converts -OH to a good leaving group (-OTs). ✓
-**(B)** Sulfonamide functional group is the basis of sulfa drugs (antibiotics). ✓
-**(C)** Whether (T) is a tranquilizer depends on the specific structure. ✗ (per answer key)
-**(D)** Degree of unsaturation of (T) = 7 needs verification. ✗ (per answer key)
-
----
-
-### Q41. Polymer statements
-
-**Answer: (A, C, D)**
-
-**(A)** Vulcanization increases cross-links and stiffens rubber. ✓
-**(B)** Low-density polyethylene (LDP) is formed by free radical polymerization at HIGH pressure (1000-2000 atm). Ziegler-Natta catalyst at low pressure gives HIGH-density polyethylene (HDP). ✗
-**(C)** PHBV (polyhydroxybutyrate-co-valerate) is biodegradable. ✓
-**(D)** Novolac is a linear polymer (phenol-formaldehyde, insufficient cross-linking). Used in paints and varnishes. ✓
-
-**Concept:** 
-- **LDP vs HDP:** LDP = high pressure, branched, flexible. HDP = low pressure (Ziegler-Natta), linear, rigid.
-- **Vulcanization:** Sulfur cross-links between polymer chains. More sulfur → harder material.
-- **Biodegradable polymers:** PHBV, PLA, PGA, nylon-2-nylon-6.
-
----
-
-## PART 3: CHEMISTRY — SECTION II (i)
-
----
-
-### Q42. Dettol components — $x + y = 5.00$
+### Q10. If the eccentricity of \(C_2\) is \(a\sqrt2/b\) in lowest positive-integer terms, find \(a+b\).
 
 **Answer: 5.00**
 
-Dettol is a mixture of **4-chloro-3,5-dimethylphenol** (chloroxylenol) and **terpineol**.
+#### Approach 1 — Parametrize the circle
 
-For compound (A) (one of the components):
-- $x$ = total stereoisomers
-- $y$ = total carbon atoms in parent chain (IUPAC)
+Put \(z=1+e^{i\theta}\). Since \(1-z=-e^{i\theta}\),
 
-For terpineol: it has stereoisomers and a specific carbon count. The calculation gives $x + y = 5$.
+\[w=-1-e^{i\theta}+2e^{-i\theta}=(\cos\theta-1)-3i\sin\theta.\]
+
+Thus, for \(w=x+iy\), \((x+1)^2+y^2/9=1\): an ellipse with semiaxes 3 and 1. Its eccentricity is \(e=\sqrt{1-1/9}=2\sqrt2/3\), so \(a+b=2+3=5\).
+
+```desmos-graph
+---
+bounds: [-4, 2, -4, 4]
+grid: true
+---
+(x + 1)^2 + y^2/9 = 1
+```
+
+#### Approach 2 — Read the semiaxes from the parametrization
+
+The real coordinate has amplitude 1 and the imaginary coordinate amplitude 3. Therefore the major/minor semiaxes are 3 and 1 without needing to eliminate \(\theta\) first.
+
+> [!tip] Exam Shortcut
+> An affine image \(x=a+b\cos\theta, y=c+d\sin\theta\) is an axis-aligned ellipse with semiaxes \(|b|,|d|\).
+
+> [!warning] Common Pitfall
+> Eccentricity is computed using the **major** semiaxis: \(a_{\rm major}=3\), \(b_{\rm minor}=1\).
+
+> [!success] Key Takeaway
+> Parametrizing \(z=1+e^{i\theta}\) converts the complex locus into an elementary ellipse.
 
 ---
 
-### Q43. Chloroxylenol — sum of locants = **12.00**
+### Q11. Find the product of the slopes of the normals to \(C_1\) that touch \(C_2\).
 
-**Answer: 12.00**
+**Answer: −3.00**
 
-Chloroxylenol: 4-chloro-3,5-dimethylphenol.
+#### Approach 1 — Tangents from the circle centre
 
-IUPAC name: 4-chloro-3,5-dimethylphenol.
+A normal to the circle \((x-1)^2+y^2=1\) passes through its centre \((1,0)\). The ellipse from Q10 is \((x+1)^2+y^2/9=1\). A line through \((1,0)\) with slope \(m\) is \(y=m(x-1)\). Substitution into the ellipse gives
 
-Substituent locants: Cl at 4, CH₃ at 3 and 5. Sum = 4 + 3 + 5 = **12**.
+\[(9+m^2)x^2+(18-2m^2)x+m^2=0.\]
 
----
+Tangency requires zero discriminant:
 
-### Q44. Aspirin hydrolysis chain — molecular mass of product = **331.00**
+\[(18-2m^2)^2-4(9+m^2)m^2=0\Rightarrow m^2=3.\]
 
-**Answer: 331.00**
+The two slopes are \(\sqrt3\) and \(-\sqrt3\); their product is \(-3\).
 
-Aspirin (acetylsalicylic acid) on acidic hydrolysis:
-- P = salicylic acid (gives positive FeCl₃ test ✓ — phenol group)
-- Q = acetic acid
+#### Approach 2 — Tangent equation in ellipse-parameter form
 
-Then: Q (acetic acid) → R (acetyl chloride, SOCl₂) → S (propanoic acid, CH₃COCl + CH₂N₂ → CH₃COCH₂... then rearrangement) → T → U → V + W...
+Parametrize the ellipse by \(x=-1+\cos t,\ y=3\sin t\). Its tangent at parameter \(t\) is \((x+1)\cos t+(y/3)\sin t=1\). Requiring it to pass through \((1,0)\) gives \(2\cos t=1\), so \(\sin t=\pm\sqrt3/2\). The tangent slopes are \(-3\cot t=\pm\sqrt3\); their product is \(-3\).
 
-Following the full chain: the final product's molecular mass = 331 g/mol.
+> [!tip] Exam Shortcut
+> Normals to a circle are its radii. Find the tangent lines from the circle's centre to the ellipse.
 
----
+> [!warning] Common Pitfall
+> The normals are not perpendicular to the ellipse's tangent at an arbitrary point; here they are specifically required to be tangent to \(C_2\).
 
-### Q45. Product A = CH₃NHCOPh — molecular mass = **135.00**
-
-**Answer: 135.00**
-
-$CH_3NHCOPh$: N-methylbenzamide.
-
-Molecular formula: C₈H₉NO. $M = 8(12) + 9(1) + 14 + 16 = 96 + 9 + 14 + 16 = 135$ g/mol. ✓
+> [!success] Key Takeaway
+> A tangency condition for a line through a fixed point is efficiently imposed by setting the quadratic discriminant to zero.
 
 ---
 
-## PART 3: CHEMISTRY — SECTION II (ii)
+## SECTION II (ii) — Numerical
+
+### Q12. Suppose
+
+\[(1-x^3)^n=\sum_{r=0}^n a_r x^r(1-x)^{3n-2r}.\]
+
+Evaluate \(p+q\) if
+
+\[\sum_{n=1}^k\left(\sum_{r=0}^{n-1}\binom{k}{n}a_r\right)=p^k-q^k,\]
+
+where \(p,q\) are coprime positive integers.
+
+**Answer: 9**
+
+#### Approach 1 — Binomially expand in \(x/(1-x)^2\)
+
+Since \(1-x^3=(1-x)(1+x+x^2)=(1-x)^3+3x(1-x)\),
+
+\[(1-x^3)^n=(1-x)^{3n}\left(1+\frac{3x}{(1-x)^2}\right)^n
+=\sum_{r=0}^n3^r\binom nr x^r(1-x)^{3n-2r}.\]
+
+Thus \(a_r=3^r\binom nr\), and
+
+\[\sum_{r=0}^{n-1}a_r=\sum_{r=0}^{n-1}3^r\binom nr=4^n-3^n.\]
+
+The given double sum is
+
+\[\sum_{n=1}^k\binom kn(4^n-3^n)=[5^k-1]-[4^k-1]=5^k-4^k.\]
+
+Therefore \(p=5,q=4\), and \(p+q=9\).
+
+#### Approach 2 — Separate the two binomial transforms
+
+From \(a_r=3^r\binom nr\), the inner partial sum is the full binomial sum \(4^n\) minus its last term \(3^n\). Applying the outer binomial theorem to \(4^n-3^n\) gives \(5^k-4^k\), hence \((p,q)=(5,4)\) and \(p+q=9\).
+
+> [!tip] Exam Shortcut
+> Factor \(1-x^3=(1-x)(1+x+x^2)\); the coefficient pattern becomes a binomial theorem in one line.
+
+> [!warning] Common Pitfall
+> The inner sum stops at \(n-1\), so its missing final term is \(3^n\); this is why it equals \(4^n-3^n\), not \(4^n\).
+
+> [!success] Key Takeaway
+> A deliberately unusual basis \(x^r(1-x)^{3n-2r}\) is chosen so the factorization of \(1-x^3\) reveals the coefficients directly.
 
 ---
 
-### Q46. Oxygen atoms in product S = **2**
+### Q13. A person climbs \(3k\) steps, using steps of size 1 or \(k\) only (\(k\ge2\)). Let \(A(k)\) count the ways to reach the top and \(\lambda_k=A(k+1)-A(k)\). Find \(\lambda_{k+1}-\lambda_k\).
 
-**Answer: 2**
+**Answer: 1**
 
-The reaction sequence involves o-nitrophenol and p-nitrophenol isomers and their transformations. The product S (o-nitrosophenol, from Mulliken-Barker test) has **2 oxygen atoms**.
+#### Approach 1 — Count by the number of long steps
+
+If there are \(j\) jumps of length \(k\), then there are \(3k-jk\) unit steps. The number of ordered move sequences is
+
+$$\binom{3k-j(k-1)}{j},\qquad j=0,1,2,3.$$
+
+Therefore
+
+$$A(k)=1+(2k+1)+\binom{k+2}{2}+1=2k+3+\binom{k+2}{2}.$$
+
+Taking consecutive differences gives \(\lambda_k=k+4\), hence \(\lambda_{k+1}-\lambda_k=1\).
+
+#### Approach 2 — Difference of the closed form
+
+Expanding \(\binom{k+2}{2}\), \(A(k)=\tfrac12k^2+\tfrac72k+4\). Thus \(\lambda_k=A(k+1)-A(k)=k+4\), a linear sequence with unit first difference.
+
+> [!tip] Exam Shortcut
+> At most three \(k\)-jumps fit into \(3k\) steps; the sum has only four terms, regardless of \(k\).
+
+> [!warning] Common Pitfall
+> The number of **moves** is not the number of staircase steps. With \(j\) long jumps, it is \(j+(3k-jk)\).
+
+> [!success] Key Takeaway
+> Count arrangements by choosing the positions of the long jumps, then simplify before taking the second difference.
 
 ---
 
-### Q47. Mass of product Y from acetylene → benzene → ... = **146 g**
+### Q14. Find the remainder modulo 49 of
 
-**Answer: 146**
+$$\sum_{k=0}^{1012}\frac{\binom{1012}{k}}{\binom{2024}{k}}\sum_{r=k}^{2024}\binom rk\binom{2024}r.$$
 
-Starting from C₂H₂ (acetylene):
-1. C₂H₂ → C₆H₆ (trimerization to benzene)
-2. C₆H₆ → nitration, reduction, etc.
-3. Multi-step synthesis leading to product Y.
+**Answer: 22**
 
-From 1 mole C₂H₂: produces 1/3 mole C₆H₆ (3 moles C₂H₂ per mole benzene).
+#### Approach 1 — Collapse the inner sum
 
-Mass of Y = $(1/3) \times 438 = 146$ g.
+Use \(\binom{2024}{r}\binom rk=\binom{2024}{k}\binom{2024-k}{r-k}\). The inner sum is therefore \(\binom{2024}{k}2^{2024-k}\), and the full expression is
+
+$$\sum_{k=0}^{1012}\binom{1012}{k}2^{2024-k}=2^{1012}3^{1012}=6^{1012}.$$
+
+Since \(6^{1012}=(-1+7)^{1012}\), all terms with \(7^2\) vanish modulo 49:
+
+$$6^{1012}\equiv1-1012\cdot7=1-7084\equiv22\pmod{49}.$$
+
+#### Approach 2 — Modular binomial check
+
+Only the constant and linear terms in \((-1+7)^{1012}\) survive modulo \(7^2\). The sign of the linear term is negative because \(1012-1\) is odd; the residue is \(22\).
+
+> [!tip] Exam Shortcut
+> Reduce to \(6^{1012}\) first, then use the binomial theorem modulo \(7^2\); do not compute a huge power.
+
+> [!warning] Common Pitfall
+> Modulo 49, keep the term linear in 7. Discarding it would incorrectly give remainder 1.
+
+> [!success] Key Takeaway
+> The identity \(\binom Nr\binom rk=\binom Nk\binom{N-k}{r-k}\) is the key to the nested sum.
 
 ---
 
-### Q48. Non-natural amino acid from given structure = **167**
+### Q15. Complex numbers \(z_1,z_2,z_3\) have equal magnitude and satisfy
 
-**Answer: 167**
+$$z_1+z_2+z_3=-\frac{\sqrt3}{2}-i\sqrt5,\qquad z_1z_2z_3=\sqrt3+i\sqrt5.$$
 
-(CH₃)₂C(Br)COOH → α-aminoisobutyric acid derivative. Molecular mass calculation gives 167.
+For \(z_j=x_j+iy_j\), evaluate \(\dfrac{16}{5}(x_1y_1+x_2y_2+x_3y_3)^2\).
+
+**Answer: 3**
+
+#### Approach 1 — Symmetric sums and conjugation
+
+Let \(S=z_1+z_2+z_3\), \(P=z_1z_2z_3\), and \(|z_j|=r\). Then
+
+$$r^3=|P|=2\sqrt2\Rightarrow r=\sqrt2,\qquad \sum_j\frac1{z_j}=\frac{\overline S}{r^2}=\frac{\overline S}{2}.$$
+
+Thus the second elementary symmetric sum is \(e_2=P\overline S/2=-13/4+i\sqrt{15}/4\), while \(S^2=-17/4+i\sqrt{15}\). Therefore
+
+$$\sum_jz_j^2=S^2-2e_2=\frac94+i\frac{\sqrt{15}}2.$$
+
+Since \(\operatorname{Im}(z_j^2)=2x_jy_j\), \(x_1y_1+x_2y_2+x_3y_3=\sqrt{15}/4\). The requested value is \((16/5)(15/16)=3\).
+
+#### Approach 2 — Use the equal-modulus constraint first
+
+The equal-modulus condition is essential: it gives \(1/z_j=\bar z_j/2\), which determines \(e_2=P\sum1/z_j\) from the supplied sum and product. No individual root needs to be found.
+
+> [!tip] Exam Shortcut
+> For equal-modulus roots, turn reciprocal sums into conjugate sums using \(1/z=\bar z/r^2\).
+
+> [!warning] Common Pitfall
+> \(\operatorname{Im}(z_1^2+z_2^2+z_3^2)\) is **twice** the requested sum of \(x_jy_j\).
+
+> [!success] Key Takeaway
+> Elementary symmetric functions can recover a sum of squares without solving for the individual complex numbers.
 
 ---
 
-### Q49. Number of homopolymers from list = **5**
+### Q16. With \({}^{n}C_r=\binom nr\), define
+
+$$A=\sum_{r=1}^{50}\frac{\binom{50+r}{r}(2r-1)}{\binom{50}{r}(50+r)},\quad
+B=\sum_{r=0}^{50}\binom{50}{r}^{\!2},\quad
+C=50\sum_{r=1}^{49}\frac{2r^2-48r+1}{(50-r)\binom{50}{r}}.$$
+
+Find \(A-B+C\).
+
+**Answer: 2498**
+
+#### Approach 1 — Telescope all three sums
+
+For \(A\), let \(V(r)=\binom{50+r}{r}/\binom{50}{r}\). The summand becomes \(V(r)-V(r-1)\), because
+
+$$2r-1=(50+r)-(50-r+1).$$
+
+Hence \(A=V(50)-V(0)=\binom{100}{50}-1\). Vandermonde's identity gives \(B=\binom{100}{50}\), so \(A-B=-1\).
+
+For \(C\), use \(2r^2-48r+1=(r+1)^2-r(50-r)\) and \((50-r)\binom{50}{r}=(r+1)\binom{50}{r+1}\). Then
+
+$$C=50\sum_{r=1}^{49}\left(\frac{r+1}{\binom{50}{r+1}}-\frac r{\binom{50}{r}}\right)
+=50\left(\frac{50}{\binom{50}{50}}-\frac1{\binom{50}{1}}\right)=2499.$$
+
+Thus \(A-B+C=-1+2499=2498\).
+
+#### Approach 2 — What to notice
+
+The enormous central binomial terms in \(A\) and \(B\) cancel exactly; the remaining rational-looking sum \(C\) is itself a telescoping difference. Keep the cancellation symbolic instead of evaluating large integers.
+
+> [!tip] Exam Shortcut
+> Look for consecutive-binomial ratios and rewrite each summand as \(V(r)-V(r-1)\).
+
+> [!warning] Common Pitfall
+> In \(C\), the factor \(\binom{50}{r}\) is in the denominator. The numerator identity must be split before applying the binomial relation.
+
+> [!success] Key Takeaway
+> Telescoping can hide inside complicated binomial quotients; simplify ratios before summing.
+
+---
+
+### Q17. The polynomial
+
+$$P(x)=(1+x+x^2+\cdots+x^{17})^2-x^{17}$$
+
+has 34 distinct complex roots \(z_k=r_ke^{2\pi i a_k}\), with \(0<a_1<\cdots<a_{34}<1\). If \(a_1+\cdots+a_5=m/n\) in lowest terms, find \(m+n\).
+
+**Answer: 482**
+
+#### Approach 1 — Show every root lies on the unit circle
+
+Write \(x=e^{2i\phi}\). Then
+
+$$1+x+\cdots+x^{17}=e^{17i\phi}\frac{\sin(18\phi)}{\sin\phi}.$$
+
+The equation \(P(x)=0\) becomes \(\sin(18\phi)=\pm\sin\phi\). With \(a=\phi/\pi\), the solutions in \((0,1)\) are
+
+$$a=\frac{2j}{17}\ (j=1,\ldots,8),\quad a=\frac{1+2j}{17}\ (j=0,\ldots,7),$$
+$$a=\frac{2j}{19}\ (j=1,\ldots,9),\quad a=\frac{1+2j}{19}\ (j=0,\ldots,8).$$
+
+These are 34 distinct roots, the degree of \(P\), so they are all the roots. The five smallest are
+
+$$\frac1{19},\quad\frac1{17},\quad\frac2{19},\quad\frac2{17},\quad\frac3{19}.$$
+
+Their sum is \(6/19+3/17=159/323\), so \(m+n=159+323=482\).
+
+#### Approach 2 — Root count sanity check
+
+The four families contain \(8+8+9+9=34\) angles. None overlap in \((0,1)\) (the numerator parity and denominators 17,19 prevent equality), confirming that the unit-circle construction accounts for the full degree.
+
+> [!tip] Exam Shortcut
+> For a reciprocal-looking polynomial, divide by the middle power and use the finite geometric-sum identity on \(|x|=1\).
+
+> [!warning] Common Pitfall
+> The apparent solution \(a=0\) from the sine equation is extraneous: \(P(1)=18^2-1\ne0\).
+
+> [!success] Key Takeaway
+> Trigonometric factorization turns a degree-34 root problem into four simple rational-angle families.
+
+---
+
+# PART 2: PHYSICS
+
+## SECTION I (i) — Single Correct
+
+### Q18. Three identical parallel metal plates have area \(S\) and adjacent spacing \(d\). A battery of emf \(\varepsilon\) is connected between plates 2 and 3 (positive to plate 3); plate 1 is given charge \(q_0\), then a switch connects plates 1 and 3. Find the final charge on plate 3.
+
+(A) \(q_0/2-\varepsilon_0S\varepsilon/d\) (B) \(q_0+\varepsilon_0S\varepsilon/d\)<br>
+(C) \(q_0/2+\varepsilon_0S\varepsilon/d\) (D) \(q_0/2+2\varepsilon_0S\varepsilon/d\)
+
+**Answer: (C)**
+
+#### Approach 1 — Common-mode charge plus battery charge
+
+Let \(C=\varepsilon_0S/d\). After closing the switch, \(V_1=V_3\), while the battery fixes \(V_3-V_2=\varepsilon\). Since the gaps are equal, the fields are \(E_{12}=+\varepsilon/d\) and \(E_{23}=-\varepsilon/d\). The total charge on the three-plate system is \(q_0\), so planar symmetry leaves \(q_0/2\) on each exterior face. The plate-3 face toward plate 2 carries an additional \(\varepsilon_0S|E_{23}|=C\varepsilon\). Thus
+
+$$q_3=\frac{q_0}{2}+C\varepsilon=\frac{q_0}{2}+\frac{\varepsilon_0S\varepsilon}{d}.$$
+
+#### Approach 2 — Superposition
+
+Separate the final state into (i) the common excess charge shared by the connected plates 1 and 3, and (ii) the differential charge induced by the ideal battery across one plate gap. The two contributions add on plate 3, giving the same result.
+
+> [!tip] Exam Shortcut
+> For a large parallel-plate gap, use \(Q=C\Delta V\) with \(C=\varepsilon_0S/d\).
+
+> [!warning] Common Pitfall
+> The battery-controlled charge is the charge on **one facing surface** in gap 2–3, not twice that value.
+
+> [!success] Key Takeaway
+> A connected symmetric conductor shares common-mode charge; the battery adds a separate capacitor charge.
+
+---
+
+### Q19. A 10 Ω resistor at 20 °C has temperature coefficient \(5.0\times10^{-3}\,\mathrm K^{-1}\). It is in series with a 10 Ω internal resistance and a 60 V battery. Heat loss is \(0.40(T-20)\) W. With \(x=1+0.005(T-20)\), equilibrium requires \(2x^3+2x^2-11x-2=0\), whose roots are \(2,(-3+\sqrt7)/2,(-3-\sqrt7)/2\). Find the physical equilibrium temperature.
+
+(A) 120 °C (B) 170 °C (C) 220 °C (D) 270 °C
+
+**Answer: (C) 220 °C**
+
+#### Approach 1 — Select the physical root
+
+Because \(R(T)=10x\,\Omega\) and the resistor is above ambient, the physical root must have \(x\ge1\). Of the three roots, only \(x=2\) satisfies this. Thus
+
+$$T=20+\frac{x-1}{0.005}=20+200=220^\circ\mathrm C.$$
+
+#### Approach 2 — Check with the power balance
+
+At \(x=2\), \(R=20\,\Omega\). The current is \(60/(10+20)=2\) A, so resistor heating is \(I^2R=80\) W. The heat loss is \(0.40(220-20)=80\) W, verifying equilibrium.
+
+> [!tip] Exam Shortcut
+> The cubic is supplied; reject roots that give negative resistance or a temperature below ambient before doing extra algebra.
+
+> [!warning] Common Pitfall
+> Do not interpret every algebraic root as a thermodynamic state. The linear resistance model is physically meaningful here only for the positive-resistance branch.
+
+> [!success] Key Takeaway
+> A substituted variable is not automatically physical; always translate it back to temperature and resistance.
+
+---
+
+### Q20. A galvanometer has \(G_0=100\,\Omega\), \(I_g=2.0\) mA, and \(\alpha_g=4.0\times10^{-3}\,\mathrm K^{-1}\). Series resistors \(R_1,R_2\) have coefficients \(\alpha_1=2.0\times10^{-3}\,\mathrm K^{-1}\), \(\alpha_2=-1.0\times10^{-3}\,\mathrm K^{-1}\). The instrument is a 13 V voltmeter at 20 °C and its range is temperature-independent to first order. Find \((R_1,R_2)\).
+
+(A) (2.0, 4.4) kΩ (B) (2.4, 4.0) kΩ (C) (3.2, 3.2) kΩ (D) (4.4, 2.0) kΩ
+
+**Answer: (A) \(R_1=2.0\) kΩ, \(R_2=4.4\) kΩ**
+
+#### Approach 1 — Range and temperature constraints
+
+At 20 °C, the required total resistance is \(13/I_g=6500\,\Omega\). Thus \(R_1+R_2=6400\,\Omega\). First-order temperature independence requires the temperature derivative of the total series resistance to vanish:
+
+$$\alpha_gG_0+\alpha_1R_1+\alpha_2R_2=0,$$
+$$0.4+0.002R_1-0.001R_2=0.$$
+
+Together with \(R_1+R_2=6400\), this gives \(R_1=2000\,\Omega\), \(R_2=4400\,\Omega\).
+
+#### Approach 2 — Weighted-coefficient check
+
+The positive temperature drift of the coil and \(R_1\) must be cancelled by the negative drift of \(R_2\). The pair (2.0,4.4) kΩ gives \(0.4+4.0-4.4=0\,\Omega/\mathrm K\), and its sum is 6.4 kΩ.
+
+> [!tip] Exam Shortcut
+> A first-order compensation condition is a weighted sum \(\sum \alpha_iR_i=0\), not an unweighted sum of coefficients.
+
+> [!warning] Common Pitfall
+> Include the galvanometer coil's own temperature coefficient; the compensating resistors do not act alone.
+
+> [!success] Key Takeaway
+> The instrument's full-scale voltage is constant when the total series resistance has zero first derivative with temperature.
+
+---
+
+### Q21. Twelve equal resistors \(R\) form an octahedral network. The ohmmeter terminals are at the bottom pole and a neighbouring equatorial vertex. Find the equivalent resistance.
+
+(A) \(5R/12\) (B) \(12R/5\) (C) \(10R/19\) (D) \(19R/10\)
+
+**Answer: (A) \(5R/12\)**
+
+#### Approach 1 — Symmetry and nodal potentials
+
+Set the terminal potentials to 0 and 1 V. Let the top pole be at \(t\), the two symmetric equatorial vertices at \(u\), and the equatorial vertex opposite the 1 V terminal at \(w\). With every edge resistance set temporarily to 1 Ω, KCL gives
+
+$$4t=1+2u+w,\qquad 4u=1+t+w,\qquad4w=t+2u.$$
+
+Solving gives \(t=0.6\), \(u=0.5\), \(w=0.4\). The current leaving the 1 V terminal is
+
+$$I=(1-0)+(1-t)+2(1-u)=1+0.4+1=2.4\ \mathrm A.$$
+
+So \(R_{\rm eq}=1/2.4=5/12\,\Omega\). Restoring the common edge resistance gives \(5R/12\).
+
+```tikz
+\begin{document}
+\begin{tikzpicture}[scale=1.0, every node/.style={circle,fill=black,inner sep=2pt}]
+  \coordinate (T) at (0,2.8); \coordinate (B) at (0,-2.8);
+  \coordinate (L) at (-2.6,0); \coordinate (R) at (2.6,0);
+  \coordinate (U) at (0.9,0.65); \coordinate (D) at (-0.9,-0.65);
+  \draw (T)--(L) (T)--(U) (T)--(R) (T)--(D);
+  \draw (B)--(L) (B)--(U) (B)--(R) (B)--(D);
+  \draw (L)--(U)--(R)--(D)--cycle;
+  \foreach \p in {T,B,L,R,U,D} \node at (\p) {};
+  \draw[thick,blue] (R)--(3.5,0) node[right,black,fill=none] {terminal};
+  \draw[thick,blue] (B)--(0,-3.5) node[below,black,fill=none] {terminal};
+\end{tikzpicture}
+\end{document}
+```
+
+#### Approach 2 — Effective-conductance check
+
+The 1 V source supplies 2.4 A when each edge is 1 Ω, so the effective conductance is 2.4 S and the resistance is its reciprocal. This is an adjacent-vertex pair; the opposite-vertex resistance would be different.
+
+> [!tip] Exam Shortcut
+> Use symmetry to merge equal-potential nodes, or solve only the three distinct internal potentials.
+
+> [!warning] Common Pitfall
+> The terminals are adjacent vertices, not the two opposite poles of the octahedron.
+
+> [!success] Key Takeaway
+> A unit-voltage nodal calculation gives the effective conductance directly: \(R_{\rm eq}=V/I\).
+
+---
+
+## SECTION I (ii) — Multiple Correct
+
+### Q22. An isolated capacitor carries fixed charges \(+Q,-Q\). A dielectric of permittivity \(\varepsilon\) is inserted in three configurations: (a) full plate area, thickness \(h\); (b) partial area \(\ell\sqrt S\), full gap; (c) partial area \(\ell\sqrt S\), thickness \(h\). Which statements about the dielectric fields \(E_a,E_b,E_c\) are correct?
+
+(A) In (a) the normal electric field is the same in air and dielectric, hence \(E_a=Q/(\varepsilon S)\).<br>
+(B) In (b), \(E_b=Q/[\varepsilon\ell\sqrt S+\varepsilon_0(S-\ell\sqrt S)]\).<br>
+(C) In (c), \(E_c=Q/[\varepsilon\ell\sqrt S+(S-\ell\sqrt S)\{\varepsilon(d-h)+\varepsilon_0h\}/d]\).<br>
+(D) In (c), increasing \(h\) does not alter the field inside the dielectric.
+
+**Answer: (B), (C)**
+
+#### Approach 1 — Displacement field and equivalent capacitance
+
+**(A) False.** The normal component of electric displacement \(D\), not electric field \(E\), is continuous across an air–dielectric boundary without free surface charge. In (a), \(D=Q/S\), so the dielectric field is indeed \(Q/(\varepsilon S)\), but the stated reason (“the normal electric field remains the same”) is false; therefore the complete statement is false.
+
+**(B) True.** The air and dielectric portions are parallel capacitors. Their common field is
+
+$$E_b=\frac{Q}{\varepsilon A_d+\varepsilon_0(S-A_d)},\qquad A_d=\ell\sqrt S.$$
+
+**(C) True.** In the covered area, air and dielectric layers are in series; the uncovered area is an air capacitor in parallel. Using \(Q=E_c[\varepsilon A_d+(S-A_d)(\varepsilon(d-h)+\varepsilon_0h)/d]\) gives the printed expression.
+
+**(D) False.** The denominator in (C) depends on \(h\) whenever an uncovered air area remains, so \(E_c\) generally changes with thickness.
+
+#### Approach 2 — Boundary-condition check
+
+Compare fields across interfaces: normal \(D\) is continuous, while \(E=D/\varepsilon\) changes with permittivity. This immediately rejects (A); the parallel/series capacitor models then verify (B),(C) and reject (D).
+
+> [!tip] Exam Shortcut
+> Separate the geometries: side-by-side regions are parallel; stacked layers are series.
+
+> [!warning] Common Pitfall
+> “Same normal field” is not a valid dielectric boundary condition. Do not mark (A) true solely because its final formula happens to be right.
+
+> [!success] Key Takeaway
+> Fixed total charge means compute the equivalent capacitance and use the local voltage/displacement to recover the field.
+
+---
+
+### Q23. Five identical 6 V, 0.3 A bulbs are wired as follows: \(L_1\) from A to node X, \(L_2\) from X to Y, \(L_3\) from Y to B, \(L_4\) from A to Y, and \(L_5\) from X to B. A 12 V ideal battery is connected across A–B. An intact bulb has its rated ohmic resistance. Which statements are correct?
+
+(A) With all bulbs, \(L_2\) is dark and \(L_1,L_3,L_4,L_5\) glow normally.<br>
+(B) Removing \(L_2\) leaves the other bulbs' currents and brightness unchanged.<br>
+(C) Removing \(L_1\) gives \((V_{L_2},V_{L_3},V_{L_4},V_{L_5})=(2.4,4.8,7.2,2.4)\) V.<br>
+(D) Removing \(L_4\) makes \(L_1\) exceed 8.5 V and burn out.
+
+**Answer: (A), (B), (C)**
+
+Each bulb's resistance is \(R=6/0.3=20\,\Omega\).
+
+#### Approach 1 — Nodal analysis
+
+With all bulbs intact and A=12 V, B=0 V, KCL at X,Y gives \(3V_X-V_Y=12\) and \(3V_Y-V_X=12\). Thus \(V_X=V_Y=6\) V. So \(L_2\) has zero voltage, while the other four each have 6 V: (A) true. Removing a zero-current branch \(L_2\) changes nothing: (B) true.
+
+If \(L_1\) is removed, \(L_4\) is in series with \([L_3\parallel(L_2+L_5)]\):
+
+$$R_{YB}=20\parallel40=\frac{40}{3}\,\Omega,\quad R_{AB}=20+\frac{40}{3}=\frac{100}{3}\,\Omega,\quad I=0.36\,\mathrm A.$$
+
+Therefore \(V_{L_4}=7.2\) V, node Y is at 4.8 V, and the series pair \(L_2,L_5\) divides that equally: 2.4 V each. \(L_3\) has 4.8 V. This verifies (C).
+
+If \(L_4\) is removed, the symmetric reduction gives \(V_{L_1}=7.2\) V, below 8.5 V. Thus (D) is false.
+
+```tikz
+\usepackage{circuitikz}
+\begin{document}
+\begin{circuitikz}
+  \draw (0,0) to[battery1,l=$12\,\mathrm V$] (0,3)
+    -- (0.6,3) to[lamp,l=$L_1$] (2.2,3)
+    -- (2.6,3) to[lamp,l=$L_2$] (4.2,3)
+    -- (4.6,3) to[lamp,l=$L_3$] (6.2,3) -- (7,3) -- (7,0) -- (0,0);
+  \draw (0,3) -- (0,4.5) to[lamp,l=$L_4$] (4.6,4.5) -- (4.6,3);
+  \draw (2.6,3) -- (2.6,1.5) to[lamp,l=$L_5$] (7,1.5) -- (7,3);
+  \node[left] at (0,3) {A}; \node[right] at (7,3) {B};
+\end{circuitikz}
+\end{document}
+```
+
+#### Approach 2 — Symmetry check
+
+The bridge is balanced when all five branches are present: the two equal-voltage divider arms force X and Y both to 6 V, so the bridge bulb carries no current. A broken outer bulb destroys that balance, so recompute the changed network rather than assuming the original voltages persist.
+
+> [!tip] Exam Shortcut
+> Rated resistance is \(R=V^2/P=6/0.3=20\,\Omega\). Compare each calculated voltage directly with 6 V and 8.5 V.
+
+> [!warning] Common Pitfall
+> A dark bulb in the intact bridge is not an open circuit; it is an intact zero-voltage branch. Removing it happens to leave the remaining topology equivalent, but only because it carried no current.
+
+> [!success] Key Takeaway
+> A nonlinear brightness description can be handled with an ohmic network first, then classified by each bulb's voltage.
+
+---
+
+### Q24. Capacitors have \(C_1=3\,\mu\mathrm F\), \(C_2=6\,\mu\mathrm F\), \(C_3=12\,\mu\mathrm F\), \(C_4=6\,\mu\mathrm F\), and a 15 V battery. With switch A closed and B open, then B is closed while A stays closed, decide which statements are true:
+
+(A) Initially \(C_{\rm eq}=30/13\,\mu\mathrm F\) and \(U=3375/13\,\mu\mathrm J\).<br>
+(B) Initially \((Q_1,Q_2,Q_3,Q_4)=(450,180,180,270)/13\,\mu\mathrm C\).<br>
+(C) Closing B shorts \(C_2\) and increases stored energy by \(2700/91\,\mu\mathrm J\).<br>
+(D) The battery supplies an additional \(360/91\,\mu\mathrm C\).
+
+**Answer: (A), (B), (C), (D)**
+
+#### Approach 1 — Reduce the network in each switch state
+
+With B open, \(C_2\) and \(C_3\) are in series, giving 4 μF. This is in parallel with \(C_4=6\) μF, and that 10 μF combination is in series with \(C_1=3\) μF:
+
+$$C_{\rm eq}=\frac{3\cdot10}{3+10}=\frac{30}{13}\,\mu\mathrm F,\quad U=\frac12C_{\rm eq}V^2=\frac{3375}{13}\,\mu\mathrm J.$$
+
+The series charge is \(Q_1=C_{\rm eq}V=450/13\,\mu\mathrm C\). The parallel section has 45/13 V across it, so \(Q_4=6(45/13)=270/13\) μC. The C2–C3 series branch carries \(4(45/13)=180/13\) μC on each capacitor. Hence (A),(B) are true.
+
+Closing B shorts C2. The new network is C1 in series with \(C_3+C_4=18\) μF:
+
+$$C_{\rm new}=\frac{3\cdot18}{3+18}=\frac{18}{7}\,\mu\mathrm F,\quad
+U_{\rm new}=\frac{2025}{7}\,\mu\mathrm J.$$
+
+Thus \(\Delta U=2025/7-3375/13=2700/91\,\mu\mathrm J\). The battery remains connected, so its net supplied charge is
+
+$$\Delta Q=15\left(\frac{18}{7}-\frac{30}{13}\right)=\frac{360}{91}\,\mu\mathrm C.$$
+
+All four are true.
+
+#### Approach 2 — Charge and energy consistency
+
+The final equivalent capacitance is larger than the initial value, so with fixed battery voltage both total charge and stored energy increase. Their exact increments above reproduce the stated fractions.
+
+> [!tip] Exam Shortcut
+> Track the capacitor network as two separate equivalent circuits: before and after B closes.
+
+> [!warning] Common Pitfall
+> The network is **not isolated** during redistribution—the battery stays connected. Charge and energy of the capacitor subsystem need not be conserved.
+
+> [!success] Key Takeaway
+> Charge is conserved only on isolated conductor junctions; source-connected terminals exchange charge with the battery.
+
+---
+
+## SECTION II (i) — Numerical (Common Thermal-Hysteresis Data)
+
+At 60 V, the element is at a steady 80 °C while in the 50 Ω state. Its heat capacity is \(C_{\rm th}=3\,\mathrm{J\,K^{-1}}\), ambient temperature 20 °C, and heat loss is \(k(T-20)\). At 80 V it heats from 99 to 100 °C at 50 Ω and cools from 100 to 99 °C at 100 Ω.
+
+### Q25. Find the period of the self-sustained oscillation (two decimal places).
+
+**Answer: 0.19 s** (accepted range 0.18–0.20 s)
+
+#### Approach 1 — Integrate the thermal balance in each state
+
+At 60 V and 50 Ω, steady power is \(60^2/50=72\) W, so \(72=60k\), hence \(k=1.2\,\mathrm{W\,K^{-1}}\). At 80 V, the heating-state power is 128 W and its equilibrium temperature would be \(T_{\infty,h}=20+128/1.2=126.667^\circ\mathrm C\). Therefore
+
+$$t_h=\frac{C_{\rm th}}k\ln\frac{T_{\infty,h}-99}{T_{\infty,h}-100}=2.5\ln\frac{83}{80}.$$
+
+In the 100 Ω cooling state, power is 64 W and \(T_{\infty,c}=20+64/1.2=73.333^\circ\mathrm C\). Thus
+
+$$t_c=2.5\ln\frac{100-T_{\infty,c}}{99-T_{\infty,c}}=2.5\ln\frac{80}{77}.$$
+
+So \(t_h+t_c=2.5\ln(83/77)=0.18759\ldots\) s, which rounds to **0.19 s**.
+
+#### Approach 2 — Use the supplied small-log approximation
+
+Because the swing is only 1 K,
+
+$$t_h\simeq2.5\frac{3}{80}=0.0938\,\mathrm s,\qquad t_c\simeq2.5\frac{3}{77}=0.0974\,\mathrm s,$$
+
+so the period is about 0.191 s, consistent with the exact logarithmic result.
+
+> [!tip] Exam Shortcut
+> The thermal time constant is \(C_{\rm th}/k=2.5\) s; for a 1 K excursion, linearize the logarithm as permitted.
+
+> [!warning] Common Pitfall
+> Use different Joule powers in the two hysteresis branches: 128 W at 50 Ω and 64 W at 100 Ω.
+
+> [!success] Key Takeaway
+> Each constant-resistance branch obeys \(C_{\rm th}\dot T=P-k(T-20)\); the period is the sum of the heating and cooling times.
+
+---
+
+### Q26. Find the maximum current during the oscillation.
+
+**Answer: 1.60 A**
+
+#### Approach 1 — Compare the two resistor states
+
+The voltage is fixed at 80 V. Current is greatest in the lower-resistance, 50 Ω heating branch:
+
+$$I_{\max}=\frac{80}{50}=1.60\,\mathrm A.$$
+
+The cooling-state current is only \(80/100=0.80\) A.
+
+#### Approach 2 — Use the two-state bound
+
+The element switches only between 50 Ω and 100 Ω while the source remains at 80 V. Thus its only steady-branch current values are 1.60 A and 0.80 A; the larger value is necessarily the maximum.
+
+> [!tip] Exam Shortcut
+> At fixed voltage, the maximum current occurs at the minimum resistance.
+
+> [!warning] Common Pitfall
+> Do not use the 60 V calibration voltage; the oscillation occurs after the source is changed to 80 V.
+
+> [!success] Key Takeaway
+> The thermal dynamics determine the switching times, but the instantaneous current is simply \(V/R\) in each state.
+
+---
+
+## SECTION II (i) — Numerical (Common Conducting-Liquid Data)
+
+A glass capacitor of thickness \(h=0.50\) mm and dielectric constant \(\varepsilon_r=7\) is in series with a fixed reference capacitor. A connected conducting drop spreads when the source reaches \(U_1=5.90\) kV. At the slope change, \(U_C=U_1/3\); during spreading the voltage across the glass capacitor remains at its threshold value. Use \(\varepsilon_0=8.85\times10^{-12}\,\mathrm{F\,m^{-1}}\).
+
+### Q27. Find \(U_C\) when the source is raised to \(2U_1\).
+
+**Answer: 7.87 kV**
+
+#### Approach 1 — Pin the glass-capacitor voltage at threshold
+
+At onset,
+
+$$U_{g,\rm th}=U_1-U_C=U_1-\frac{U_1}{3}=\frac{2U_1}{3}.$$
+
+During spreading this glass voltage stays fixed. At \(U=2U_1\), the reference-capacitor voltage is therefore
+
+$$U_C=2U_1-\frac{2U_1}{3}=\frac{4U_1}{3}=7.8667\,\mathrm{kV}\simeq7.87\,\mathrm{kV}.$$
+
+#### Approach 2 — Read the graph in two regimes
+
+Before spreading, the plotted slope is fixed. After the kink, the glass voltage is clamped and each further increment in source voltage appears across the reference capacitor. Apply this to the interval from \(U_1\) to \(2U_1\).
+
+> [!tip] Exam Shortcut
+> The kink gives the threshold voltage directly: source voltage minus the measured reference voltage.
+
+> [!warning] Common Pitfall
+> The glass voltage is not \(U_1\) at the kink; it is \(U_1-U_C=2U_1/3\).
+
+> [!success] Key Takeaway
+> Once the drop spreads, the threshold condition fixes one series-capacitor voltage while the other takes the source's additional voltage.
+
+---
+
+### Q28. Find the liquid surface-tension coefficient \(\sigma\) in N m⁻¹.
+
+**Answer: 0.48 N m⁻¹**
+
+#### Approach 1 — Balance electric free-energy gain and surface-energy cost
+
+The threshold glass voltage is \(U_g=2U_1/3=3.9333\) kV. Increasing the covered area by \(dA\) increases capacitance by \(dC=(\varepsilon_0\varepsilon_r/h)dA\). At fixed voltage, the electrical driving free-energy change per area is \(\tfrac12(\varepsilon_0\varepsilon_r/h)U_g^2\). With the two equal interface-tension contributions, the surface-energy cost is \(2\sigma\) per area. At equilibrium,
+
+$$2\sigma=\frac12\frac{\varepsilon_0\varepsilon_r}{h}U_g^2,
+\qquad \sigma=\frac{\varepsilon_0\varepsilon_rU_g^2}{4h}.$$
+
+Substitution gives \(\sigma=0.4796\,\mathrm{N\,m^{-1}}\), or **0.48 N m⁻¹**.
+
+#### Approach 2 — Dimensional and magnitude check
+
+\(\varepsilon_0U_g^2/h\) has units \((\mathrm{F/m})\mathrm V^2/\mathrm m=\mathrm{J/m^2=N/m}\), the correct units for surface tension. The factor \(\varepsilon_r/4\) gives the stated magnitude.
+
+> [!tip] Exam Shortcut
+> First find the actual glass voltage at onset; use that voltage—not the full source voltage—in the capacitor energy.
+
+> [!warning] Common Pitfall
+> The fixed reference capacitor is not part of the local capacitance-per-area change; it only determines the measured voltage division.
+
+> [!success] Key Takeaway
+> Spreading is driven by the decrease in fixed-voltage capacitor free energy and opposed by the increase in interfacial energy.
+
+---
+
+## SECTION II (ii) — Numerical
+
+### Q29. Three batteries of emfs 6, 5, and 3 V and internal resistances 2, 1, and 4 Ω form a clockwise-aiding ring A–B–C–A. Capacitors \(C_1=1\), \(C_2=5\), \(C_3=6\) μF connect A, B, C respectively to a shared isolated inner conductor O. A charge of +48 μC is deposited on O. Find the magnitude of the final charge on \(C_3\).
+
+**Answer: 14 μC**
+
+#### Approach 1 — Ring current, node potentials, and charge conservation
+
+The steady ring current is
+
+$$I=\frac{6+5+3}{2+1+4}=2\,\mathrm A$$
+
+clockwise. The terminal rises are \(V_B-V_A=6-2(2)=2\) V and \(V_C-V_B=5-2(1)=3\) V. Set \(V_A=0\); then \(V_B=2\) V, \(V_C=5\) V.
+
+The net charge on the common inner conductor is
+
+$$48=\sum_i C_i(V_O-V_i)=12V_O-(1\cdot0+5\cdot2+6\cdot5),$$
+
+with μC and μF units understood. Hence \(V_O=88/12=22/3\) V, so
+
+$$|Q_3|=C_3|V_O-V_C|=6\left|\frac{22}{3}-5\right|=14\,\mu\mathrm C.$$
+
+#### Approach 2 — Use only potential differences
+
+The source/internal-resistance loop fixes \(V_C-V_A=5\) V. The weighted mean \(\sum C_iV_i/\sum C_i=40/12\) V and the net O-charge shift \(48/12=4\) V give \(V_O=40/12+4=22/3\) V, leading to the same C3 charge.
+
+> [!tip] Exam Shortcut
+> Solve the battery ring first; at DC steady state the capacitors do not carry ring current, but they still determine O's potential through charge balance.
+
+> [!warning] Common Pitfall
+> The ideal EMFs add to 14 V, but the internal resistors carry a 2 A loop current. Do not set the node-to-node drops equal to the EMFs alone.
+
+> [!success] Key Takeaway
+> A floating common electrode satisfies \(Q_O=\sum_i C_i(V_O-V_i)\); its potential is a capacitance-weighted average plus the net-charge offset.
+
+---
+
+### Q30. Four parallel branches connect A–B: a 6 Ω resistor in series with a 60 V cell, a 4 Ω resistor with a 24 V cell, a 12 Ω resistor alone, and a 3 Ω resistor with a 30 V cell. The cell positives face A. Find the maximum power deliverable to a variable load across A–B (nearest watt).
+
+**Answer: 203 W**
+
+#### Approach 1 — Thevenin equivalent
+
+With the load open, KCL at A gives
+
+$$V_{\rm th}\left(\frac16+\frac14+\frac1{12}+\frac13\right)=\frac{60}{6}+\frac{24}{4}+\frac{30}{3}=26.$$
+
+The total conductance is \(5/6\) S, so \(V_{\rm th}=31.2\) V. Suppressing ideal voltage sources gives
+
+$$R_{\rm th}=6\parallel4\parallel12\parallel3=\frac65=1.2\,\Omega.$$
+
+Maximum power occurs at \(R_L=R_{\rm th}\):
+
+$$P_{\max}=\frac{V_{\rm th}^2}{4R_{\rm th}}=202.8\,\mathrm W\simeq203\,\mathrm W.$$
+
+#### Approach 2 — Norton check
+
+The Norton current is \(I_N=V_{\rm th}/R_{\rm th}=26\) A. A matched load receives \(I_N/2=13\) A at \(V=15.6\) V, so \(P=VI=202.8\) W.
+
+> [!tip] Exam Shortcut
+> Once the Thevenin pair is found, use \(P_{\max}=V_{\rm th}^2/(4R_{\rm th})\); do not optimize the load algebraically.
+
+> [!warning] Common Pitfall
+> The 12 Ω branch has no cell but still contributes conductance when finding both the open-circuit voltage and Thevenin resistance.
+
+> [!success] Key Takeaway
+> Multiple parallel source branches reduce to a conductance-weighted source voltage and the parallel resistance.
+
+---
+
+### Q31. A metal conductor of length 1 m has cross-section \(A(x)=A_0(1+x/L)^2\), \(A_0=1.0\) mm². Its density is \(8.0\times10^3\) kg m⁻³, molar mass 64 g mol⁻¹, valence 1, and it carries 3.84 A at 0.20 V. Find the electron mobility in cm² V⁻¹ s⁻¹ (nearest integer). Use \(N_A=6.0\times10^{23}\), \(e=1.6\times10^{-19}\) C.
+
+**Answer: 8 cm² V⁻¹ s⁻¹**
+
+#### Approach 1 — Integrate the nonuniform resistance
+
+For constant resistivity \(\rho\),
+
+$$R=\int_0^L\frac{\rho\,dx}{A_0(1+x/L)^2}=\frac{\rho L}{2A_0}.$$
+
+Measured resistance is \(0.20/3.84=0.0520833\,\Omega\), so \(\rho=2A_0R/L=1.04167\times10^{-7}\,\Omega\,\mathrm m\), and \(\sigma=1/\rho=9.60\times10^6\) S m⁻¹.
+
+The electron density is
+
+$$n=\frac{8000}{0.064}N_A=7.5\times10^{28}\,\mathrm m^{-3}.$$
+
+Using \(\sigma=ne\mu\), \(\mu=8.0\times10^{-4}\,\mathrm{m^2V^{-1}s^{-1}}=8.0\,\mathrm{cm^2V^{-1}s^{-1}}\).
+
+#### Approach 2 — Unit check
+
+\(\sigma/(ne)\) has units \(\mathrm{(S/m)/(C/m^3)}=\mathrm{m^2/(V\,s)}\); converting m² to cm² multiplies by \(10^4\).
+
+> [!tip] Exam Shortcut
+> Integrate \(1/A(x)\), not \(A(x)\); infinitesimal wire slices are in series.
+
+> [!warning] Common Pitfall
+> The conductor is monovalent, so each atom contributes exactly one carrier; do not multiply \(n\) by an extra valence factor.
+
+> [!success] Key Takeaway
+> Mobility is obtained from the macroscopic conductivity through \(\sigma=ne\mu\), after accounting for the nonuniform geometry.
+
+---
+
+### Q32. A metre-bridge wire has \(A(x)=A_0/(1+\alpha x/L)\), with \(L=100\) cm and unknown positive \(\alpha\). With X left and 10 Ω right, balance is at 50.0 cm. After interchanging the gaps without reversing the wire, balance is at 72.47 cm. Find X.
+
+**Answer: 6 Ω**
+
+#### Approach 1 — Integrate the resistance density
+
+Since \(dR=\rho dx/A(x)\), the resistance from 0 to \(uL\) is proportional to \(u+\alpha u^2/2\); the remaining section is proportional to \((1-u)+\alpha(1-u^2)/2\). At \(u=1/2\),
+
+$$\frac X{10}=\frac{4+\alpha}{4+3\alpha}.$$
+
+After swapping, with \(u=0.7247\),
+
+$$\frac{10}{X}=\frac{u+\alpha u^2/2}{(1-u)+\alpha(1-u^2)/2}.$$
+
+Solving gives \(\alpha\simeq2\) (the printed length is rounded) and \(X/10\simeq0.6\). Hence \(X=6\,\Omega\).
+
+#### Approach 2 — Check the chosen balance length
+
+For \(\alpha=2\), the resistance density is proportional to \(1+2x/L\). The first half has resistance ratio \(3/5\) relative to the second half, so \(X=6\) Ω. After swapping, the balance fraction predicted by the same integral is \(u=(\sqrt6-1)/2=0.724745\ldots\), i.e. 72.47 cm as stated.
+
+> [!tip] Exam Shortcut
+> The bridge wire is not uniform in resistance per centimetre. Integrate \(\rho/A(x)\) to get the segment resistance.
+
+> [!warning] Common Pitfall
+> Do not use the uniform-wire rule \(X/10=\ell/(100-\ell)\); the cross-section varies with x.
+
+> [!success] Key Takeaway
+> A meter bridge still obeys the Wheatstone ratio, but each wire-arm resistance must be computed from its own integral.
+
+---
+
+### Q33. A 99 Ω galvanometer with full-scale current 1 mA is converted to a 100 mA ammeter using a uniform shunt. The shunt is cut into three equal lengths and those three pieces are connected in parallel. Find the new full-scale range in mA.
+
+**Answer: 892 mA**
+
+#### Approach 1 — Find and modify the shunt
+
+The original shunt is
+
+$$R_s=\frac{I_gG}{I-I_g}=\frac{(0.001)(99)}{0.100-0.001}=1\,\Omega.$$
+
+Each third has resistance \(1/3\,\Omega\); three in parallel give \(R_s'=1/9\,\Omega\). Thus
+
+$$I_{\rm new}=I_g\left(1+\frac{G}{R_s'}\right)=0.001(1+891)=0.892\,\mathrm A=892\,\mathrm{mA}.$$
+
+#### Approach 2 — Scaling check
+
+Cutting a wire into three equal lengths divides each resistance by 3; placing all three in parallel divides again by 3. The shunt becomes one ninth its original resistance, so the shunt current capacity rises by a factor of 9.
+
+> [!tip] Exam Shortcut
+> A uniform wire cut into n equal pieces and placed in parallel has resistance \(R/n^2\).
+
+> [!warning] Common Pitfall
+> Each piece is \(R/3\), not \(3R\); cutting a wire shortens its length.
+
+> [!success] Key Takeaway
+> Ammeter range follows from the fixed galvanometer voltage and the modified shunt resistance.
+
+---
+
+### Q34. A capacitor bridge has \(C_{AP}=2\), \(C_{PB}=5\), \(C_{AQ}=3\), \(C_{QB}=3\), and \(C_{PQ}=3\) μF. Find the equivalent capacitance between A and B.
+
+**Answer: 3 μF**
+
+#### Approach 1 — Floating-node charge balance
+
+Set \(V_A=V\), \(V_B=0\), and let the isolated node potentials be \(V_P,V_Q\). Net charge at each floating node is zero:
+
+$$2(V_P-V)+5V_P+3(V_P-V_Q)=0\Rightarrow10V_P-3V_Q=2V,$$
+$$3(V_Q-V)+3V_Q+3(V_Q-V_P)=0\Rightarrow-3V_P+9V_Q=3V.$$
+
+Solving gives \(V_P=V/3\), \(V_Q=4V/9\). Charge drawn from A is
+
+$$Q_A=2(V-V_P)+3(V-V_Q)=3V,$$
+
+so \(C_{\rm eq}=Q_A/V=3\,\mu\mathrm F\).
+
+#### Approach 2 — Electrical-network analogy
+
+At DC steady state the capacitor charge-balance equations have exactly the same form as KCL equations in a resistor network with conductances replaced by capacitances. Solving the two internal-node equations gives the same 3 μF input capacitance.
+
+> [!tip] Exam Shortcut
+> For each floating conductor, sum the signed plate charges and set the net to its initial value (zero here).
+
+> [!warning] Common Pitfall
+> The bridge is not balanced because \(2/5\ne3/3\); the P–Q capacitor cannot be discarded.
+
+> [!success] Key Takeaway
+> A capacitor bridge is solved by conservation of charge at its isolated internal nodes.
+
+---
+
+# PART 3: CHEMISTRY
+
+## SECTION I (i) — Single Correct
+
+### Q35. In the reaction sequence
+
+$$\mathrm{C_7H_9N\xrightarrow[(pyridine)]{(CH_3CO)_2O}C_9H_{11}ON\xrightarrow{Fe/Br_2,\ then\ H^+/H_2O}C_7H_8NBr\xrightarrow{HNO_2,\ Cu/HBr}C_7H_6Br_2\xrightarrow{KMnO_4,\ then\ soda\ lime}p\text{-dibromobenzene}},$$
+
+compound A gives a positive carbylamine test. Which statement is correct?
+
+(A) A can be o-toluidine (shown). (B) A can be p-toluidine (shown).<br>
+(C) The diazonium conversion uses the Sandmeyer reaction. (D) C is more basic than aniline.
+
+**Answer: (A)**
+
+#### Approach 1 — Identify the amine and follow directing effects
+
+A has formula \(\mathrm{C_7H_9N}\) and gives the carbylamine test, so it must be a primary amine; the toluidine isomers are the relevant candidates. Acetylation protects \(-NH_2\) as \(-NHCOCH_3\). Bromination then occurs mainly at the para position relative to the protected amino group. The later diazotization replaces the amino group by Br; oxidation converts the methyl substituent to \(-COOH\), and soda lime removes that carboxyl carbon. The displayed o-toluidine route is consistent with the final para-dibromobenzene, so (A) is correct.
+
+```smiles
+Cc1ccccc1N
+```
+
+For comparison, the para isomer has its para site blocked by methyl:
+
+```smiles
+Cc1ccc(N)cc1
+```
+
+**(C) is false:** Cu powder/HBr is the Gattermann variant; Sandmeyer uses a cuprous salt such as CuBr/CuCl. **(D) is false:** the para-bromo substituent in C is net electron-withdrawing and lowers the availability of the aniline lone pair; the ortho substituent also imposes the usual steric/solvation penalty. C is not more basic than aniline.
+
+#### Approach 2 — Use the end product as a structural constraint
+
+The final product is para-dibromobenzene. Working backwards, one Br is introduced by bromination of the protected amine and the other replaces the diazonium group; the methyl-bearing carbon is then oxidized and removed. This restricts the starting substitution pattern and rules out the p-toluidine drawing, whose para position is already occupied.
+
+> [!tip] Exam Shortcut
+> Protect aniline-type \(-NH_2\) before electrophilic bromination; the acetamido group directs strongly to ortho/para, with para usually major.
+
+> [!warning] Common Pitfall
+> “Cu/HBr” as written is not the cuprous bromide reagent notation \(\mathrm{CuBr}\) used for Sandmeyer; the stated powder/acid system is Gattermann.
+
+> [!success] Key Takeaway
+> In multistep aromatic sequences, track substituent positions as well as formulas; the final ring substitution often identifies the starting isomer.
+
+---
+
+### Q36. Identify the monosaccharide represented in the disaccharide shown in the paper.
+
+(A) Fischer projection with C2–C5 OH pattern right–left–right–left.<br>
+(B) Its mirror-image Fischer projection, left–right–left–right.<br>
+(C), (D) Ketose projections.
+
+**Answer: (A)**
+
+#### Approach 1 — Read the Haworth stereochemistry
+
+Both residues in the drawing are aldohexopyranose rings. The \(\mathrm{CH_2OH}\) substituent is drawn down, identifying the L-series in the Haworth convention used. Reading the remaining substituents around the ring and translating “down in Haworth = right in Fischer” gives the C2–C5 pattern right–left–right–left: option (A), L-idose.
+
+#### Approach 2 — Eliminate by functional group and configuration
+
+Options (C) and (D) are ketoses, but each unit in the disaccharide is a pyranose aldose. Options (A) and (B) are enantiomeric aldoses; the down-oriented \(\mathrm{CH_2OH}\) group selects the L member, (A).
+
+> [!tip] Exam Shortcut
+> First locate the ring oxygen and anomeric carbon; then map each substituent's up/down orientation to the Fischer projection.
+
+> [!warning] Common Pitfall
+> Do not infer D/L from the anomeric OH or glycosidic-bond direction. D/L is set by the configuration at the highest-numbered chiral centre (the carbon bearing \(\mathrm{CH_2OH}\)).
+
+> [!success] Key Takeaway
+> Haworth–Fischer conversion is a stereochemical mapping, not a visual guess based only on the glycosidic bond.
+
+---
+
+### Q37. A colourless compound P, \(\mathrm{C_6H_7N}\), is sparingly soluble in water; it forms a soluble salt with mineral acid, gives a foul-smelling product with \(\mathrm{CHCl_3/KOH}\), gives an alkali-soluble Hinsberg product with \(\mathrm{PhSO_2Cl}\), and forms a red-orange azo dye after diazotization and coupling with β-naphthol. Which statement about P is correct?
+
+(A) Acetylation gives benzanilide.<br>
+(B) P cannot undergo Friedel–Crafts acylation.<br>
+(C) P can be made by Gabriel phthalimide synthesis.<br>
+(D) P and its diazonium salt give a yellow dye in alkaline medium.
+
+**Answer: (B)**
+
+#### Approach 1 — Identify P as aniline and test each claim
+
+The formula and reactions identify P as aniline, \(\mathrm{C_6H_5NH_2}\).
+
+- **(A) False:** acetic anhydride gives acetanilide, \(\mathrm{C_6H_5NHCOCH_3}\), not benzanilide.
+- **(B) True:** aniline coordinates strongly to \(\mathrm{AlCl_3}\), forming a salt/complex that deactivates the ring; ordinary Friedel–Crafts acylation therefore fails.
+- **(C) False:** Gabriel synthesis proceeds by \(S_N2\) alkylation and does not prepare aryl amines from aryl halides.
+- **(D) False:** aniline coupling with its diazonium salt to form aniline yellow is carried out in mildly acidic conditions. Alkaline medium is used for β-naphthol coupling; excess alkali converts diazonium ions to less-coupling-active diazohydroxide/diazotate species.
+
+#### Approach 2 — Check the reaction-test combination
+
+The carbylamine and Hinsberg results show P is a primary amine; diazotization plus azo coupling establishes that it is aromatic. The formula \(\mathrm{C_6H_7N}\) then identifies aniline. Its Lewis-acid complexation explains the Friedel–Crafts exception (B).
+
+> [!tip] Exam Shortcut
+> Primary aromatic amine + \(\mathrm{CHCl_3/KOH}\) is the carbylamine test; diazotization at 0–5 °C is a fingerprint for aniline.
+
+> [!warning] Common Pitfall
+> Acetic anhydride gives an **acetyl** group. “Benzanilide” contains a benzoyl group and is not the product here.
+
+> [!success] Key Takeaway
+> Aniline's lone pair both activates the ring in electrophilic substitution and binds Lewis-acid catalysts strongly enough to block Friedel–Crafts chemistry.
+
+---
+
+### Q38. Which test can distinguish the pair?
+
+(A) Glucose and fructose by Barfoed's test.<br>
+(B) Ribose and mannose by Seliwanoff's test.<br>
+(C) Valine and proline by Xanthoproteic test.<br>
+(D) Alanine and insulin by Biuret test.
+
+**Answer: (D)**
+
+#### Approach 1 — Identify what each test detects
+
+- **(A) False:** glucose and fructose are both monosaccharides and both reduce Barfoed's reagent.
+- **(B) False:** ribose and mannose are aldoses; Seliwanoff distinguishes ketoses from aldoses, not these two aldoses.
+- **(C) False:** Xanthoproteic detects aromatic rings (Tyr, Trp, Phe); valine and proline are both non-aromatic.
+- **(D) True:** alanine has no peptide bonds and gives a negative Biuret test. Insulin is a polypeptide and gives the violet Biuret complex.
+
+#### Approach 2 — Eliminate by the property each reagent detects
+
+Barfoed's distinguishes monosaccharides from disaccharides, not two monosaccharides; Seliwanoff's distinguishes ketoses from aldoses; Xanthoproteic requires an aromatic residue. Only Biuret separates a free amino acid from a peptide/protein, so (D) is the unique correct choice.
+
+> [!tip] Exam Shortcut
+> Match each named test to its functional-group target before comparing the compounds.
+
+> [!warning] Common Pitfall
+> Seliwanoff's test is not a general pentose/hexose test; it is a rapid ketose/aldose distinction.
+
+> [!success] Key Takeaway
+> Biuret requires multiple peptide bonds, which distinguishes a free amino acid from a protein.
+
+---
+
+## SECTION I (ii) — Multiple Correct
+
+### Q39. Salicin, a willow-bark glycoside, is hydrolysed with dilute HCl to a carbohydrate P and compound Q. Which statements are correct?
+
+(A) P is D-glucose.<br>
+(B) Q is itself a non-narcotic analgesic.<br>
+(C) Q can be converted to aspirin by side-chain oxidation followed by acetylation.<br>
+(D) Hydrolysis proceeds through a carbocation/oxocarbenium intermediate.
+
+**Answer: (A), (C), (D)**
+
+#### Approach 1 — Identify the glycoside products
+
+Salicin is a β-D-glucoside of salicyl alcohol (saligenin). Acid hydrolysis cleaves its anomeric C–O glycosidic bond, giving D-glucose (P) and salicyl alcohol (Q). Oxidizing the benzylic \(-CH_2OH\) side chain of Q gives salicylic acid; acetylating its phenolic OH gives aspirin. Thus (A),(C) are true and (B) is false. Acid-catalysed cleavage is facilitated by an oxocarbenium-ion-like intermediate at the anomeric carbon, so (D) is true.
+
+#### Approach 2 — Functional-group sequence
+
+\(\mathrm{ArCH_2OH\xrightarrow{oxidation}ArCO_2H}\); the phenolic oxygen then undergoes acetylation to form acetylsalicylic acid. Q itself is salicyl alcohol, not the analgesic product aspirin.
+
+> [!tip] Exam Shortcut
+> Salicin = glucose + salicyl alcohol; oxidation of the alcohol side chain gives the salicylic-acid skeleton.
+
+> [!warning] Common Pitfall
+> Do not call salicyl alcohol “salicylic acid.” The benzylic carbon must be oxidized before aspirin can be formed.
+
+> [!success] Key Takeaway
+> Glycoside hydrolysis breaks the anomeric acetal bond, while the aglycone's side chain can be transformed independently.
+
+---
+
+### Q40. Toluene gives ortho- and para-isomers P,Q on treatment with chlorosulfonic acid. Ammonia converts them to sulfonamides R,S. Oxidation of R followed by acid heating gives T. Which statements are correct?
+
+(A) Q can convert an alcohol \(-OH\) into a good leaving group.<br>
+(B) S contains a sulfonamide group, the basis of several drugs.<br>
+(C) T can be used as a tranquilizer.<br>
+(D) The degree of unsaturation of T is 7.
+
+**Answer: (A), (B)**
+
+#### Approach 1 — Track the functional groups
+
+P and Q are o- and p-toluenesulfonyl chlorides (tosyl chlorides). Q converts an alcohol into a tosylate ester, replacing poor-leaving \(-OH\) with the excellent leaving group \(-OTs\): (A) true. Ammonolysis gives p-toluenesulfonamide S, which contains \(-SO_2NH_2\), a sulfonamide group used in drug families: (B) true. Oxidation/cyclization of the ortho sulfonamide gives saccharin T, an artificial sweetener, not a tranquilizer: (C) false. Saccharin has formula \(\mathrm{C_7H_5NO_3S}\), so
+
+$$\mathrm{DBE}=\frac{2(7)+2+1-5}{2}=6,$$
+
+not 7; (D) false.
+
+#### Approach 2 — Recognize the named products
+
+\(p\)-Toluenesulfonyl chloride is tosyl chloride; the ortho analogue oxidizes/cyclizes to saccharin. Knowing those two functional identities settles all four statements.
+
+> [!tip] Exam Shortcut
+> A tosyl chloride is a reagent for converting alcohols into tosylates; the leaving group departs from oxygen, not from the carbon skeleton.
+
+> [!warning] Common Pitfall
+> Saccharin is a non-nutritive sweetener. Its nitrogen-containing cyclic imide does not make it a tranquilizer.
+
+> [!success] Key Takeaway
+> Use formula-based DBE, \((2C+2+N-H-X)/2\), for a quick consistency check on heteroatom-rich structures.
+
+---
+
+### Q41. Which statements about polymers are correct?
+
+(A) Vulcanization increases cross-links and stiffens rubber.<br>
+(B) LDPE is produced from ethene using a Ziegler–Natta catalyst at 333–343 K and 6–7 atm.<br>
+(C) PHBV is biodegradable.<br>
+(D) Novolac is a linear polymer used in paints.
+
+**Answer: (A), (C), (D)**
+
+#### Approach 1 — Classify the polymerization conditions and structures
+
+(A) True: sulfur cross-links restrict chain motion and strengthen/stiffen rubber. (B) False: Ziegler–Natta catalyst at comparatively low pressure produces linear, high-density polyethylene; low-density polyethylene is made by high-pressure free-radical polymerization. (C) True: PHBV (poly-β-hydroxybutyrate-co-β-hydroxyvalerate) is biodegradable. (D) True: novolac is a predominantly linear phenol–formaldehyde resin and is used in paints/varnishes and as a precursor to Bakelite.
+
+#### Approach 2 — Count monomer types
+
+The five single-monomer addition polymers are polythene, neoprene, PVC, Teflon, and polyacrylonitrile. Nylon-6,6, Buna-N, Buna-S, Bakelite, Terylene, Novolac, and Nylon-2-nylon-6 all use two monomer types or two amino-acid-derived units; thus the homopolymer count is five.
+
+> [!tip] Exam Shortcut
+> Ziegler–Natta → linear HDPE; high-pressure radical process → branched LDPE.
+
+> [!warning] Common Pitfall
+> Do not confuse novolac (linear, acid-catalysed, phenol-rich) with cross-linked Bakelite.
+
+> [!success] Key Takeaway
+> Polymer properties follow from chain architecture: cross-linking stiffens elastomers; branching lowers polyethylene density.
+
+---
+
+## SECTION II (i) — Numerical (Common Dettol Data)
+
+### Q42. In Dettol component A's synthesis, an aldehyde on a methyl-substituted cyclohexene ring is oxidized with Tollens reagent, esterified with ethanol, then treated with excess \(\mathrm{CH_3MgBr}\) and work-up. Let x be the number of stereoisomers of A and y the number of carbons in its IUPAC parent chain. Find x+y.
 
 **Answer: 5**
 
-From the list:
-1. **Polythene** → homo (from ethylene) ✓
-2. Nylon-6,6 → copolymer (adipic acid + hexamethylenediamine) ✗
-3. **Buna-N** → copolymer (butadiene + acrylonitrile) ✗
-4. **Buna-S** → copolymer (butadiene + styrene) ✗
-5. **Neoprene** → homo (from chloroprene) ✓
-6. **PVC** → homo (from vinyl chloride) ✓
-7. **Bakelite** → copolymer (phenol + formaldehyde) ✗
-8. **Teflon** → homo (from tetrafluoroethylene) ✓
-9. **Polyacrylonitrile** → homo (from acrylonitrile) ✓
-10. **Terylene** → copolymer (ethylene glycol + terephthalic acid) ✗
-11. **Novolac** → copolymer (phenol + formaldehyde) ✗
-12. **Nylon-2-nylon-6** → copolymer (glycine + caprolactam) ✗
+#### Approach 1 — Follow the carbonyl chemistry and count stereogenic centres
 
-**Homopolymers: 1, 5, 6, 8, 9 → total = 5.** ✓
+Tollens oxidation converts the aldehyde to the carboxylic acid; ethanol/\(\mathrm{H_2SO_4}\) gives the ethyl ester. Excess methylmagnesium bromide adds twice to an ester carbonyl, producing a tertiary alcohol of the form \(\mathrm{ring-C(OH)(CH_3)_2}\).
 
-**Concept:** Homopolymer = single monomer repeating. Copolymer = two or more different monomers.
+The alcohol's parent chain is propan-2-ol, so \(y=3\). The alcohol carbon is not stereogenic because it bears two identical methyl groups. The ring carbon bearing the new side chain is stereogenic: its two directions around the unsymmetrical alkene/methyl-substituted ring are different. Thus there is one stereocentre and \(x=2\) stereoisomers. Hence \(x+y=2+3=5\).
+
+The non-stereospecific skeleton is shown below; the attachment carbon on the ring is the one stereogenic centre:
+
+```smiles
+CC(O)(C)C1CC=C(C)CC1
+```
+
+#### Approach 2 — Avoid overcounting
+
+The methyl-bearing alkene carbon is sp² and cannot be a stereocentre; the tertiary alcohol carbon has two identical methyl groups. Only the ring attachment carbon is chiral, so \(2^1=2\) stereoisomers (no internal symmetry makes a meso form).
+
+> [!tip] Exam Shortcut
+> For an ester plus excess Grignard reagent, expect two nucleophilic additions and a tertiary alcohol.
+
+> [!warning] Common Pitfall
+> Do not count the alkene carbon or the tertiary alcohol carbon as stereogenic.
+
+> [!success] Key Takeaway
+> Stereoisomer count depends on distinct substituent paths, not merely on the number of sp³ atoms.
 
 ---
 
-### Q50. Nucleoside (ribose + uracil) — N + O atoms = **8**
+### Q43. In the Dettol scheme, the nitro group on 4-chloro-3,5-dimethylnitrobenzene is reduced, diazotized, then replaced by OH on heating with water. Find the sum of substituent locants in B.
+
+**Answer: 12**
+
+#### Approach 1 — Name the phenol with the OH as the parent
+
+Reduction gives the aniline; diazotization followed by hydrolysis replaces \(-NH_2\) by \(-OH\). The product is 4-chloro-3,5-dimethylphenol. Its substituent locants are 4 (chloro), 3 and 5 (methyl):
+
+$$4+3+5=12.$$
+
+The structure check below has OH at position 1 and methyl groups at 3,5:
+
+```smiles
+Oc1cc(C)c(Cl)c(C)c1
+```
+
+#### Approach 2 — Check the numbered ring positions
+
+Start with phenol carbon 1. The two methyl-bearing carbons are 3 and 5, and the chlorine-bearing carbon is 4; the requested sum excludes the parent locant 1 and is \(3+4+5=12\).
+
+> [!tip] Exam Shortcut
+> Once the diazonium group is hydrolysed, name the ring as a phenol; OH receives position 1.
+
+> [!warning] Common Pitfall
+> Do not include the parent suffix locant 1 in the sum; only substituent locants are requested.
+
+> [!success] Key Takeaway
+> Diazotization–hydrolysis replaces an aromatic amino group by hydroxyl while retaining the other ring substituents.
+
+---
+
+## SECTION II (i) — Numerical (Common Aspirin-Hydrolysis Data)
+
+Aspirin hydrolysis gives P and Q; P gives a positive FeCl₃ test. Q is converted successively by \(\mathrm{SOCl_2}\), diazomethane/Wolff rearrangement, silver salt/\(\mathrm{Br_2}\), and \(\mathrm{AgCN}\). The later products are labelled R through Y in the paper.
+
+### Q44. Find the molecular mass of the product from P with bromine water.
+
+**Answer: 331 g mol⁻¹**
+
+#### Approach 1 — Identify P and the bromination product
+
+Aspirin (acetylsalicylic acid) hydrolyses to salicylic acid P and acetic acid Q. The phenolic ring of salicylic acid is activated; in bromine water the standard bromodecarboxylative bromination gives 2,4,6-tribromophenol. Its formula is \(\mathrm{C_6H_3Br_3O}\), so
+
+$$M=6(12)+3(1)+3(80)+16=72+3+240+16=331\,\mathrm{g\,mol^{-1}}.$$
+
+```smiles
+O=C(O)c1ccccc1O
+```
+
+```smiles
+Oc1c(Br)cc(Br)cc1Br
+```
+
+#### Approach 2 — Stoichiometric check
+
+The net transformation balances as
+
+$$\mathrm{C_7H_6O_3+3Br_2\longrightarrow C_6H_3Br_3O+CO_2+3HBr}.$$
+
+Both sides contain C₇H₆O₃Br₆, confirming loss of the carboxyl carbon as \(\mathrm{CO_2}\) and formation of the tribromophenol product.
+
+> [!tip] Exam Shortcut
+> The 331 g mol⁻¹ value is the mass of \(\mathrm{C_6H_3Br_3OH}\); count three Br atoms and one phenolic O.
+
+> [!warning] Common Pitfall
+> Do not stop at brominated salicylic acid: the bromine-water reaction represented in this question proceeds to the tribromophenol product after decarboxylation.
+
+> [!success] Key Takeaway
+> Check the product identity as well as the formula: the expected bromine-water product is 2,4,6-tribromophenol.
+
+---
+
+### Q45. The chain gives Y, which is oxidized by Jones reagent and heated with ammonia to Z. Treating Z with \(\mathrm{Br_2/NaOH}\), then benzoyl chloride, gives aromatic A. Find the molecular mass of A.
+
+**Answer: 135 g mol⁻¹**
+
+#### Approach 1 — Follow the reaction sequence
+
+From the common chain, acetic acid Q gives acetyl chloride R; diazomethane followed by Wolff rearrangement gives propanoic acid S. Hunsdiecker reaction of silver propionate gives bromoethane T. \(\mathrm{AgCN}\) gives ethyl isocyanide U; acidic hydrolysis yields formic acid and ethylammonium salt W. Basic work-up gives ethylamine X, which with nitrous acid hydrolyses to ethanol Y.
+
+Jones oxidation of ethanol gives acetic acid; heating its ammonium salt gives acetamide Z. Hofmann rearrangement converts acetamide to methylamine, which benzoyl chloride acylates to N-methylbenzamide, \(\mathrm{C_6H_5CONHCH_3}\) (formula \(\mathrm{C_8H_9NO}\)).
+
+$$M=8(12)+9(1)+14+16=135\,\mathrm{g\,mol^{-1}}.$$
+
+#### Approach 2 — Carbon-count check
+
+Hofmann rearrangement removes the carbonyl carbon: two-carbon acetamide gives one-carbon methylamine. Benzoylation adds the seven-carbon benzoyl fragment, yielding an eight-carbon amide, consistent with \(\mathrm{C_8H_9NO}\).
+
+> [!tip] Exam Shortcut
+> \(\mathrm{RCONH_2\xrightarrow{Br_2/NaOH}RNH_2}\): the Hofmann product has one fewer carbon than the amide.
+
+> [!warning] Common Pitfall
+> Silver cyanide gives an isocyanide (Et–NC) in this context, not the nitrile (Et–CN); the hydrolysis products differ.
+
+> [!success] Key Takeaway
+> Trace each named reaction's carbon skeleton before calculating a final molecular mass.
+
+---
+
+## SECTION II (ii) — Numerical
+
+### Q46. Phenol is nitrated with dilute nitric acid below 25 °C. The more volatile isomer P is reduced with Zn/NH₄Cl and then treated with Tollens reagent, giving a silver precipitate R and organic product S. How many oxygen atoms are in one molecule of S?
+
+**Answer: 2**
+
+#### Approach 1 — Mulliken–Barker reduction test
+
+The more volatile isomer is o-nitrophenol. Zn/NH₄Cl reduces its nitro group to a hydroxylamine intermediate; ammoniacal silver hydroxide oxidizes that intermediate to o-nitrosophenol while depositing Ag. Product S has one phenolic oxygen and one nitroso oxygen:
+
+$$\mathrm{HO{-}C_6H_4{-}N{=}O};\qquad N_O=1+1=2.$$
+
+#### Approach 2 — Count oxygen atoms through the redox sequence
+
+The starting o-nitrophenol has three oxygen atoms (two in \(-NO_2\), one phenolic). Conversion of \(-NO_2\) to the nitroso group \(-N=O\) removes one oxygen overall; the phenolic oxygen is retained, leaving two in S.
+
+> [!tip] Exam Shortcut
+> The Mulliken–Barker test uses a mild reducing agent to convert an aromatic nitro group to nitroso while silver ions are reduced to metal.
+
+> [!warning] Common Pitfall
+> Count oxygen atoms in the organic product S, not the starting nitro compound P or the inorganic silver precipitate R.
+
+> [!success] Key Takeaway
+> Reduction of \(-NO_2\) to \(-NO\) removes one oxygen; the phenolic oxygen remains.
+
+---
+
+### Q47. X is the smallest hydrocarbon that forms a precipitate with Tollens reagent. The scheme takes X through Fe/Δ trimerization, Friedel–Crafts acylation/oxidation, nitration, nitro reduction/bromination, and diazotization followed by CuBr/HBr. Starting with 1 mol X, find the mass of Y.
+
+**Answer: 146 g**
+
+#### Approach 1 — Identify the end product and track the mole ratio
+
+The smallest hydrocarbon giving a precipitate with ammoniacal silver reagent is ethyne, \(\mathrm{HC\equiv CH}\), which forms silver acetylide. Three ethyne molecules trimerize over hot Fe to one benzene molecule.
+
+```tikz
+\usepackage{chemfig}
+\begin{document}
+\chemfig{H-C~C-H}\qquad\longrightarrow\qquad\chemfig{*6(-=-=-=)}
+\end{document}
+```
+
+Benzene is converted to benzoic acid through acetylation followed by side-chain oxidation; nitration gives meta-nitrobenzoic acid. Reduction gives meta-aminobenzoic acid; bromine water introduces three Br atoms at the activated positions, and diazotization/CuBr replaces the amino group by Br. Y is tetrabromobenzoic acid, \(\mathrm{C_7H_2Br_4O_2}\), with
+
+$$M_Y=7(12)+2(1)+4(80)+2(16)=438\,\mathrm{g\,mol^{-1}}.$$
+
+One mole of ethyne makes \(1/3\) mol benzene and hence \(1/3\) mol Y. Therefore
+
+$$m_Y=\frac13(438)=146\,\mathrm g.$$
+
+#### Approach 2 — Stoichiometric shortcut
+
+Every aromatic transformation is one molecule-to-one molecule after benzene forms. The only yield factor is the trimerization \(3\,\mathrm{C_2H_2}\to\mathrm{C_6H_6}\), so the final mass is one third of Y's molar mass.
+
+> [!tip] Exam Shortcut
+> Terminal alkyne + Tollens reagent identifies ethyne; hot Fe converts three molecules to benzene.
+
+> [!warning] Common Pitfall
+> The final product has four bromines: three enter by bromination and the diazonium group is replaced by the fourth.
+
+> [!success] Key Takeaway
+> Keep track of the one non-unit stoichiometric step; the long aromatic sequence does not change the one-to-one molecule count.
+
+---
+
+### Q48. The amide \((\mathrm{CH_3})_2\mathrm{CHCONH_2}\) is dehydrated with \(\mathrm{P_4O_{10}}\), hydrolysed with acid, then treated with \(\mathrm{Br_2/P}\) and a trace of water. Find the molecular mass of final product C.
+
+**Answer: 167 g mol⁻¹**
+
+#### Approach 1 — Dehydration, hydrolysis, then HVZ bromination
+
+The primary amide dehydrates to the nitrile \((\mathrm{CH_3})_2\mathrm{CHCN}\). Acidic hydrolysis gives 2-methylpropanoic acid, \((\mathrm{CH_3})_2\mathrm{CHCOOH}\). \(\mathrm{Br_2/P}\) followed by water performs the Hell–Volhard–Zelinsky reaction, replacing the α-hydrogen by Br:
+
+$$\mathrm{(CH_3)_2CHCOOH\longrightarrow(CH_3)_2C(Br)COOH}.$$
+
+The product formula is \(\mathrm{C_4H_7BrO_2}\), so
+
+$$M=4(12)+7(1)+80+2(16)=167\,\mathrm{g\,mol^{-1}}.$$
+
+#### Approach 2 — Formula change
+
+Start with isobutyric acid, \(\mathrm{C_4H_8O_2}\). HVZ replaces one α-H (mass 1) with Br (mass 80), increasing molecular mass by 79: \(88+79=167\) g mol⁻¹.
+
+> [!tip] Exam Shortcut
+> HVZ substitutes the α-hydrogen next to \(-COOH\); it does not add Br across a double bond.
+
+> [!warning] Common Pitfall
+> The central carbon in \((\mathrm{CH_3})_2\mathrm{C(Br)COOH}\) has no hydrogen; the bromine is on the α-carbon.
+
+> [!success] Key Takeaway
+> Primary amide → nitrile by dehydration; nitrile hydrolysis → acid; HVZ → α-halo acid.
+
+---
+
+### Q49. How many of these are homopolymers? Polythene, Nylon-6,6, Buna-N, Buna-S, neoprene, PVC, Bakelite, Teflon, polyacrylonitrile, Terylene, Novolac, Nylon-2-nylon-6.
+
+**Answer: 5**
+
+#### Approach 1 — Classify each polymer by its monomers
+
+Homopolymers: polythene (ethene), neoprene (chloroprene), PVC (vinyl chloride), Teflon (tetrafluoroethene), and polyacrylonitrile (acrylonitrile): **five**.
+
+The others are copolymers/condensation products: Nylon-6,6 (diamine + diacid), Buna-N (butadiene + acrylonitrile), Buna-S (butadiene + styrene), Bakelite and Novolac (phenol + formaldehyde), Terylene (ethylene glycol + terephthalic acid), and Nylon-2-nylon-6 (two amino-acid-derived monomers).
+
+#### Approach 2 — Group the list by feed monomer
+
+Single-feed chains: ethene → polythene; chloroprene → neoprene; vinyl chloride → PVC; tetrafluoroethene → Teflon; acrylonitrile → polyacrylonitrile. This gives 5. The remaining 7 listed materials require two monomer species (including the two phenol–formaldehyde resins).
+
+> [!tip] Exam Shortcut
+> A homopolymer is made from one monomer species; a common name containing two monomer names often signals a copolymer.
+
+> [!warning] Common Pitfall
+> Do not classify only by “addition” versus “condensation.” Either kind can be a homo- or copolymer.
+
+> [!success] Key Takeaway
+> Count the distinct monomer species, not the number of repeat-unit fragments visible in the polymer name.
+
+---
+
+### Q50. A nucleoside is formed from ribose and uracil. Find the total number of nitrogen and oxygen atoms in one molecule.
 
 **Answer: 8**
 
-**Ribose:** C₅H₁₀O₅ (5 oxygen atoms in the sugar).
-**Uracil:** C₄H₄N₂O₂ (2 nitrogen + 2 oxygen atoms in the base).
+#### Approach 1 — Formula and dehydration
 
-Nucleoside = sugar + base - H₂O (condensation to form N-glycosidic bond).
+Ribose is \(\mathrm{C_5H_{10}O_5}\), uracil is \(\mathrm{C_4H_4N_2O_2}\). Glycosidic condensation removes \(\mathrm{H_2O}\):
 
-O atoms: 5 (ribose) + 2 (uracil) = 7? But we lose one O from the sugar's OH group... actually in nucleoside formation, the anomeric OH of the sugar condenses with the NH of the base, losing H₂O (one H from sugar OH, one H from base NH).
+$$\mathrm{C_5H_{10}O_5+C_4H_4N_2O_2-H_2O=C_9H_{12}N_2O_6}.$$
 
-O in nucleoside: 5 (ribose) + 2 (uracil) - 1 (lost as H₂O) = 6.
+The nucleoside is uridine and contains \(2+6=8\) N and O atoms.
 
-Hmm, but the answer is 8. Let me recount.
+#### Approach 2 — Count the components
 
-Ribose (as in RNA): C₅H₁₀O₅ → in the nucleoside, the sugar is β-D-ribofuranose.
+Uracil contributes two N and two O; ribose contributes five O. Condensation removes the anomeric OH oxygen together with one H from the base, but the water's oxygen comes from the sugar. The net formula has six O and two N, again totaling eight.
 
-Actually, the free sugar ribose has formula C₅H₁₀O₅ with 5 O atoms. In the furanose form (ring), it still has 5 O atoms (4 in ring + 1 OH). When forming a nucleoside, one OH is lost (as water), so 4 O atoms from sugar.
+> [!tip] Exam Shortcut
+> A nucleoside is sugar + base − H₂O; a nucleotide would additionally contain phosphate.
 
-Uracil: C₄H₄N₂O₂ → 2 O atoms.
+> [!warning] Common Pitfall
+> Do not count the sugar and base atoms before subtracting the water molecule formed at glycosidic-bond formation.
 
-Nucleoside: 4 + 2 = 6 O atoms. Plus 2 N atoms from uracil.
-
-Total N + O = 2 + 6 = **8**. ✓
+> [!success] Key Takeaway
+> Uridine's molecular formula is \(\mathrm{C_9H_{12}N_2O_6}\); the requested heteroatom total is 8.
 
 ---
 
-### Q51. Essential amino acids from tetrapeptide hydrolysis = **0**
+### Q51. How many essential amino acids are obtained on complete hydrolysis of the shown tetrapeptide?
 
 **Answer: 0**
 
-The tetrapeptide on hydrolysis gives 4 amino acids. The question asks how many are **essential** amino acids.
+#### Approach 1 — Read the side chains
 
-Essential amino acids (cannot be synthesized by the body): Phe, Val, Thr, Trp, Ile, Met, His, Leu, Lys. (9 total — remember: **PVT TIM HaLL**.)
+The peptide is Ala–Ser–Asp–Cys: the side chains are \(-CH_3\) (alanine), \(-CH_2OH\) (serine), \(-CH_2COOH\) (aspartic acid), and \(-CH_2SH\) (cysteine). All four are non-essential amino acids in humans (cysteine is conditionally essential in some contexts, but it is classified as non-essential in the standard JEE list). Therefore the number of essential amino acids released is **0**.
 
-From the specific tetrapeptide structure (which I can't fully see), all 4 amino acids are **non-essential** (like Ala, Gly, Ser, Pro, Asp, Glu, etc.).
+#### Approach 2 — Verify against the essential set
 
-**Answer: 0** essential amino acids.
+The commonly tested essential set includes Val, Leu, Ile, Lys, Met, Thr, Phe, Trp, and often His/Arg depending on age. None of Ala, Ser, Asp, or Cys belongs to that set.
 
-**Mnemonic for essential amino acids:** "**P**riya **V**eena **T**ina **T**ry **I**mbibe **M**ilk **H**aving **L**ovely **L**emon" → Phe, Val, Thr, Trp, Ile, Met, His, Leu, Lys.
+> [!tip] Exam Shortcut
+> Identify amino-acid side chains from the α-carbon outward; the peptide backbone itself is not the side chain.
 
----
+> [!warning] Common Pitfall
+> Cysteine's conditional importance does not change the answer under the standard essential/non-essential classification used for this question.
 
-# COMPLETE THEORY REFERENCE
-
-## Mathematics — Complex Numbers & Sequences
-
-### Complex Recurrence Relations
-When a recurrence involves coupled real sequences $U_n, V_n$:
-$$U_{n+1} = aU_n + bV_n, \quad V_{n+1} = cU_n + dV_n$$
-
-Define $W_n = U_n + iV_n$. If the coefficient matrix has a nice complex form, the recurrence becomes $W_{n+1} = \lambda W_n$ (geometric sequence).
-
-**Key trick:** $(1+i)^n = 2^{n/2} e^{in\pi/4}$. The cycle of $(1+i)^n$ repeats every 8 terms in direction.
-
-### Roots of Equations of the Form $f(z)^n + g(z)^n = 0$
-
-Rewrite as $(f(z)/g(z))^n = -1 = e^{i\pi(2k+1)}$, so $f(z)/g(z) = e^{i\pi(2k+1)/n}$ for $k = 0, 1, \ldots, n-1$.
-
-This converts a degree-$n$ polynomial equation into $n$ linear (or simpler) equations.
-
-### Derangements
-$D_n = n! \sum_{k=0}^{n} \frac{(-1)^k}{k!}$
-
-$D_1 = 0, D_2 = 1, D_3 = 2, D_4 = 9, D_5 = 44, D_6 = 265$.
-
-**Recurrence:** $D_n = (n-1)(D_{n-1} + D_{n-2})$.
-
-### Inclusion-Exclusion for Circular Arrangements
-
-For $n$ people around a circular table with $k$ forbidden adjacencies:
-1. Total: $(n-1)!$
-2. For each forbidden pair, treat as one unit: $(n-2)! \times 2!$
-3. Apply PIE for multiple forbidden pairs.
-
-### LCM/GCD Ordered Triplets
-
-If $\text{LCM}(\alpha, \beta, \gamma) = L$ and $\text{GCD}(\alpha, \beta, \gamma) = G$:
-
-For each prime $p$ with $\text{ord}_p(G) = g$ and $\text{ord}_p(L) = \ell$:
-- Each of $\alpha, \beta, \gamma$ has $p$-adic order in $\{g, g+1, \ldots, \ell\}$.
-- At least one has order $g$ and at least one has order $\ell$.
-- Count by inclusion-exclusion: $(\ell - g + 1)^3 - 2(\ell - g)^3 + (\ell - g - 1)^3$ (when $\ell - g \geq 2$).
+> [!success] Key Takeaway
+> Complete hydrolysis cleaves peptide bonds and releases the constituent amino acids unchanged.
 
 ---
 
-## Physics — Advanced Circuits & Thermal Physics
+# COMPLETE THEORY VAULT
 
-### Parallel Plate Capacitor: 6-Surface Model
+## Mathematics — Roots of Unity, Counting, and Symmetry
 
-For $n$ parallel plates, each plate has two surfaces. The surface charge densities satisfy:
-1. Gauss's law at each surface
-2. Superposition of fields
-3. Conductor condition ($E = 0$ inside each plate)
-4. Total charge on each plate (if specified)
+### Complex roots and root filters
 
-### Thermal Equilibrium in Resistors
+- If \(\omega^n=1\) and \(\omega\ne1\), then \(1+\omega+\cdots+\omega^{n-1}=0\).
+- For a primitive n-th root, \(\prod_{k=1}^{n-1}(x-\omega^k)=1+x+\cdots+x^{n-1}\).
+- Large powers reduce modulo n: \((e^{2\pi i/n})^m=e^{2\pi i(m\bmod n)/n}\).
+- For \(|\omega|=1\), use \(|a-b\omega|^2=a^2+b^2-2ab\operatorname{Re}\omega\).
 
-At equilibrium: $P_{\text{generated}} = P_{\text{lost}}$.
+### Complex loci and conics
 
-$P_{\text{gen}} = V^2/R(T)$ or $I^2 R(T)$.
+- A circle \(|z-z_0|=r\) is parametrized by \(z=z_0+re^{i\theta}\).
+- The parametrization \(x=x_0+a\cos\theta,\ y=y_0+b\sin\theta\) gives an ellipse with semiaxes \(|a|,|b|\); \(e=\sqrt{1-b^2/a^2}\) when \(a\ge b\).
+- A line through a fixed point is tangent to a conic when substitution gives a repeated quadratic root, i.e. discriminant zero.
 
-$P_{\text{loss}} = k(T - T_{\text{ambient}})$ (Newton's law of cooling for forced convection) or $k(T^4 - T_{\text{ambient}}^4)$ (radiation).
+### Binomial sums and generating functions
 
-**Stability:** The equilibrium is stable if $\frac{dP_{\text{loss}}}{dT} > \frac{dP_{\text{gen}}}{dT}$ at the equilibrium point. Graphically, the $P_{\text{loss}}$ curve must cross $P_{\text{gen}}$ from below.
+- Bounded digit sums are coefficients of \((1+x+\cdots+x^9)^m\); use inclusion–exclusion on the upper digit bound.
+- \(\sum_{r=0}^n\binom nr a^r=(1+a)^n\); missing endpoints must be subtracted explicitly.
+- Vandermonde: \(\sum_r\binom nr^2=\binom{2n}{n}\).
+- In block-counting problems, impose the divisibility residue after fixing the block and last digit; use inclusion–exclusion for overlapping blocks.
 
-### Temperature Compensation
+### Symmetric sums and equal moduli
 
-For a voltmeter with galvanometer ($G$, $\alpha_g$) and series resistors ($R_1$, $\alpha_1$; $R_2$, $\alpha_2$):
+For \(|z_i|=r\), \(1/z_i=\bar z_i/r^2\). With elementary symmetric sums \(e_1=\sum z_i\), \(e_2=\sum_{i<j}z_iz_j\), \(e_3=\prod z_i\),
 
-Temperature-independent full-scale voltage requires:
-$$G_0 \alpha_g + R_1 \alpha_1 + R_2 \alpha_2 = 0$$
+$$\sum z_i^2=e_1^2-2e_2,\qquad e_2=e_3\sum_i1/z_i.$$
 
-This is a linear constraint that, combined with $R_1 + R_2 = V_{fs}/I_g - G_0$, uniquely determines $R_1$ and $R_2$.
+This avoids solving a high-degree polynomial when only a symmetric expression is requested.
 
-### Platonic Solid Resistor Networks
+## Physics — Circuits, Capacitors, and Transport
 
-**Octahedron:** 6 vertices, 12 edges.
+### Networks and bridges
 
-Between adjacent vertices: $R_{\text{eq}} = R/2$.
+- Equivalent resistance is found by applying a test voltage: \(R_{\rm eq}=V/I\). Use graph symmetry to equate node potentials before solving KCL.
+- Wheatstone balance: ratio of the two gap resistances equals the ratio of the two wire-arm resistances. For a nonuniform wire, \(R(a,b)=\int_a^b\rho\,dx/A(x)\).
+- Maximum power transfer to a resistive load occurs at \(R_L=R_{\rm th}\), giving \(P_{\max}=V_{\rm th}^2/(4R_{\rm th})\).
+- Ammeter shunt: \(R_s=I_gG/(I-I_g)\). For a uniform wire cut into n equal pieces and connected in parallel, \(R_s'=R_s/n^2\).
 
-Between opposite vertices (body diagonal): $R_{\text{eq}} = 5R/6$.
+### Capacitors and dielectrics
 
-**Method:** By symmetry, identify equipotential points for the specific terminal pair. Short them to simplify the network.
+- \(Q=CV\), \(U=\tfrac12CV^2=Q^2/(2C)\). Choose the energy form that matches the constraint (constant V versus isolated constant Q).
+- Side-by-side dielectric regions share voltage and add capacitances (parallel); layers along the field share displacement and combine in series.
+- At a dielectric interface without free surface charge, normal \(D\) is continuous; \(E=D/\varepsilon\) changes when permittivity changes.
+- Floating conductor/node: its net charge is conserved. A battery-connected terminal can exchange charge with the source.
 
-### Capacitor Bridge Analysis
+### Thermal and electrical transport
 
-For a bridge with capacitors $C_1, C_2, C_3, C_4$ in a Wheatstone bridge configuration with $C_5$ as the bridge element:
+- Thermal balance: \(C_{\rm th}\,dT/dt=P_{\rm in}-k(T-T_a)\). For constant \(P_{\rm in}\), the solution approaches \(T_\infty=T_a+P_{\rm in}/k\) exponentially with time constant \(C_{\rm th}/k\).
+- Drude conductivity: \(\sigma=ne\mu\); for a varying cross-section, integrate the local resistance \(dR=\rho dx/A(x)\).
+- A series voltmeter's first-order temperature drift vanishes when \(\sum_i\alpha_iR_i=0\), including the galvanometer coil.
 
-**Balance condition:** $C_1/C_2 = C_4/C_3$ → no charge on $C_5$.
+### Plate fields, switching, and thermal hysteresis
 
-**Unbalanced:** Use charge conservation at internal nodes (KCL for charges), not Ohm's law.
+- For large parallel plates, a gap capacitance is \(C=\varepsilon A/d\). With fixed charge, \(D_n=Q/A\) is continuous across a dielectric boundary without free surface charge, while \(E=D/\varepsilon\) changes with the material.
+- For an isolated capacitor, charge on floating junctions is conserved. If a battery remains connected, its voltage is fixed and it may supply/remove charge; compare the equivalent capacitance before and after switching.
+- Constant-voltage spreading: the electrical energy available per increase in capacitance is \(\tfrac12V^2dC\). For a dielectric layer, \(dC/dA=\varepsilon_0\varepsilon_r/h\); balance this against the change in surface energy.
+- A constant-power thermal branch obeys \(C_{\rm th}\dot T=P-k(T-T_a)\), with \(T_\infty=T_a+P/k\), \(\tau=C_{\rm th}/k\). Time from \(T_1\) to \(T_2\) is \(t=\tau\ln[(T_\infty-T_1)/(T_\infty-T_2)]\) while heating; use the corresponding cooling ratio when \(T_\infty<T\).
+- At a hysteresis threshold, current may jump when resistance switches. For fixed source voltage compare the allowed branch currents \(V/R_i\); calculate the switching period separately from the current extrema.
 
-### Battery Ring with Capacitors
+### Bridge and measurement identities
 
-When batteries form a closed loop and capacitors are connected to the nodes:
-1. In steady state, the loop current is determined by the net EMF and total resistance (capacitors don't affect the loop since they're not in series).
-2. Node potentials are set by the loop current and battery EMFs.
-3. Capacitor charges are then determined by the node potentials.
+- For a meter bridge with varying area, define \(F(u)=\int_0^u dt/[A(t)]\). Balance at fraction \(u=\ell/L\) gives the left/right wire ratio \(F(u)/[F(1)-F(u)]\), not simply \(u/(1-u)\).
+- A source branch of emf \(E_i\) and series resistance \(R_i\) contributes conductance \(1/R_i\) and Norton current \(E_i/R_i\). Parallel source branches have \(V_{\rm th}=\dfrac{\sum_i E_i/R_i}{\sum_i 1/R_i}\).
+- Galvanometer shunt relation: \(I_gG=I_sR_s\); the new range is \(I_g(1+G/R_s)\). For a uniform shunt wire split into \(n\) equal sections and paralleled, \(R_s'=R_s/n^2\).
 
----
+## Chemistry — Functional Groups, Mechanisms, and Biomolecules
 
-## Chemistry — Amines & Diazonium Chemistry
+### Aromatic amines and diazonium chemistry
 
-### Classification of Amines
-- **Primary (1°):** One C-N bond, two N-H bonds. Gives carbylamine test, Hinsberg test (soluble sulfonamide).
-- **Secondary (2°):** Two C-N bonds, one N-H bond. Gives Hinsberg test (insoluble sulfonamide). No carbylamine test.
-- **Tertiary (3°):** Three C-N bonds, no N-H. No carbylamine or Hinsberg test.
+- Carbylamine: only primary amines give isocyanides with \(\mathrm{CHCl_3/KOH}\).
+- Aniline + acetic anhydride → acetanilide; aniline complexes with \(\mathrm{AlCl_3}\), suppressing Friedel–Crafts acylation.
+- Diazotization is performed cold (about 0–5 °C); hydrolysis gives phenol, while Cu(I) salts effect Sandmeyer substitution and Cu powder/halogen acid is the Gattermann variant.
+- Sulfonyl chlorides convert alcohols to sulfonate esters, excellent leaving groups. Aromatic sulfonamides are tested by Hinsberg chemistry.
 
-### Diazonium Salts
-$ArNH_2 \xrightarrow{NaNO_2/HCl, 0°C} ArN_2^+ Cl^-$
+### Carbonyl and named reactions in this paper
 
-**Reactions:**
-- With β-naphthol (alkaline): **azo coupling** → orange-red dye.
-- **Sandmeyer:** $ArN_2^+ + CuX \rightarrow ArX + N_2$ (X = Cl, Br, CN).
-- **Gattermann:** $ArN_2^+ + Cu/HCl \rightarrow ArCl + N_2$ (modified Sandmeyer).
+- Ester + excess Grignard reagent → tertiary alcohol (two additions).
+- Carboxylic acid → acyl chloride with \(\mathrm{SOCl_2}\); diazomethane/acyl chloride followed by Wolff rearrangement homologates by one carbon.
+- Silver carboxylate + \(\mathrm{Br_2}\) (Hunsdiecker) → alkyl bromide with one fewer carbon.
+- \(\mathrm{AgCN}\) commonly gives isocyanides; acidic hydrolysis yields formic acid and an amine salt.
+- Primary amide dehydration → nitrile; nitrile hydrolysis → acid; \(\mathrm{Br_2/P}\) then water is the HVZ α-bromination.
+- \(\mathrm{RCONH_2\xrightarrow{Br_2/NaOH}RNH_2}\) is Hofmann rearrangement, with loss of the carbonyl carbon.
 
-### Amino Acid Analysis Tests
-| Test | Detects | Positive Result |
-|------|---------|-----------------|
-| Biuret | ≥2 peptide bonds | Violet color |
-| Xanthoproteic | Aromatic AA (Phe, Trp, Tyr) | Yellow nitro compound |
-| Ninhydrin | All α-amino acids | Purple (Ruhemann's purple) |
-| Millon's | Tyrosine (phenol) | White → red precipitate |
+### Carbohydrates, amino acids, and polymers
 
----
-
-## Chemistry — Carbohydrates
-
-### Classification
-- **Monosaccharides:** Glucose, fructose, ribose, etc.
-- **Disaccharides:** Sucrose, lactose, maltose.
-- **Polysaccharides:** Starch, cellulose, glycogen.
-
-### Key Tests
-| Test | Reagent | Positive for |
-|------|---------|-------------|
-| Barfoed's | Cu²⁺ in acetic acid | Monosaccharides (faster than disaccharides) |
-| Benedict's | Cu²⁺ in碱 | All reducing sugars |
-| Fehling's | Cu²⁺ + tartrate | All reducing sugars |
-| Seliwanoff's | Resorcinol + HCl | Ketoses (fructose → cherry red fast) |
-| Tollen's | Ag⁺ (ammoniacal) | All reducing sugars (silver mirror) |
-| Osazone | Excess PhNHNH₂ | Sugars with same C1,C2 configuration give same osazone |
-
-### Non-Reducing Disaccharides
-Both anomeric carbons involved in the glycosidic bond → no free anomeric carbon → cannot open to aldehyde/ketone → non-reducing.
-
-Example: **Sucrose** (glucose C1 — fructose C2 linkage).
+- Glycosides hydrolyse at the anomeric acetal linkage; the sugar residue and aglycone are distinct products.
+- Seliwanoff distinguishes ketoses from aldoses; Biuret detects peptide bonds; Xanthoproteic detects aromatic amino-acid residues.
+- A nucleoside is sugar + nitrogenous base; a nucleotide also includes phosphate.
+- Homopolymer = one monomer type; copolymer = two or more. Ziegler–Natta ethene polymerization gives linear HDPE; high-pressure radical polymerization gives branched LDPE.
 
 ---
 
-## Chemistry — Polymers
+### Diagnostic tests and stereochemical reference
 
-### Classification Table
-| Polymer | Type | Monomer(s) | Category |
-|---------|------|-----------|----------|
-| Polythene | Homo | Ethylene | Thermoplastic |
-| PVC | Homo | Vinyl chloride | Thermoplastic |
-| Teflon | Homo | Tetrafluoroethylene | Thermoplastic |
-| Neoprene | Homo | Chloroprene | Elastomer |
-| PAN | Homo | Acrylonitrile | Fiber |
-| Nylon-6,6 | Co | Adipic acid + HMDA | Fiber |
-| Buna-S | Co | Butadiene + styrene | Elastomer |
-| Buna-N | Co | Butadiene + acrylonitrile | Elastomer |
-| Bakelite | Co | Phenol + formaldehyde | Thermoset |
-| Terylene | Co | EG + terephthalic acid | Fiber |
-| PHBV | Co | 3-HB + 3-HV | Biodegradable |
+- **Carbylamine:** only primary amines give foul-smelling isocyanides with chloroform/strong base. **Hinsberg:** primary amines form sulfonamides soluble in base; the test helps distinguish amine classes.
+- **Azo coupling:** aromatic primary amine → diazonium salt at 0–5 °C. Aniline coupling is generally mildly acidic; phenol/β-naphthol coupling is carried out in alkaline medium and gives vivid azo dyes.
+- **Barfoed:** rapid reduction indicates a monosaccharide (not a way to distinguish two monosaccharides). **Seliwanoff:** ketose reacts rapidly, aldose more slowly. **Xanthoproteic:** aromatic amino-acid residues give a yellow/orange product. **Biuret:** two or more peptide bonds give a violet complex.
+- **Tollens silver acetylide test:** terminal alkynes form insoluble silver acetylides in ammoniacal silver solution. **Mulliken–Barker:** Zn/\(\mathrm{NH_4Cl}\) partially reduces aromatic nitro compounds; the hydroxylamine/nitroso redox sequence reduces ammoniacal silver to Ag.
+- In a conventional Haworth drawing with ring O at upper right, Fischer groups on the right map down and groups on the left map up. D/L is set by the highest-numbered stereocentre (the penultimate carbon): \(\mathrm{CH_2OH}\) is up for D and down for L in this orientation. The anomeric OH sets α/β, not D/L.
+- For a neutral formula containing C,H,N, halogens X, the degree of unsaturation is \(\mathrm{DBE}=(2C+2+N-H-X)/2\); oxygen and sulfur do not enter the count.
 
-### Homo vs Copolymer
-- **Homopolymer:** Single type of monomer. Chain: $-A-A-A-A-$.
-- **Copolymer:** Two or more types. Can be alternating, random, block, or graft.
+### Reaction-sequence map for this paper
 
----
+- **Protected aromatic substitution:** acetylate aniline before bromination; \(-NHCOCH_3\) directs ortho/para (para usually major). Remove the protecting group before diazotization. Cu(I) salt = Sandmeyer; Cu powder/halogen acid = Gattermann.
+- **Grignard on esters:** two additions of \(\mathrm{CH_3MgBr}\) followed by work-up give a tertiary alcohol; the carbonyl-derived alcohol carbon has two identical methyl groups here and is not stereogenic.
+- **Arndt–Eistert/Wolff:** acid chloride → diazoketone → ketene rearrangement/hydrolysis, homologating a carboxylic acid by one carbon. **Hunsdiecker:** silver carboxylate → alkyl bromide with one fewer carbon.
+- **AgCN versus KCN:** covalent AgCN favours isocyanide \(\mathrm{R-NC}\); hydrolysis produces formic acid and an amine salt. Primary aliphatic amine + nitrous acid gives the corresponding alcohol with nitrogen released.
+- **Hofmann rearrangement:** \(\mathrm{RCONH_2\xrightarrow{Br_2/NaOH}RNH_2}\), one fewer carbon. **HVZ:** \(\mathrm{Br_2/P}\), then water, replaces an α-H of a carboxylic acid by Br.
+- **Aspirin route:** salicin aglycone salicyl alcohol → side-chain oxidation to salicylic acid → phenolic acetylation. Salicylic acid in bromine water gives the tribromophenol product represented in Q44.
+- **Acetylene route:** ethyne gives silver acetylide with ammoniacal silver and trimerizes over hot Fe: \(3\,\mathrm{C_2H_2}\to\mathrm{C_6H_6}\). Aromatic nitration/reduction/bromination/diazotization steps retain the ring-carbon count except for the explicit trimerization ratio.
 
-## Chemistry — Proteins & Nucleic Acids
+## Obsidian Plugin Notes
 
-### Amino Acids — Essential vs Non-Essential
-**Essential (9):** Phe, Val, Thr, Trp, Ile, Met, His, Leu, Lys.
-**Non-Essential (11):** Gly, Ala, Ser, Cys, Tyr, Asn, Gln, Asp, Glu, Pro, Arg* (*conditionally essential).
+- **TikZJax / Circuitikz:** vector schematics are included for the octahedron and five-bulb bridge.
+- **Desmos:** the complex-plane ellipse in Q10 is an interactive `desmos-graph` block.
+- **Chemtrails / Obsidian Chem:** standard one-SMILES-per-block structures are included where they help identify aromatic compounds.
+- **LaTeX Suite / MathJax:** all derivations use ordinary inline/display LaTeX, which remains readable without a plugin.
+- **Dataview:** the frontmatter below lets the vault dashboard query this note consistently.
 
-### Peptide Bond Formation
-$$\text{AA}_1 + \text{AA}_2 \rightarrow \text{Dipeptide} + H_2O$$
+```dataview
+TABLE paper AS "Paper", status AS "Status", total_questions AS "Questions"
+FROM "solutions"
+WHERE test = 1
+SORT paper ASC
+```
 
-For $n$ amino acids forming a chain: $(n-1)$ peptide bonds, $(n-1)$ water molecules lost.
-For a **cyclic** peptide of $n$ residues: $n$ peptide bonds, $n$ water molecules lost.
-
-### Nucleoside vs Nucleotide
-- **Nucleoside** = Sugar + Base (no phosphate)
-- **Nucleotide** = Sugar + Base + Phosphate
-
-### DNA vs RNA
-| Feature | DNA | RNA |
-|---------|-----|-----|
-| Sugar | Deoxyribose | Ribose |
-| Bases | A, T, G, C | A, U, G, C |
-| Structure | Double helix | Usually single-stranded |
+> [!success] Completion Check
+> All 51 questions in 1-paper2 are answered. The multiple-correct items are evaluated statement by statement, numerical answers include units where applicable, and original figures are translated into Obsidian-compatible diagrams or described directly.
 
 ---
 
-## Advanced Tricks & Shortcuts
-
-### Complex Number Recurrences
-$W_{n+1} = (a+bi)W_n$ gives $W_n = (a+bi)^{n-1}W_1$. Write $a+bi = re^{i\theta}$ for easy exponentiation.
-
-### Modular Arithmetic with Binomial Coefficients
-$(1+x)^n \mod m$: Use the fact that $\binom{n}{k}$ mod $m$ can be computed via Lucas' theorem for prime $m$.
-
-### Shunt Wire Cutting Trick
-If a shunt wire of resistance $R$ is cut into $n$ equal parts and reconnected in parallel: $R_{\text{new}} = R/n^2$.
-
-### Capacitor Bridge Shortcut
-If $C_1 C_4 = C_2 C_3$ (bridge balanced), the bridge element $C_5$ carries no charge and can be ignored.
-
-### Non-Uniform Conductor Resistance
-$R = \int_0^L \frac{\rho\, dx}{A(x)}$. For $A(x) = A_0 e^{-x/L}$: $R = \frac{\rho L(e-1)}{A_0}$.
-
-### Electrophoresis Direction
-- pH < pI → positive charge → moves to cathode (−)
-- pH > pI → negative charge → moves to anode (+)
-- pH = pI → no movement
-
-For amino acids at pH 7:
-- **Lys, Arg, His** (basic, pI > 7) → move to cathode
-- **Asp, Glu** (acidic, pI < 3) → move to anode
-- **Gly, Ala, Val, etc.** (pI ≈ 6) → move to anode (slightly)
-
----
-
-*End of Solutions for 1-Paper 2*
+*Answer key cross-check: printed key on PDF pp. 17–18. Full derivations above; questions with shared data are solved independently under each question number so the note can be read sequentially.*
